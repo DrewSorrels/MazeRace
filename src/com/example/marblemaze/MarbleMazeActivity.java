@@ -12,7 +12,7 @@ import android.view.View;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
- * 
+ *
  * @see SystemUiHider
  */
 public class MarbleMazeActivity
@@ -71,7 +71,6 @@ public class MarbleMazeActivity
                 int mShortAnimTime;
 
 
-                @Override
                 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
                 public void onVisibilityChange(boolean visible)
                 {
@@ -115,7 +114,6 @@ public class MarbleMazeActivity
 
         // Set up the user interaction to manually show or hide the system UI.
         contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view)
             {
                 if (TOGGLE_ON_CLICK)
@@ -154,7 +152,6 @@ public class MarbleMazeActivity
      * while interacting with activity UI.
      */
     View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-                                                     @Override
                                                      public boolean onTouch(
                                                          View view,
                                                          MotionEvent motionEvent)
@@ -169,7 +166,6 @@ public class MarbleMazeActivity
 
     Handler              mHideHandler            = new Handler();
     Runnable             mHideRunnable           = new Runnable() {
-                                                     @Override
                                                      public void run()
                                                      {
                                                          mSystemUiHider.hide();
