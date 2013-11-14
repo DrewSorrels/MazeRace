@@ -51,7 +51,9 @@ public class Cell
         }
         return randIndex;
     }
-
+    public int oppositeWall(int wallIndex) {
+        return (wallIndex + 2) % walls.length;
+    }
 
     public void setWall(int index, boolean val)
     {
