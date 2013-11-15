@@ -1,7 +1,6 @@
 package com.example.marblemaze;
 
 import sofia.app.ShapeScreen;
-import sofia.graphics.Color;
 
 // -------------------------------------------------------------------------
 /**
