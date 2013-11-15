@@ -120,8 +120,8 @@ public class Maze
     }
     public ArrayList<Cell> getAdjacentCells(Wall wally)
     {
-        int x = wally.getX();
-        int y = wally.getY();
+        int x = (int)wally.getX();
+        int y = (int)wally.getY();
         ArrayList<Cell> cellArray = new ArrayList<Cell>();
         if(wally.isHorizontal())
         {
