@@ -1,5 +1,7 @@
 package com.example.marblemaze;
 
+import java.util.ArrayList;
+
 public class Cell
 {
     private boolean[] walls;
@@ -38,7 +40,15 @@ public class Cell
         }
         return count;
     }
-
+    public ArrayList<Integer> getWalls() {
+        ArrayList<Integer> ilWalls = new ArrayList<Integer>();
+        for(int i = 0; i < walls.length; i++) {
+            if(walls[i]) {
+                ilWalls.add(i);
+            }
+        }
+        return ilWalls;
+    }
 
     public int getRandomWallIndex()
     {
