@@ -87,7 +87,10 @@ public class MarbleMazeScreen
         // tilting bottom down makes x go positive
         float x = -event.values[0];
         float y = event.values[1];
-        float z = event.values[2];
+        //float z = event.values[2];
+
+        x = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
+        y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
         // System.out.println("" + x + ", " + y + ", " + z);
 
