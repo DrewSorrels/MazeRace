@@ -87,43 +87,36 @@ public class MarbleMazeScreen
         float y = event.values[1];
         float z = event.values[2];
 
-        if (accelerationInitialized)
+        System.out.println("" + x + ", " + y + ", " + z);
+
+        float ax = ACCELERATION_COEFFICIENT * x;
+        float ay = ACCELERATION_COEFFICIENT * y;
+
+        PointF lv = squishy.getLinearVelocity();
+
+        lv.x += ax;
+        lv.y += ay;
+
+        System.out.println("" + ax + ", " + ay + "::" + lv.x + ", " + lv.y);
+
+        if (lv.x < 0 && x < 0 && lv.x < ACCELEROMETER_COEFFICIENT * x)
         {
-            System.out.println("" + x + ", " + y + ", " + z);
-
-            float ax = ACCELERATION_COEFFICIENT * x;
-            float ay = ACCELERATION_COEFFICIENT * y;
-
-            PointF lv = squishy.getLinearVelocity();
-
-            lv.x += ax;
-            lv.y += ay;
-
-            System.out.println("" + ax + ", " + ay + "::" + lv.x + ", " + lv.y);
-
-            if (lv.x < 0 && x < 0 && lv.x < ACCELEROMETER_COEFFICIENT * x)
-            {
-                lv.x = ACCELEROMETER_COEFFICIENT * x;
-            }
-            if (lv.x > 0 && x > 0 && lv.x > ACCELEROMETER_COEFFICIENT * x)
-            {
-                lv.x = ACCELEROMETER_COEFFICIENT * x;
-            }
-            if (lv.y < 0 && y < 0 && lv.y < ACCELEROMETER_COEFFICIENT * y)
-            {
-                lv.y = ACCELEROMETER_COEFFICIENT * y;
-            }
-            if (lv.y > 0 && y > 0 && lv.y > ACCELEROMETER_COEFFICIENT * y)
-            {
-                lv.y = ACCELEROMETER_COEFFICIENT * y;
-            }
-
-            squishy.setLinearVelocity(lv);
+            lv.x = ACCELEROMETER_COEFFICIENT * x;
         }
-        else
+        if (lv.x > 0 && x > 0 && lv.x > ACCELEROMETER_COEFFICIENT * x)
         {
-            accelerationInitialized = true;
+            lv.x = ACCELEROMETER_COEFFICIENT * x;
         }
+        if (lv.y < 0 && y < 0 && lv.y < ACCELEROMETER_COEFFICIENT * y)
+        {
+            lv.y = ACCELEROMETER_COEFFICIENT * y;
+        }
+        if (lv.y > 0 && y > 0 && lv.y > ACCELEROMETER_COEFFICIENT * y)
+        {
+            lv.y = ACCELEROMETER_COEFFICIENT * y;
+        }
+
+        squishy.setLinearVelocity(lv);
     }
 
 }
