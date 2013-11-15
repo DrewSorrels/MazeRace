@@ -1,5 +1,7 @@
 package com.example.marblemaze;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 
 public class Cell
@@ -40,15 +42,21 @@ public class Cell
         }
         return count;
     }
-    public ArrayList<Integer> getWalls() {
+
+
+    public ArrayList<Integer> getWalls()
+    {
         ArrayList<Integer> ilWalls = new ArrayList<Integer>();
-        for(int i = 0; i < walls.length; i++) {
-            if(walls[i]) {
+        for (int i = 0; i < walls.length; i++)
+        {
+            if (walls[i])
+            {
                 ilWalls.add(i);
             }
         }
         return ilWalls;
     }
+
 
     public int getRandomWallIndex()
     {
@@ -61,9 +69,13 @@ public class Cell
         }
         return randIndex;
     }
-    public int oppositeWall(int wallIndex) {
+
+
+    public int oppositeWall(int wallIndex)
+    {
         return (wallIndex + 2) % walls.length;
     }
+
 
     public void setWall(int index, boolean val)
     {
@@ -92,5 +104,17 @@ public class Cell
     public Cell north()
     {
         return new Cell(x, y - 1);
+    }
+
+
+    public int getX()
+    {
+        return x;
+    }
+
+
+    public int getY()
+    {
+        return y;
     }
 }
