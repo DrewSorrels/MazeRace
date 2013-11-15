@@ -28,10 +28,17 @@ public class Maze
         start = new Cell();
         end = new Cell(size - 1, size - 1);
         grid = new Cell[size][size];
-        wallGrid = new Wall[size][size];
-
         for(int i = 0; i < size; i++)
             for(int a = 0; i < size; a++)
+            {
+                grid[i][a] = new Cell();
+            }
+
+
+        wallGrid = new Wall[size+1][size+1];
+
+        for(int i = 0; i < size+1; i++)
+            for(int a = 0; i < size+1; a++)
             {
                 wallGrid[i][a] = new Wall();
             }
@@ -72,7 +79,7 @@ public class Maze
      * @param example is the cell to be tested
      * @return an arraylist of the walls surrounding the cell
      */
-    public ArrayList<Wall> getWalls(Cell example)
+    public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
         int x = example.getX();
         int y = example.getY();
@@ -110,6 +117,29 @@ public class Maze
     public Cell getGoal()
     {
         return end;
+    }
+    public ArrayList<Cell> getAdjacentCells(Wall wally)
+    {
+        int x = wally.getX();
+        int y = wally.getY();
+        ArrayList<Cell> cellArray = new ArrayList<Cell>();
+        if(wally.isHorizontal())
+        {
+            cellArray.add(grid[x][y]);
+            if(y-1>=0)
+            {
+                cellArray.add(grid[x][y-1]);
+            }
+        }
+        else
+        {
+            cellArray.add(grid[x][y]);
+            if(x-1>=0)
+            {
+                cellArray.add(grid[x-1][y]);
+            }
+        }
+        return cellArray;
     }
 
 
