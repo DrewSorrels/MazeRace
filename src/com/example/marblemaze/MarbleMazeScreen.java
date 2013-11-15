@@ -71,9 +71,11 @@ public class MarbleMazeScreen
         // can be safely ignored for this demo
     }
 
-    private boolean      accelerationInitialized  = false;
-    private static float ACCELERATION_COEFFICIENT = 2.0f;
+    private static float ACCELERATION_COEFFICIENT  = 4.0f;
     private static float ACCELEROMETER_COEFFICIENT = 5.0f;
+
+    private float        oldXV                     = 0f;
+    private float        oldYV                     = 0f;
 
 
     public void onSensorChanged(SensorEvent event)
@@ -87,43 +89,47 @@ public class MarbleMazeScreen
         float y = event.values[1];
         float z = event.values[2];
 
-        if (accelerationInitialized)
-        {
-            System.out.println("" + x + ", " + y + ", " + z);
+        // System.out.println("" + x + ", " + y + ", " + z);
 
-            float ax = ACCELERATION_COEFFICIENT * x;
-            float ay = ACCELERATION_COEFFICIENT * y;
+        setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
 
-            PointF lv = squishy.getLinearVelocity();
-
-            lv.x += ax;
-            lv.y += ay;
-
-            System.out.println("" + ax + ", " + ay + "::" + lv.x + ", " + lv.y);
-
-            if (lv.x < 0 && x < 0 && lv.x < ACCELEROMETER_COEFFICIENT * x)
-            {
-                lv.x = ACCELEROMETER_COEFFICIENT * x;
-            }
-            if (lv.x > 0 && x > 0 && lv.x > ACCELEROMETER_COEFFICIENT * x)
-            {
-                lv.x = ACCELEROMETER_COEFFICIENT * x;
-            }
-            if (lv.y < 0 && y < 0 && lv.y < ACCELEROMETER_COEFFICIENT * y)
-            {
-                lv.y = ACCELEROMETER_COEFFICIENT * y;
-            }
-            if (lv.y > 0 && y > 0 && lv.y > ACCELEROMETER_COEFFICIENT * y)
-            {
-                lv.y = ACCELEROMETER_COEFFICIENT * y;
-            }
-
-            squishy.setLinearVelocity(lv);
-        }
-        else
-        {
-            accelerationInitialized = true;
-        }
+// float ax = ACCELERATION_COEFFICIENT * x;
+// float ay = ACCELERATION_COEFFICIENT * y;
+//
+// PointF lv = squishy.getLinearVelocity();
+//
+// lv.x += ax;
+// lv.y += ay;
+//
+// System.out.println("" + ax + ", " + ay + "::" + lv.x + ", " + lv.y);
+//
+// if (Math.abs(oldXV) < Math.abs(ACCELEROMETER_COEFFICIENT * x))
+// {
+// if (lv.x < 0 && x < 0 && lv.x < ACCELEROMETER_COEFFICIENT * x)
+// {
+// lv.x = ACCELEROMETER_COEFFICIENT * x;
+// }
+// if (lv.x > 0 && x > 0 && lv.x > ACCELEROMETER_COEFFICIENT * x)
+// {
+// lv.x = ACCELEROMETER_COEFFICIENT * x;
+// }
+// }
+//
+// if (Math.abs(oldYV) < Math.abs(ACCELEROMETER_COEFFICIENT * y))
+// {
+// if (lv.y < 0 && y < 0 && lv.y < ACCELEROMETER_COEFFICIENT * y)
+// {
+// lv.y = ACCELEROMETER_COEFFICIENT * y;
+// }
+// if (lv.y > 0 && y > 0 && lv.y > ACCELEROMETER_COEFFICIENT * y)
+// {
+// lv.y = ACCELEROMETER_COEFFICIENT * y;
+// }
+// }
+//
+// squishy.setLinearVelocity(lv);
+// oldXV = lv.x;
+// oldYV = lv.y;
     }
 
 }
