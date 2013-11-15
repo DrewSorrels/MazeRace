@@ -1,9 +1,13 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.util.WallOrientation;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 
 public class Cell
 {
+
     private boolean[] walls;
     private int       x;
     private int       y;
@@ -17,7 +21,6 @@ public class Cell
 
     public Cell(int x, int y)
     {
-        walls = new boolean[4];
         this.x = x;
         this.y = y;
         for (int i = 0; i < walls.length; i++)
