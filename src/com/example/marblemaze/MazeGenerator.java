@@ -73,4 +73,10 @@ public class MazeGenerator
 
     }
 
+
+    public Maze getMaze()
+    {
+        return maze;
+    }
+
 }
