@@ -27,6 +27,7 @@ public class MazeGenerator
 // is not a part of the maze yet.
 //            {
 //                cells.add(oppositeCell);  //add the opposite cell
+//                    oppositeCell.removeWall(wallPos);  //Remove the wall at the position of randWall and set wall to false in each cell
 //                    cellWalls.add(maze.)  //add all walls around that
 //            } else {
 //              cellWalls.remove(cellWalls.get(randWall));
