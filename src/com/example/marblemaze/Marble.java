@@ -33,7 +33,7 @@ public class Marble
         this.setColor(Color.black);
         this.setFriction(2.0f);
         this.setShapeMotion(ShapeMotion.DYNAMIC); // dynamic = respond to force
-        this.setRestitution(1.0f); // "bouncy-ness"
+        this.setRestitution(0.7f); // "bouncy-ness"
     }
 
 }
