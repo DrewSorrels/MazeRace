@@ -21,24 +21,25 @@ public class Maze
     // ----------------------------------------------------------
     /**
      * Create a new Maze object.
-     * @param size is the length of the side of the maze
+     * @param width is the width of the side of the maze
+     * @param height is the height of the maze
      */
-    public Maze(int size)
+    public Maze(int width, int height)
     {
         start = new Cell();
-        end = new Cell(size - 1, size - 1);
-        grid = new Cell[size][size];
-        for(int i = 0; i < size; i++)
-            for(int a = 0; i < size; a++)
+        end = new Cell(width - 1, width - 1);
+        grid = new Cell[width][width];
+        for(int i = 0; i < width; i++)
+            for(int a = 0; i < width; a++)
             {
                 grid[i][a] = new Cell();
             }
 
 
-        wallGrid = new Wall[size+1][size+1];
+        wallGrid = new Wall[width+1][width+1];
 
-        for(int i = 0; i < size+1; i++)
-            for(int a = 0; i < size+1; a++)
+        for(int i = 0; i < width+1; i++)
+            for(int a = 0; i < width+1; a++)
             {
                 wallGrid[i][a] = new Wall();
             }
