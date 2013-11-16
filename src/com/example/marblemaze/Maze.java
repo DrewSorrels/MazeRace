@@ -48,25 +48,25 @@ public class Maze
     /**
      * gets the wall that is next to the cell in the appropriate direction
      * @param example is the cell to be tested
-     * @param poop is the direction to be tested
+     * @param direction is the direction to be tested
      * @return the specified cell wall
      */
-    public Cell getWallFromCell(Cell example, int poop)
+    public Cell getWallFromCell(Cell example, int direction)
     {
         Cell cellWall = example;
-        if(poop == 0)
+        if(direction == 0)
         {
             cellWall = example.north();
         }
-        else if(poop==1)
+        else if(direction==1)
         {
             cellWall = example.east();
         }
-        else if(poop==2)
+        else if(direction==2)
         {
             cellWall = example.south();
         }
-        else if(poop==3)
+        else if(direction==3)
         {
             cellWall = example.west();
         }
