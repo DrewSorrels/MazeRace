@@ -22,8 +22,8 @@ public class MazeGenerator
      */
     public MazeGenerator()
     {
-        maze = new Maze(10);
-        cellWalls.add(maze.getAdjacentWalls(maze.getCell(0, 0))); // All walls
+        maze = new Maze(15,10);
+        cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All walls
 // around startPoint
     }
 
@@ -49,7 +49,7 @@ public class MazeGenerator
             int randWall =
                 (int)Math.floor(Math.random() * (cellWalls.size() - 1) + 0.5);
             List<Cell> cAdjCells = new ArrayList<Cell>();
-            cAdjCells.add(maze.getAdjacentCells(cellWalls.get(randWall)));
+            cAdjCells.addAll(maze.getAdjacentCells(cellWalls.get(randWall)));
             if (!cells.containsAll(cAdjCells)) // if the maze cell opposite the
                                                // wall
                                                // is not a part of the maze yet.

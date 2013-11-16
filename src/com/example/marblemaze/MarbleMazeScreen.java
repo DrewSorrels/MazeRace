@@ -24,13 +24,13 @@ public class MarbleMazeScreen
     private Marble        squishy;
     private SensorManager sensorManager;
     private Sensor        accelerometer;
-
+    private Maze          maze;
 
     @Override
     public void initialize()
     {
         getCoordinateSystem().height(50);
-
+        maze = new Maze(10, 20);
         // Apply no gravity.
         setGravity(0, 0);
 
