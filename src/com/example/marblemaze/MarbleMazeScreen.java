@@ -1,7 +1,6 @@
 package com.example.marblemaze;
 
 import android.content.Context;
-import android.graphics.PointF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,7 +14,7 @@ import sofia.graphics.RectangleShape;
  * A Controller for the marble maze game's main screen.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version Nov 14, 2013
+ * @version Nov 15, 2013
  */
 
 public class MarbleMazeScreen
@@ -30,7 +29,7 @@ public class MarbleMazeScreen
     @Override
     public void initialize()
     {
-        getCoordinateSystem().width(50);
+        getCoordinateSystem().height(50);
 
         // Apply no gravity.
         setGravity(0, 0);
@@ -66,7 +65,7 @@ public class MarbleMazeScreen
     }
 
 
-    public void onAccuracyChanged(Sensor accelerometer, int accuracy)
+    public void onAccuracyChanged(Sensor accel, int accuracy)
     {
         // can be safely ignored for this demo
     }
@@ -74,20 +73,12 @@ public class MarbleMazeScreen
     private static float ACCELERATION_COEFFICIENT  = 4.0f;
     private static float ACCELEROMETER_COEFFICIENT = 5.0f;
 
-    private float        oldXV                     = 0f;
-    private float        oldYV                     = 0f;
-
 
     public void onSensorChanged(SensorEvent event)
     {
-        // hold with usb port on right side
-        // tilting left down makes y go negative
-        // tilting right down makes y go positive
-        // tilting top down makes x go negative
-        // tilting bottom down makes x go positive
-        float x = -event.values[0];
-        float y = event.values[1];
-        // float z = event.values[2];
+        float x = event.values[1];
+        float y = event.values[0];
+        //float z = event.values[2];
 
         x = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));

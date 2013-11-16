@@ -118,6 +118,12 @@ public class Maze
     {
         return end;
     }
+    // ----------------------------------------------------------
+    /**
+     * Finds the adjacent Cells
+     * @param wally is the specified wall
+     * @return an arrayList of adjacent Cells
+     */
     public ArrayList<Cell> getAdjacentCells(Wall wally)
     {
         int x = (int)wally.getX();
@@ -140,6 +146,17 @@ public class Maze
             }
         }
         return cellArray;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * @param a is the x-coordinate
+     * @param b is the y-coordinate
+     * @return the specified Cell
+     */
+    public Cell getCell(int a, int b)
+    {
+        return grid[a][b];
     }
 
 
