@@ -9,7 +9,7 @@ import sofia.graphics.OvalShape;
  *  This marble is an oval shape that rolls around on the phone screen.
  *
  *  @author Dennis Lysenko (dlysenko)
- *  @version 2013.11.14
+ *  @version 2013.11.15
  */
 
 public class Marble
