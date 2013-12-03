@@ -16,6 +16,7 @@ public class Cell
     private boolean[] walls;
     private int       x;
     private int       y;
+    private boolean isHole;
 
 
     /**
@@ -44,6 +45,7 @@ public class Cell
         {
             walls[i] = true;
         }
+        isHole = false;
 
     }
 
@@ -205,4 +207,24 @@ public class Cell
     {
         return y;
     }
+
+    // ----------------------------------------------------------
+    /**
+     * determines if the cell is a hole
+     * @return boolean isTrue
+     */
+    public boolean isHole()
+    {
+        return isHole;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * sets the cell to be a hole
+     */
+    public void makeHole()
+    {
+        isHole = true;
+    }
+
 }
