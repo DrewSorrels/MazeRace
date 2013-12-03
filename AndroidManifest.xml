@@ -29,6 +29,8 @@
             android:name="MarbleMazeScreen"
             android:screenOrientation="landscape" >
         </activity>
+        <activity android:name="PauseScreen"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

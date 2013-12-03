@@ -32,25 +32,7 @@ public class MarbleMazeScreen
     private Sensor             accelerometer;
     private Maze               maze;
 
-    /**
-     * Stores the gravity at the moment the user pauses so that it can reset the
-     * gravity to that value later.
-     */
-    private PointF             pauseGravity;
-
-    /**
-     * Stores the marble's velocity at the moment the user pauses so that it can
-     * reset its velocity to that value later.
-     */
-    private PointF             pauseMarbleVelocity;
-
-    /**
-     * A translucent black rectangle filling up the entire screen.
-     */
-    private RectangleShape     pauseMask;
-
     private RectangleShape     pauseButton;
-    private RectangleShape     resumeButton;
 
 
     @Override
@@ -92,16 +74,6 @@ public class MarbleMazeScreen
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL);
 
-        // Instantiate pause mask
-        pauseMask =
-            new RectangleShape(
-                0,
-                0,
-                2 * COORDINATE_SYSTEM_HEIGHT,
-                2 * COORDINATE_SYSTEM_HEIGHT);
-        pauseMask.setAlpha(120); // alpha is 0-255
-        pauseMask.setFillColor(Color.black);
-
         // pause button is 56x40
         float pauseWidth = 5 * 56 / 40f;
         float pauseHeight = 5;
@@ -113,18 +85,6 @@ public class MarbleMazeScreen
                 pauseHeight);
         pauseButton.setImage("pause_button");
         add(pauseButton);
-
-        // resume button is 121x39, but we need to center it
-        float middleX = getCoordinateSystemWidth() / 2;
-        float middleY = getCoordinateSystemHeight() / 2;
-        float resumeWidth = 5 * 121 / 39f;
-        float resumeHeight = 5;
-
-        resumeButton =
-            new RectangleShape(middleX - resumeWidth / 2, middleY
-                - resumeHeight / 2, middleX + resumeWidth / 2, middleY
-                + resumeHeight / 2);
-        resumeButton.setImage("resume_button");
     }
 
 
@@ -147,12 +107,12 @@ public class MarbleMazeScreen
 
 
     /**
-     * Pauses the game, overlaying a pause mask and storing current gravity and
-     * marble velocity so it can be re-applied upon resumption.
+     * Pauses the game, opening a PauseScreen intent.
      */
     private void pause()
     {
-        // Open the PauseScreen intent
+        Intent intent = new Intent(this, PauseScreen.class);
+        startActivity(intent);
     }
 
 

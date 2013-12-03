@@ -2,15 +2,13 @@ package com.example.marblemaze;
 
 import android.content.Intent;
 import sofia.app.Screen;
-import sofia.graphics.Color;
-import sofia.graphics.TextShape;
 
 // -------------------------------------------------------------------------
 /**
  * The title screen of the application.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.11.15
+ * @version 2013.12.03
  */
 
 public class TitleScreen
