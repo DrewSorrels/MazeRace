@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -12,11 +13,15 @@ import java.util.ArrayList;
  */
 public class MazeGenerator
 {
-    private ArrayList<Wall> cellWalls;
-    private ArrayList<Cell> cells;
-    private Maze            maze;
+    // Prims Algorithm stuff
+    private ArrayList<Wall>  cellWalls;
+    private ArrayList<Cell>  cells;
 
-    private static final int MAZE_WIDTH = 15;
+    private Stack<Cell>      sCells;
+
+    private Maze             maze;
+
+    private static final int MAZE_WIDTH  = 15;
     private static final int MAZE_HEIGHT = 10;
 
 
@@ -26,9 +31,14 @@ public class MazeGenerator
     public MazeGenerator()
     {
         maze = new Maze(MAZE_WIDTH, MAZE_HEIGHT);
+        cellWalls = new ArrayList<Wall>();
+        cells = new ArrayList<Cell>();
+
         cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
 // walls
 // around startPoint
+
+        sCells = new Stack<Cell>();
     }
 
 
@@ -43,9 +53,21 @@ public class MazeGenerator
     }
 
 
-    public void dfsMaze() {
+    public void dfsMaze()
+    {
+        Cell end = maze.getGoal();
+        sCells.push(end);
 
     }
+
+
+    public Cell getRandAdjCell(Cell c)
+    {
+        int wIndex = c.getRandomWallIndex();
+        Wall w = maze.getWallFromCell(c, wIndex);
+        cells.addAll(maze.getAdjacentCells());
+    }
+
 
     /**
      * Generates a maze using a randomized form of Prim's Algorithm.
@@ -79,7 +101,8 @@ public class MazeGenerator
                                                   // and set wall to false in
 // each cell
                 cellWalls.addAll(maze.getAdjacentWalls(cOpposite)); // add all
-                                                                 // walls around
+                                                                    // walls
+// around
 // that
             }
             else
@@ -106,7 +129,8 @@ public class MazeGenerator
     {
         if (wall.isHorizontal())
         {
-            if (c1.getY() + 1 == c2.getY())
+            if (c1.getY() + 1 == c2.getY()) // If the first cell is above the
+// second cell
             {
                 return 2;
             }
@@ -117,7 +141,8 @@ public class MazeGenerator
         }
         else
         {
-            if (c1.getX() + 1 == c2.getX())
+            if (c1.getX() + 1 == c2.getX()) // If the first cell is to the left
+// of the second cell
             {
                 return 1;
             }
