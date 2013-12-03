@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * // -------------------------------------------------------------------------
  * /** A random maze generator with various algorithms for maze generation.
  *
- * @author Drew
+ * @author Drew Sorrels (amsorr)
  * @version 2013.11.15
  */
 public class MazeGenerator
@@ -22,8 +22,9 @@ public class MazeGenerator
      */
     public MazeGenerator()
     {
-        maze = new Maze(15,10);
-        cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All walls
+        maze = new Maze(15, 10);
+        cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
+// walls
 // around startPoint
     }
 
