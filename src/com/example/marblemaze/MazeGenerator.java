@@ -43,6 +43,10 @@ public class MazeGenerator
     }
 
 
+    public void dfsMaze() {
+
+    }
+
     /**
      * Generates a maze using a randomized form of Prim's Algorithm.
      */

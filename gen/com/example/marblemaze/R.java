@@ -27,22 +27,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int resume_button=0x7f020002;
     }
     public static final class id {
-        public static final int resume=0x7f070000;
-        public static final int startGame=0x7f070001;
-    }
-    public static final class layout {
-        public static final int pausescreen=0x7f030000;
-        public static final int titlescreen=0x7f030001;
-    }
-    public static final class id {
-        public static final int dfs=0x7f070002;
-        public static final int prim=0x7f070001;
-        public static final int shapeView=0x7f070000;
-        public static final int title=0x7f070003;
+        public static final int dfs=0x7f070001;
+        public static final int prim=0x7f070000;
+        public static final int resume=0x7f070003;
+        public static final int title=0x7f070002;
     }
     public static final class layout {
         public static final int marblemazescreen=0x7f030000;
         public static final int mazechooserscreen=0x7f030001;
+        public static final int pausescreen=0x7f030002;
+        public static final int titlescreen=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
