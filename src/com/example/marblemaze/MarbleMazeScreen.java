@@ -1,6 +1,8 @@
 package com.example.marblemaze;
 
+import android.content.Intent;
 import android.content.Context;
+import android.graphics.PointF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,16 +23,41 @@ public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
-    private Marble        squishy;
-    private SensorManager sensorManager;
-    private Sensor        accelerometer;
-    private Maze          maze;
+    private static float   ACCELERATION_COEFFICIENT = 4.0f;
+    private static int     COORDINATE_SYSTEM_HEIGHT = 50;
+
+    private Marble         squishy;
+    private SensorManager  sensorManager;
+    private Sensor         accelerometer;
+    private Maze           maze;
+
+    /**
+     * Stores the gravity at the moment the user pauses so that it can reset the
+     * gravity to that value later.
+     */
+    private PointF         pauseGravity;
+
+    /**
+     * Stores the marble's velocity at the moment the user pauses so that it can
+     * reset its velocity to that value later.
+     */
+    private PointF         pauseMarbleVelocity;
+
+    /**
+     * A translucent black rectangle filling up the entire screen.
+     */
+    private RectangleShape pauseMask;
+
+    private RectangleShape pauseButton;
+    private RectangleShape resumeButton;
+
 
     @Override
     public void initialize()
     {
-        getCoordinateSystem().height(50);
-        maze = new Maze(10, 20);
+        getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
+        // maze = new Maze(10, 20);
+
         // Apply no gravity.
         setGravity(0, 0);
 
@@ -62,6 +89,67 @@ public class MarbleMazeScreen
             this,
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL);
+
+        // Instantiate pause mask
+        pauseMask =
+            new RectangleShape(
+                0,
+                0,
+                2 * COORDINATE_SYSTEM_HEIGHT,
+                2 * COORDINATE_SYSTEM_HEIGHT);
+        pauseMask.setAlpha(120); // alpha is 0-255
+        pauseMask.setFillColor(Color.black);
+
+
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Captures touch events.
+     *
+     * @param x the x-coordinate of the touch event
+     * @param y the y-coordinate of the touch event
+     */
+    public void onTouchDown(float x, float y)
+    {
+        if (pauseButton.contains(x, y)) {
+            pause();
+        }
+        if (resumeButton.contains(x, y)) {
+            resume();
+        }
+    }
+
+
+    /**
+     * Pauses the game, overlaying a pause mask and storing current gravity and
+     * marble velocity so it can be re-applied upon resumption.
+     */
+    private void pause()
+    {
+        // Store the current gravity (acceleration) & marble velocity
+        // to re-apply it later
+        pauseGravity = getGravity();
+        pauseMarbleVelocity = squishy.getLinearVelocity();
+
+        // Open pause screen
+        add(pauseMask);
+    }
+
+
+    /**
+     * Resumes the game, removing the pause mask and restoring gravity and
+     * marble velocity.
+     *
+     * @pre pauseGravity and pauseMarbleVelocity have been initialized
+     */
+    private void resume()
+    {
+        setGravity(pauseGravity);
+        squishy.setLinearVelocity(pauseMarbleVelocity);
+
+        remove(pauseMask);
     }
 
 
@@ -70,15 +158,12 @@ public class MarbleMazeScreen
         // can be safely ignored for this demo
     }
 
-    private static float ACCELERATION_COEFFICIENT  = 4.0f;
-    private static float ACCELEROMETER_COEFFICIENT = 5.0f;
-
 
     public void onSensorChanged(SensorEvent event)
     {
         float x = event.values[1];
         float y = event.values[0];
-        //float z = event.values[2];
+        // float z = event.values[2];
 
         x = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
