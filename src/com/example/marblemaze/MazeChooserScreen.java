@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import android.widget.Button;
 import sofia.app.ShapeScreen;
 import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
@@ -14,13 +15,22 @@ import sofia.graphics.RectangleShape;
 public class MazeChooserScreen
     extends ShapeScreen
 {
-    private RectangleShape prim;
 
+    @SuppressWarnings("unused")
+    private Button prim;
+    private Button dfs;
+    private MazeGenerator gen;
 
     public void initialize()
     {
-        prim = new RectangleShape(120, 250, 300, 150);
-        prim.setFillColor(Color.gray.brighter());
-        add(prim);
+        gen = new MazeGenerator();
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    public void primClicked() {
+
     }
 }

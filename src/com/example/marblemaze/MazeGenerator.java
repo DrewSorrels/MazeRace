@@ -16,13 +16,16 @@ public class MazeGenerator
     private ArrayList<Cell> cells;
     private Maze            maze;
 
+    private static final int MAZE_WIDTH = 15;
+    private static final int MAZE_HEIGHT = 10;
+
 
     /**
      * Creates a new generator.
      */
     public MazeGenerator()
     {
-        maze = new Maze(15, 10);
+        maze = new Maze(MAZE_WIDTH, MAZE_HEIGHT);
         cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
 // walls
 // around startPoint
