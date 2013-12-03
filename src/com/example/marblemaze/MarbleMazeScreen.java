@@ -48,8 +48,8 @@ public class MarbleMazeScreen
      */
     private RectangleShape pauseMask;
 
-    private RectangleShape pauseButton;
-    private RectangleShape resumeButton;
+    private ButtonShape pauseButton;
+    private ButtonShape resumeButton;
 
 
     @Override

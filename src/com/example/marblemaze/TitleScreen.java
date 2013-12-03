@@ -1,11 +1,11 @@
 package com.example.marblemaze;
 
+import android.content.Intent;
+import android.graphics.PointF;
+import android.graphics.RectF;
+import sofia.app.ShapeScreen;
 import sofia.graphics.Color;
 import sofia.graphics.TextShape;
-import sofia.app.ShapeScreen;
-import android.content.Intent;
-import android.widget.TextView;
-import sofia.app.Screen;
 
 // -------------------------------------------------------------------------
 /**
@@ -18,21 +18,24 @@ import sofia.app.Screen;
 public class TitleScreen
     extends ShapeScreen
 {
-    //private TextView tapToContinueText;
     private TextShape tapToContinueText;
 
     public void initialize() {
+        getCoordinateSystem().width(100).height(50);
+
         tapToContinueText = new TextShape("Tap to continue...", 0, 0);
         tapToContinueText.setColor(Color.white);
-        tapToContinueText.setTypeSize(24f);
+        tapToContinueText.setTypeSize(1f);
 
         // Center the text on screen
         float leftBound = (getWidth() - tapToContinueText.getWidth()) / 2;
         float topBound = (getHeight() - tapToContinueText.getHeight()) / 2;
         tapToContinueText.setPosition(topBound, leftBound);
 
-        System.out.println(leftBound);
-        System.out.println(topBound);
+        tapToContinueText.setBounds(new RectF(0, 0, 100, 50));
+
+        ButtonShape btn = new ButtonShape("Test", 5, new PointF(200, 200));
+        add(btn);
 
         add(tapToContinueText);
         //tapToContinueText.animate()
