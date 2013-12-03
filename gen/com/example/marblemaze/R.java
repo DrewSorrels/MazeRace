@@ -23,6 +23,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int pause_button=0x7f020001;
+        public static final int resume_button=0x7f020002;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import sofia.graphics.RectangleShape;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -9,10 +10,10 @@ import sofia.graphics.TextShape;
 
 // -------------------------------------------------------------------------
 /**
- *  The title screen of the application. Really? You needed this javadoc?
+ * The title screen of the application. Really? You needed this javadoc?
  *
- *  @author Dennis Lysenko (dlysenko)
- *  @version 2013.11.15
+ * @author Dennis Lysenko (dlysenko)
+ * @version 2013.11.15
  */
 
 public class TitleScreen
@@ -20,34 +21,39 @@ public class TitleScreen
 {
     private TextShape tapToContinueText;
 
-    public void initialize() {
-        getCoordinateSystem().width(100).height(50);
 
-        tapToContinueText = new TextShape("Tap to continue...", 0, 0);
+    public void initialize()
+    {
+        int height = 50;
+        getCoordinateSystem().height(height);
+        float ratio = getHeight() / 50;
+        int width = (int)(getWidth() / ratio);
+
+        tapToContinueText =
+            new TextShape("Tap to continue...", width / 2, height / 2);
         tapToContinueText.setColor(Color.white);
         tapToContinueText.setTypeSize(1f);
 
-        // Center the text on screen
-        float leftBound = (getWidth() - tapToContinueText.getWidth()) / 2;
-        float topBound = (getHeight() - tapToContinueText.getHeight()) / 2;
-        tapToContinueText.setPosition(topBound, leftBound);
-
-        tapToContinueText.setBounds(new RectF(0, 0, 100, 50));
-
-        ButtonShape btn = new ButtonShape("Test", 5, new PointF(200, 200));
+        RectangleShape btn = new RectangleShape(0, 0, 5, 5);
+        btn.setImage("pause_button");
         add(btn);
 
         add(tapToContinueText);
-        //tapToContinueText.animate()
+        // tapToContinueText.animate()
     }
+
 
     // ----------------------------------------------------------
     /**
      * Captures touch events.
-     * @param x the x-coordinate of the touch event
-     * @param y the y-coordinate of the touch event
+     *
+     * @param x
+     *            the x-coordinate of the touch event
+     * @param y
+     *            the y-coordinate of the touch event
      */
-    public void onTouchDown(float x, float y) {
+    public void onTouchDown(float x, float y)
+    {
         Intent intent = new Intent(this, MarbleMazeScreen.class);
         startActivity(intent);
     }
