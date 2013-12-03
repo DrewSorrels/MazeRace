@@ -6,17 +6,19 @@ import sofia.graphics.RectangleShape;
 
 /**
  * // -------------------------------------------------------------------------
-/**
- *  Select the maze generation algorithm.
+ * /** Select the maze generation algorithm.
  *
- *  @author Drew
- *  @version Nov 15, 2013
+ * @author Drew Sorrels (amsorr)
+ * @version 2013.11.15
  */
-public class MazeChooserScreen extends ShapeScreen
+public class MazeChooserScreen
+    extends ShapeScreen
 {
     private RectangleShape prim;
 
-    public void initialize() {
+
+    public void initialize()
+    {
         prim = new RectangleShape(120, 250, 300, 150);
         prim.setFillColor(Color.gray.brighter());
         add(prim);
