@@ -61,11 +61,12 @@ public class MazeGenerator
     }
 
 
-    public Cell getRandAdjCell(Cell c)
+    private Cell getRandAdjCell(Cell c)
     {
         int wIndex = c.getRandomWallIndex();
         Wall w = maze.getWallFromCell(c, wIndex);
-        cells.addAll(maze.getAdjacentCells());
+        cells.addAll(maze.getAdjacentCells(w));
+        return c;
     }
 
 
@@ -80,6 +81,7 @@ public class MazeGenerator
                 (int)Math.floor(Math.random() * (cellWalls.size() - 1) + 0.5);
             List<Cell> cAdjCells = new ArrayList<Cell>();
             cAdjCells.addAll(maze.getAdjacentCells(cellWalls.get(randWall)));
+
             if (!cells.containsAll(cAdjCells)) // if the maze cell opposite the
                                                // wall
                                                // is not a part of the maze yet.
@@ -92,6 +94,7 @@ public class MazeGenerator
                     cells.contains(cAdjCells.get(0))
                         ? cAdjCells.get(1)
                         : cAdjCells.get(0);
+
                 cells.add(cOpposite); // add the opposite cell
                 int wallPos =
                     detWalls(cCurrent, cOpposite, cellWalls.get(randWall));
