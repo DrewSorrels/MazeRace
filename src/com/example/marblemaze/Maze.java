@@ -184,4 +184,26 @@ public class Maze
         return grid[a][b];
     }
 
+
+    // ----------------------------------------------------------
+    /**
+     * makes certain cells Holes - only cells surounded on three sides by walls
+     */
+    public void Hole()
+    {
+        for(int i = 0; i < grid.length; i++)
+        {
+            for(int j = 0; j < grid[i].length; j++)
+            {
+                if(grid[i][j].getNumWalls() == 3)
+                {
+                    if(Math.random()<.2)
+                    {
+                        grid[i][j].makeHole();
+                    }
+
+                }
+            }
+        }
+    }
 }
