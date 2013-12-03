@@ -23,39 +23,23 @@ public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
-    private static float   ACCELERATION_COEFFICIENT = 4.0f;
-    private static int     COORDINATE_SYSTEM_HEIGHT = 50;
+    private static final float ACCELERATION_COEFFICIENT = 4.0f;
+    private static final int   COORDINATE_SYSTEM_HEIGHT = 50;
+    private float              ratio;
 
-    private Marble         squishy;
-    private SensorManager  sensorManager;
-    private Sensor         accelerometer;
-    private Maze           maze;
+    private Marble             squishy;
+    private SensorManager      sensorManager;
+    private Sensor             accelerometer;
+    private Maze               maze;
 
-    /**
-     * Stores the gravity at the moment the user pauses so that it can reset the
-     * gravity to that value later.
-     */
-    private PointF         pauseGravity;
-
-    /**
-     * Stores the marble's velocity at the moment the user pauses so that it can
-     * reset its velocity to that value later.
-     */
-    private PointF         pauseMarbleVelocity;
-
-    /**
-     * A translucent black rectangle filling up the entire screen.
-     */
-    private RectangleShape pauseMask;
-
-    private RectangleShape pauseButton;
-    private RectangleShape resumeButton;
+    private RectangleShape     pauseButton;
 
 
     @Override
     public void initialize()
     {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
+        ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
         // maze = new Maze(10, 20);
 
         // Apply no gravity.
@@ -90,17 +74,17 @@ public class MarbleMazeScreen
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL);
 
-        // Instantiate pause mask
-        pauseMask =
+        // pause button is 56x40
+        float pauseWidth = 5 * 56 / 40f;
+        float pauseHeight = 5;
+        pauseButton =
             new RectangleShape(
+                getCoordinateSystemWidth() - pauseWidth,
                 0,
-                0,
-                2 * COORDINATE_SYSTEM_HEIGHT,
-                2 * COORDINATE_SYSTEM_HEIGHT);
-        pauseMask.setAlpha(120); // alpha is 0-255
-        pauseMask.setFillColor(Color.black);
-
-
+                getCoordinateSystemWidth(),
+                pauseHeight);
+        pauseButton.setImage("pause_button");
+        add(pauseButton);
     }
 
 
@@ -108,54 +92,33 @@ public class MarbleMazeScreen
     /**
      * Captures touch events.
      *
-     * @param x the x-coordinate of the touch event
-     * @param y the y-coordinate of the touch event
+     * @param x
+     *            the x-coordinate of the touch event
+     * @param y
+     *            the y-coordinate of the touch event
      */
     public void onTouchDown(float x, float y)
     {
-        if (pauseButton.contains(x, y)) {
+        if (pauseButton.contains(x, y))
+        {
             pause();
-        }
-        if (resumeButton.contains(x, y)) {
-            resume();
         }
     }
 
 
     /**
-     * Pauses the game, overlaying a pause mask and storing current gravity and
-     * marble velocity so it can be re-applied upon resumption.
+     * Pauses the game, opening a PauseScreen intent.
      */
     private void pause()
     {
-        // Store the current gravity (acceleration) & marble velocity
-        // to re-apply it later
-        pauseGravity = getGravity();
-        pauseMarbleVelocity = squishy.getLinearVelocity();
-
-        // Open pause screen
-        add(pauseMask);
-    }
-
-
-    /**
-     * Resumes the game, removing the pause mask and restoring gravity and
-     * marble velocity.
-     *
-     * @pre pauseGravity and pauseMarbleVelocity have been initialized
-     */
-    private void resume()
-    {
-        setGravity(pauseGravity);
-        squishy.setLinearVelocity(pauseMarbleVelocity);
-
-        remove(pauseMask);
+        Intent intent = new Intent(this, PauseScreen.class);
+        startActivity(intent);
     }
 
 
     public void onAccuracyChanged(Sensor accel, int accuracy)
     {
-        // can be safely ignored for this demo
+        // can be safely ignored for this project
     }
 
 
@@ -163,52 +126,36 @@ public class MarbleMazeScreen
     {
         float x = event.values[1];
         float y = event.values[0];
-        // float z = event.values[2];
 
         x = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
-        // System.out.println("" + x + ", " + y + ", " + z);
-
         setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
+    }
 
-// float ax = ACCELERATION_COEFFICIENT * x;
-// float ay = ACCELERATION_COEFFICIENT * y;
-//
-// PointF lv = squishy.getLinearVelocity();
-//
-// lv.x += ax;
-// lv.y += ay;
-//
-// System.out.println("" + ax + ", " + ay + "::" + lv.x + ", " + lv.y);
-//
-// if (Math.abs(oldXV) < Math.abs(ACCELEROMETER_COEFFICIENT * x))
-// {
-// if (lv.x < 0 && x < 0 && lv.x < ACCELEROMETER_COEFFICIENT * x)
-// {
-// lv.x = ACCELEROMETER_COEFFICIENT * x;
-// }
-// if (lv.x > 0 && x > 0 && lv.x > ACCELEROMETER_COEFFICIENT * x)
-// {
-// lv.x = ACCELEROMETER_COEFFICIENT * x;
-// }
-// }
-//
-// if (Math.abs(oldYV) < Math.abs(ACCELEROMETER_COEFFICIENT * y))
-// {
-// if (lv.y < 0 && y < 0 && lv.y < ACCELEROMETER_COEFFICIENT * y)
-// {
-// lv.y = ACCELEROMETER_COEFFICIENT * y;
-// }
-// if (lv.y > 0 && y > 0 && lv.y > ACCELEROMETER_COEFFICIENT * y)
-// {
-// lv.y = ACCELEROMETER_COEFFICIENT * y;
-// }
-// }
-//
-// squishy.setLinearVelocity(lv);
-// oldXV = lv.x;
-// oldYV = lv.y;
+
+    // ----------------------------------------------------------
+    /**
+     * Returns the height of the maze's coordinate system.
+     *
+     * @return see above
+     */
+    public int getCoordinateSystemHeight()
+    {
+        return COORDINATE_SYSTEM_HEIGHT;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Returns the width of the maze's coordinate system.
+     *
+     * @pre ratio has been set (e.g. initialize() has been called)
+     * @return see above
+     */
+    public int getCoordinateSystemWidth()
+    {
+        return (int)(getWidth() / ratio);
     }
 
 }

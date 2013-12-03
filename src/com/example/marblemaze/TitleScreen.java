@@ -1,50 +1,32 @@
 package com.example.marblemaze;
 
-import sofia.graphics.Color;
-import sofia.graphics.TextShape;
-import sofia.app.ShapeScreen;
 import android.content.Intent;
-import android.widget.TextView;
 import sofia.app.Screen;
 
 // -------------------------------------------------------------------------
 /**
- *  The title screen of the application. Really? You needed this javadoc?
+ * The title screen of the application.
  *
- *  @author Dennis Lysenko (dlysenko)
- *  @version 2013.11.15
+ * @author Dennis Lysenko (dlysenko)
+ * @version 2013.12.03
  */
 
 public class TitleScreen
-    extends ShapeScreen
+    extends Screen
 {
-    //private TextView tapToContinueText;
-    private TextShape tapToContinueText;
 
-    public void initialize() {
-        tapToContinueText = new TextShape("Tap to continue...", 0, 0);
-        tapToContinueText.setColor(Color.white);
-        tapToContinueText.setTypeSize(24f);
+    public void initialize()
+    {
 
-        // Center the text on screen
-        float leftBound = (getWidth() - tapToContinueText.getWidth()) / 2;
-        float topBound = (getHeight() - tapToContinueText.getHeight()) / 2;
-        tapToContinueText.setPosition(topBound, leftBound);
-
-        System.out.println(leftBound);
-        System.out.println(topBound);
-
-        add(tapToContinueText);
-        //tapToContinueText.animate()
     }
+
 
     // ----------------------------------------------------------
     /**
-     * Captures touch events.
-     * @param x the x-coordinate of the touch event
-     * @param y the y-coordinate of the touch event
+     * Captures pressing the Start Game button.
      */
-    public void onTouchDown(float x, float y) {
+    public void startGameClicked()
+    {
         Intent intent = new Intent(this, MarbleMazeScreen.class);
         startActivity(intent);
     }
