@@ -70,7 +70,7 @@ public class MazeGenerator
                                                   // position of randWall
                                                   // and set wall to false in
 // each cell
-                cellWalls.add(maze.getAdjacentWalls(cOpposite)); // add all
+                cellWalls.addAll(maze.getAdjacentWalls(cOpposite)); // add all
                                                                  // walls around
 // that
             }

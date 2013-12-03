@@ -22,9 +22,18 @@ public class TitleScreen
     private TextShape tapToContinueText;
 
     public void initialize() {
-        //onTouchDown();
-        tapToContinueText = new TextShape("Tap to continue...", getWidth()/2, getHeight()/2);
+        tapToContinueText = new TextShape("Tap to continue...", 0, 0);
         tapToContinueText.setColor(Color.white);
+        tapToContinueText.setTypeSize(24f);
+
+        // Center the text on screen
+        float leftBound = (getWidth() - tapToContinueText.getWidth()) / 2;
+        float topBound = (getHeight() - tapToContinueText.getHeight()) / 2;
+        tapToContinueText.setPosition(topBound, leftBound);
+
+        System.out.println(leftBound);
+        System.out.println(topBound);
+
         add(tapToContinueText);
         //tapToContinueText.animate()
     }
@@ -32,8 +41,8 @@ public class TitleScreen
     // ----------------------------------------------------------
     /**
      * Captures touch events.
-     * @param x
-     * @param y
+     * @param x the x-coordinate of the touch event
+     * @param y the y-coordinate of the touch event
      */
     public void onTouchDown(float x, float y) {
         Intent intent = new Intent(this, MarbleMazeScreen.class);

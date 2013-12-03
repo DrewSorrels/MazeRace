@@ -18,6 +18,7 @@ public class Cell
 
     public Cell(int x, int y)
     {
+        walls = new boolean[4];
         this.x = x;
         this.y = y;
         for (int i = 0; i < walls.length; i++)
