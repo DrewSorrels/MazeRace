@@ -1,8 +1,7 @@
 package com.example.marblemaze;
 
-import android.content.Intent;
 import android.content.Context;
-import android.graphics.PointF;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,10 +12,11 @@ import sofia.graphics.RectangleShape;
 
 // -------------------------------------------------------------------------
 /**
- * A Controller for the marble maze game's main screen.
+ * The marble maze game's main screen. Handles displaying the maze and
+ * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version Nov 15, 2013
+ * @version 2013.12.03
  */
 
 public class MarbleMazeScreen
@@ -44,7 +44,22 @@ public class MarbleMazeScreen
     @Override
     public void initialize()
     {
-        if (!MAZE_GENERATION_DISABLED) {
+        setupMaze();
+        setupPhysics();
+        setupMarble();
+        setupWalls(); // TODO remove this after maze generation works
+        setupAccelerometer();
+        setupUi();
+    }
+
+
+    /**
+     * Generates and displays the maze.
+     */
+    private void setupMaze()
+    {
+        if (!MAZE_GENERATION_DISABLED)
+        {
             mazeGen = new MazeGenerator();
             String algorithm = getIntent().getExtras().getString("algorithm");
 
@@ -59,17 +74,38 @@ public class MarbleMazeScreen
 
             maze = mazeGen.getMaze();
         }
+    }
 
+
+    /**
+     * Sets up the maze screen's coordinate system and gravity.
+     */
+    private void setupPhysics()
+    {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
         ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
 
         // Apply no gravity.
         setGravity(0, 0);
+    }
 
+
+    /**
+     * Instantiates & adds the marble.
+     */
+    private void setupMarble()
+    {
         // Instantiate & add the marble.
         squishy = new Marble(15, 15);
         add(squishy);
+    }
 
+
+    /**
+     * Adds four sample walls to the canvas.
+     */
+    private void setupWalls()
+    {
         // Add walls into the maze.
         RectangleShape topWall = new RectangleShape(10, 0, 40, 10);
         topWall.setFillColor(Color.blue);
@@ -84,7 +120,14 @@ public class MarbleMazeScreen
         add(leftWall);
         add(bottomWall);
         add(rightWall);
+    }
 
+
+    /**
+     * Sets up accelerometer event capturing.
+     */
+    private void setupAccelerometer()
+    {
         // Initialize framework for getting accelerometer tilt events.
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         accelerometer =
@@ -94,7 +137,14 @@ public class MarbleMazeScreen
             this,
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
+
+    /**
+     * Sets up the UI (currently just the pause button).
+     */
+    private void setupUi()
+    {
         // pause button is 56x40
         float pauseWidth = 5 * 56 / 40f;
         float pauseHeight = 5;
@@ -137,12 +187,27 @@ public class MarbleMazeScreen
     }
 
 
+    /**
+     * Detects when a sensor's accuracy changes, in this case that of the
+     * accelerometer.
+     *
+     * @param accel
+     *            the sensor whose accuracy changed
+     * @param accuracy
+     *            the new accuracy
+     */
     public void onAccuracyChanged(Sensor accel, int accuracy)
     {
         // can be safely ignored for this project
     }
 
 
+    /**
+     * Detects when a sensor changes, in this case the accelerometer.
+     *
+     * @param event
+     *            the event with details of the sensor change
+     */
     public void onSensorChanged(SensorEvent event)
     {
         float x = event.values[1];
@@ -171,7 +236,7 @@ public class MarbleMazeScreen
     /**
      * Returns the width of the maze's coordinate system.
      *
-     * @pre ratio has been set (e.g. initialize() has been called)
+     * @pre ratio has been set (e.g. setupPhysics/initialize has been called)
      * @return see above
      */
     public int getCoordinateSystemWidth()

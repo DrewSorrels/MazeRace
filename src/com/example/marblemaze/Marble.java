@@ -15,7 +15,7 @@ import sofia.graphics.OvalShape;
 public class Marble
     extends OvalShape
 {
-    private static final float DENSITY = 1.0f;
+    private static final float DENSITY = 10f;
     private static final float RADIUS = 1.0f;
 
 
@@ -31,9 +31,9 @@ public class Marble
         this.setDensity(Marble.DENSITY);
         this.setFillColor(Color.gray);
         this.setColor(Color.black);
-        this.setFriction(2.0f);
+        this.setFriction(0.0f);
         this.setShapeMotion(ShapeMotion.DYNAMIC); // dynamic = respond to force
-        this.setRestitution(0.4f); // "bouncy-ness"
+        this.setRestitution(0.6f); // "bouncy-ness"
     }
 
 }
