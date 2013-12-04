@@ -13,16 +13,6 @@
         android:minWidth="256dip"
         android:text="Prim&apos;s Maze" />
 
-    <Button
-        android:id="@+id/dfs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/prim"
-        android:layout_alignLeft="@+id/prim"
-        android:layout_alignRight="@+id/prim"
-        android:layout_marginBottom="31dp"
-        android:text="DFS Maze" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -33,5 +23,14 @@
         android:text="Choose Your Maze"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
+
+    <Button
+        android:id="@+id/dfs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/prim"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:text="DFS Maze" />
 
 </RelativeLayout>

@@ -23,24 +23,45 @@ public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
-    private static final float ACCELERATION_COEFFICIENT = 4.0f;
-    private static final int   COORDINATE_SYSTEM_HEIGHT = 50;
-    private float              ratio;
+    private static final float   ACCELERATION_COEFFICIENT = 4.0f;
+    private static final int     COORDINATE_SYSTEM_HEIGHT = 50;
+    private float                ratio;
 
-    private Marble             squishy;
-    private SensorManager      sensorManager;
-    private Sensor             accelerometer;
-    private Maze               maze;
+    private Marble               squishy;
+    private SensorManager        sensorManager;
+    private Sensor               accelerometer;
 
-    private RectangleShape     pauseButton;
+    private RectangleShape       pauseButton;
+
+    private MazeGenerator        mazeGen;
+
+    @SuppressWarnings("unused")
+    private Maze                 maze;
+
+    private static final boolean MAZE_GENERATION_DISABLED = true;
 
 
     @Override
     public void initialize()
     {
+        if (!MAZE_GENERATION_DISABLED) {
+            mazeGen = new MazeGenerator();
+            String algorithm = getIntent().getExtras().getString("algorithm");
+
+            if (algorithm.equals("prim"))
+            {
+                mazeGen.primMaze();
+            }
+            if (algorithm.equals("dfs"))
+            {
+                mazeGen.dfsMaze();
+            }
+
+            maze = mazeGen.getMaze();
+        }
+
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
         ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
-        // maze = new Maze(10, 20);
 
         // Apply no gravity.
         setGravity(0, 0);
@@ -50,11 +71,11 @@ public class MarbleMazeScreen
         add(squishy);
 
         // Add walls into the maze.
-        RectangleShape topWall = new RectangleShape(0, 0, 50, 10);
+        RectangleShape topWall = new RectangleShape(10, 0, 40, 10);
         topWall.setFillColor(Color.blue);
         RectangleShape leftWall = new RectangleShape(0, 0, 10, 50);
         leftWall.setFillColor(Color.red);
-        RectangleShape bottomWall = new RectangleShape(0, 40, 50, 50);
+        RectangleShape bottomWall = new RectangleShape(10, 40, 40, 50);
         bottomWall.setFillColor(Color.yellow);
         RectangleShape rightWall = new RectangleShape(40, 0, 50, 50);
         rightWall.setFillColor(Color.green);

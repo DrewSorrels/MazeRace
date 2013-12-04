@@ -1,36 +1,36 @@
 package com.example.marblemaze;
 
-import android.widget.Button;
-import sofia.app.ShapeScreen;
-import sofia.graphics.Color;
-import sofia.graphics.RectangleShape;
+import android.content.Intent;
+import sofia.app.Screen;
 
 /**
  * // -------------------------------------------------------------------------
  * /** Select the maze generation algorithm.
  *
- * @author Drew Sorrels (amsorr)
- * @version 2013.11.15
+ * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @version 2013.12.03
  */
 public class MazeChooserScreen
-    extends ShapeScreen
+    extends Screen
 {
 
-    @SuppressWarnings("unused")
-    private Button prim;
-    private Button dfs;
-    private MazeGenerator gen;
-
-    public void initialize()
-    {
-        gen = new MazeGenerator();
+    // ----------------------------------------------------------
+    /**
+     * Opens a prim-generated maze screen.
+     */
+    public void primClicked() {
+        Intent intent = new Intent(this, MarbleMazeScreen.class);
+        intent.putExtra("algorithm", "prim");
+        startActivity(intent);
     }
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Opens a DFS-generated maze screen.
      */
-    public void primClicked() {
-
+    public void dfsClicked() {
+        Intent intent = new Intent(this, MarbleMazeScreen.class);
+        intent.putExtra("algorithm", "dfs");
+        startActivity(intent);
     }
 }

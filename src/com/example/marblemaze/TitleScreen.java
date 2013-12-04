@@ -15,19 +15,13 @@ public class TitleScreen
     extends Screen
 {
 
-    public void initialize()
-    {
-
-    }
-
-
     // ----------------------------------------------------------
     /**
      * Captures pressing the Start Game button.
      */
     public void startGameClicked()
     {
-        Intent intent = new Intent(this, MarbleMazeScreen.class);
+        Intent intent = new Intent(this, MazeChooserScreen.class);
         startActivity(intent);
     }
 
