@@ -62,24 +62,24 @@ public class Maze
      *            is the direction to be tested
      * @return the specified cell wall
      */
-    public Cell getWallFromCell(Cell example, int direction)
+    public Wall getWallFromCell(Cell example, int direction) //WE MAY HAVE TO CHANGE THE WAY THAT THIS CLASS WORKS FUNDAMENTALLY TO INCORPORATE WALLS PROPERLY.
     {
-        Cell cellWall = example;
+        Wall cellWall;// = example;
         if (direction == 0)
         {
-            cellWall = example.north();
+            cellWall = wallGrid[example.getX()][example.getY()];//example.north();
         }
         else if (direction == 1)
         {
-            cellWall = example.east();
+            cellWall = wallGrid[example.getX() + 1][example.getY()];
         }
         else if (direction == 2)
         {
-            cellWall = example.south();
+            cellWall = wallGrid[example.getX() + 1][example.getY() + 1];
         }
-        else if (direction == 3)
+        else
         {
-            cellWall = example.west();
+            cellWall = wallGrid[example.getX()][example.getY() + 1];
         }
         return cellWall;
     }
@@ -184,4 +184,26 @@ public class Maze
         return grid[a][b];
     }
 
+
+    // ----------------------------------------------------------
+    /**
+     * makes certain cells Holes - only cells surounded on three sides by walls
+     */
+    public void Hole()
+    {
+        for(int i = 0; i < grid.length; i++)
+        {
+            for(int j = 0; j < grid[i].length; j++)
+            {
+                if(grid[i][j].getNumWalls() == 3)
+                {
+                    if(Math.random()<.2)
+                    {
+                        grid[i][j].makeHole();
+                    }
+
+                }
+            }
+        }
+    }
 }
