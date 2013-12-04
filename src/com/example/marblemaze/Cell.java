@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class Cell
 {
 
-    private boolean[] walls;
-    private int       x;
-    private int       y;
+    private Wall[]  walls;
+    private int     x;
+    private int     y;
     private boolean isHole;
 
 
@@ -38,12 +38,23 @@ public class Cell
      */
     public Cell(int x, int y)
     {
-        walls = new boolean[4];
+        walls = new Wall[4];
         this.x = x;
         this.y = y;
         for (int i = 0; i < walls.length; i++)
         {
-            walls[i] = true;
+            if (i == 0 || i == 3)
+            {
+                walls[i] = new Wall(x, y, i % 2 == 0);
+            }
+            else if (i == 1)
+            {
+                walls[i] = new Wall(x + 1, y, i % 2 == 0);
+            }
+            else
+            {
+                walls[i] = new Wall(x, y + 1, i % 2 == 0);
+            }
         }
         isHole = false;
 
@@ -60,7 +71,7 @@ public class Cell
         int count = 0;
         for (int i = 0; i < walls.length; i++)
         {
-            if (walls[i])
+            if (walls[i].exists())
             {
                 count++;
             }
@@ -70,19 +81,18 @@ public class Cell
 
 
     /**
-     * Returns an ArrayList of the wall positions in an int form. 0 is north,
-     * and follows a clockwise direction.
+     * Returns an ArrayList of the walls.
      *
-     * @return ArrayList<Integer> with wall positions.
+     * @return ArrayList<Wall> of all walls that exist.
      */
-    public ArrayList<Integer> getWalls()
+    public ArrayList<Wall> getWalls()
     {
-        ArrayList<Integer> ilWalls = new ArrayList<Integer>();
+        ArrayList<Wall> ilWalls = new ArrayList<Wall>();
         for (int i = 0; i < walls.length; i++)
         {
-            if (walls[i])
+            if (walls[i].exists())
             {
-                ilWalls.add(i);
+                ilWalls.add(walls[i]);
             }
         }
         return ilWalls;
@@ -99,7 +109,7 @@ public class Cell
     {
         int randIndex =
             (int)Math.floor((Math.random() * (walls.length - 1)) + 0.5);
-        while (!walls[randIndex])
+        while (!walls[randIndex].exists())
         {
             randIndex =
                 (int)Math.floor((Math.random() * (walls.length - 1)) + 0.5);
@@ -134,7 +144,7 @@ public class Cell
     {
         try
         {
-            walls[index] = val;
+            walls[index].setWall(val);
         }
         catch (Exception e)
         {
@@ -208,15 +218,18 @@ public class Cell
         return y;
     }
 
+
     // ----------------------------------------------------------
     /**
      * determines if the cell is a hole
+     *
      * @return boolean isTrue
      */
     public boolean isHole()
     {
         return isHole;
     }
+
 
     // ----------------------------------------------------------
     /**

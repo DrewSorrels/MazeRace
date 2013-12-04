@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import java.util.List;
 import java.util.ArrayList;
 
 // -------------------------------------------------------------------------
@@ -7,15 +8,15 @@ import java.util.ArrayList;
  * The Maze is simply a maze through which the user must direct the marble to
  * travel through.
  *
- * @author nkilmer8
+ * @author nkilmer8, amsorr
  * @version Nov 15, 2013
  */
 public class Maze
 {
-    private Cell[][] grid;
-    private Wall[][] wallGrid;
-    private Cell     start;
-    private Cell     end;
+    private Cell[][]   grid;
+    private List<Wall> walls;
+    private Cell       start;
+    private Cell       end;
 
 
     // ----------------------------------------------------------
@@ -32,21 +33,26 @@ public class Maze
         start = new Cell();
         end = new Cell(width - 1, height - 1);
         grid = new Cell[width][height];
+        walls = new ArrayList<Wall>();
+
+        List<Wall> temp = new ArrayList<Wall>();
         for (int i = 0; i < width; i++)
         {
             for (int a = 0; a < height; a++)
             {
                 grid[i][a] = new Cell();
-            }
-        }
+                temp.addAll(grid[i][a].getWalls());
+                // Iterate over each of the walls to add it to the list of walls
+                // if a wall at that position and orientation isn't already
+                // there.
+                for (Wall w : temp)
+                {
+                    if (!walls.contains(w))
+                    {
+                        walls.add(w);
+                    }
+                }
 
-        wallGrid = new Wall[width + 1][height + 1];
-
-        for (int i = 0; i < width + 1; i++)
-        {
-            for (int a = 0; i < height + 1; a++)
-            {
-                wallGrid[i][a] = new Wall();
             }
         }
     }
@@ -62,26 +68,50 @@ public class Maze
      *            is the direction to be tested
      * @return the specified cell wall
      */
-    public Wall getWallFromCell(Cell example, int direction) //WE MAY HAVE TO CHANGE THE WAY THAT THIS CLASS WORKS FUNDAMENTALLY TO INCORPORATE WALLS PROPERLY.
+    public Wall getWallFromCell(Cell example, int direction)
     {
         Wall cellWall;// = example;
-        if (direction == 0)
+
+        if (direction == 0 || direction == 3)
         {
-            cellWall = wallGrid[example.getX()][example.getY()];//example.north();
+            cellWall =
+                findWall(example.getX(), example.getY(), direction % 2 == 0);
+            // The wall that is at the top left corner horizontal or vertical
+            // based on the position (0 is horizontal)
         }
         else if (direction == 1)
         {
-            cellWall = wallGrid[example.getX() + 1][example.getY()];
-        }
-        else if (direction == 2)
-        {
-            cellWall = wallGrid[example.getX() + 1][example.getY() + 1];
+            cellWall = findWall(example.getX() + 1, example.getY(), false);
         }
         else
         {
-            cellWall = wallGrid[example.getX()][example.getY() + 1];
+            cellWall = findWall(example.getX(), example.getY() + 1, true);
         }
         return cellWall;
+    }
+
+
+    /**
+     * Returns a wall at the given position and orientation
+     *
+     * @param x
+     *            The x coordinate of the wall
+     * @param y
+     *            The y coordinate of the wall
+     * @param horizontal
+     *            Whether it is horizontal or not.
+     * @return A Wall with the given stats or null if it isn't there.
+     */
+    private Wall findWall(int x, int y, boolean horizontal)
+    {
+        for (Wall w : walls)
+        {
+            if (w.equals(new Wall(x, y, horizontal)))
+            {
+                return w;
+            }
+        }
+        return null;
     }
 
 
@@ -98,21 +128,24 @@ public class Maze
         int x = example.getX();
         int y = example.getY();
         ArrayList<Wall> wallArray = new ArrayList<Wall>();
-        if (wallGrid[x + 1][y].exists())
+
+        for (Wall w : walls)
         {
-            wallArray.add(wallGrid[x + 1][y]);
-        }
-        else if (wallGrid[x][y + 1].exists())
-        {
-            wallArray.add(wallGrid[x][y + 1]);
-        }
-        else if (wallGrid[x - 1][y].exists())
-        {
-            wallArray.add(wallGrid[x - 1][y]);
-        }
-        else if (wallGrid[x][y - 1].exists())
-        {
-            wallArray.add(wallGrid[x][y - 1]);
+            // If it's x is equal and y is equal or one larger. Only for when it
+            // is horizontal
+            if (w.isHorizontal()
+                && (w.getX() == example.getX() && (w.getY() == example.getY() || w
+                    .getY() == example.getY() + 1)))
+            {
+                wallArray.add(w);
+            } // If it is vertical, then y must be the same and x must be same
+              // or one higher.
+            else if (!w.isHorizontal()
+                && ((w.getX() == example.getX() || w.getX() == example.getX() + 1) && w
+                    .getY() == example.getY()))
+            {
+                wallArray.add(w);
+            }
         }
         return wallArray;
     }
@@ -191,13 +224,13 @@ public class Maze
      */
     public void Hole()
     {
-        for(int i = 0; i < grid.length; i++)
+        for (int i = 0; i < grid.length; i++)
         {
-            for(int j = 0; j < grid[i].length; j++)
+            for (int j = 0; j < grid[i].length; j++)
             {
-                if(grid[i][j].getNumWalls() == 3)
+                if (grid[i][j].getNumWalls() == 3)
                 {
-                    if(Math.random()<.2)
+                    if (Math.random() < .2)
                     {
                         grid[i][j].makeHole();
                     }
