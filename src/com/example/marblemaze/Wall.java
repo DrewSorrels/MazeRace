@@ -59,6 +59,18 @@ public class Wall
 
 
     /**
+     * Sets the wall to the given value
+     *
+     * @param value
+     *            If the wall exists or not.
+     */
+    public void setWall(boolean value)
+    {
+        exists = value;
+    }
+
+
+    /**
      * Returns whether the wall is present on the maze.
      *
      * @return If the wall exists.
@@ -66,6 +78,26 @@ public class Wall
     public boolean exists()
     {
         return exists;
+    }
+
+
+    /**
+     * Determines if the walls occupy the same position and orientation.
+     *
+     * @param other
+     *            The other wall to compare this to.
+     * @return Whether the walls are the same.
+     */
+    public boolean equals(Object other)
+    {
+        if (other instanceof Wall)
+        {
+            return xStart == ((Wall)other).getX()
+                && yStart == ((Wall)other).getY()
+                && horizontal == ((Wall)other).isHorizontal();
+        }
+        return false;
+
     }
 
 

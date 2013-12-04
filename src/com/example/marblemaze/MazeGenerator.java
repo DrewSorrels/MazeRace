@@ -86,10 +86,13 @@ public class MazeGenerator
                                                // wall
                                                // is not a part of the maze yet.
             {
+                // If the cell is already in the list, make this the current
+                // cell. Otherwise add the other cell.
                 Cell cCurrent =
                     cells.contains(cAdjCells.get(0))
                         ? cAdjCells.get(0)
                         : cAdjCells.get(1);
+                // Add the other cell.
                 Cell cOpposite =
                     cells.contains(cAdjCells.get(0))
                         ? cAdjCells.get(1)
@@ -97,18 +100,26 @@ public class MazeGenerator
 
                 cells.add(cOpposite); // add the opposite cell
                 int wallPos =
-                    detWalls(cCurrent, cOpposite, cellWalls.get(randWall));
+                    detWalls(cCurrent, cOpposite, cellWalls.get(randWall)); // randWall
+// is the position of the randomWall in between the two cells.
+
                 cOpposite.setWall(cCurrent.oppositeWall(wallPos), false);
                 cCurrent.setWall(wallPos, false); // Remove the wall at the
                                                   // position of randWall
                                                   // and set wall to false in
-// each cell
-                cellWalls.addAll(maze.getAdjacentWalls(cOpposite)); // add all
-                                                                    // walls
-// around
-// that
+                                                  // each cell
+                // Only add walls that are not already in the maze.
+                for (Wall w : maze.getAdjacentWalls(cOpposite))
+                {
+                    if (!cellWalls.contains(w))
+                    {
+                        cellWalls.add(w);
+                    }
+                }
             }
             else
+            // If the cell on the otherside of the wall is in the list of walls,
+// remove it.
             {
                 cellWalls.remove(cellWalls.get(randWall));
             }
