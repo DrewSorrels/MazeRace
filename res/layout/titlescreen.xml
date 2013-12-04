@@ -7,7 +7,7 @@
     tools:context=".TitleScreen" >
 
     <Button
-        android:id="@+id/prim"
+        android:id="@+id/startGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
