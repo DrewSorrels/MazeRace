@@ -58,22 +58,19 @@ public class MarbleMazeScreen
      */
     private void setupMaze()
     {
-        if (!MAZE_GENERATION_DISABLED)
+        mazeGen = new MazeGenerator();
+        String algorithm = getIntent().getExtras().getString("algorithm");
+
+        if (algorithm.equals("prim"))
         {
-            mazeGen = new MazeGenerator();
-            String algorithm = getIntent().getExtras().getString("algorithm");
-
-            if (algorithm.equals("prim"))
-            {
-                mazeGen.primMaze();
-            }
-            if (algorithm.equals("dfs"))
-            {
-                mazeGen.dfsMaze();
-            }
-
-            maze = mazeGen.getMaze();
+            mazeGen.primMaze();
         }
+        if (algorithm.equals("dfs"))
+        {
+            mazeGen.dfsMaze();
+        }
+
+        maze = mazeGen.getMaze();
     }
 
 
