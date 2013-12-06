@@ -56,6 +56,7 @@ public class MazeScreen
     {
         setupSampleMaze();
         // setupMaze();
+        setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
