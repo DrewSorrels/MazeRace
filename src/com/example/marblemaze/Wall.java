@@ -22,7 +22,6 @@ public class Wall
     private boolean horizontal;
     private boolean exists;
 
-
     /**
      * Default constructor for a wall.
      */

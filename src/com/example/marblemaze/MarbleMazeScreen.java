@@ -78,21 +78,6 @@ public class MarbleMazeScreen
         topleft.setWall(3, true);
         Cell topright = maze.getCell(0, 3);
         topright.setWall(2, true);
-
-        for (int i = 0; i < MAZE_SIZE; i++)
-        {
-            for (int j = 0; j < MAZE_SIZE; j++)
-            {
-                Cell cellulose = maze.getCell(i, j);
-                for (Wall walle : cellulose.getWalls())
-                {
-                    if (walle.exists())
-                    {
-                        add(walle);
-                    }
-                }
-            }
-        }
     }
 
 
@@ -114,6 +99,25 @@ public class MarbleMazeScreen
         }
 
         maze = mazeGen.getMaze();
+    }
+
+
+    private void setupAddWalls()
+    {
+        for (int i = 0; i < maze.width(); i++)
+        {
+            for (int j = 0; j < maze.height(); j++)
+            {
+                Cell cellulose = maze.getCell(i, j);
+                for (Wall walle : cellulose.getWalls())
+                {
+                    if (walle.exists())
+                    {
+                        add(walle);
+                    }
+                }
+            }
+        }
     }
 
 
