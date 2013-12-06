@@ -74,6 +74,7 @@ public class MazeGenerator
             ArrayList<Cell> tempCells = getUnvisitedNeighbors(sCells.peek());
             if (tempCells.size() > 0)
             {
+                // If there are unvisited neighbors.
                 Cell currentCell =
                     tempCells.get((int)Math.random() * (tempCells.size() - 1));
 
@@ -81,9 +82,14 @@ public class MazeGenerator
                 cells.remove(currentCell);
 
             }
+            else if (!sCells.isEmpty())
+            {
+                // Otherwise, pop it off the cell.
+                sCells.pop();
+            }
             else
             {
-                sCells.pop();
+                sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }
         }
 
