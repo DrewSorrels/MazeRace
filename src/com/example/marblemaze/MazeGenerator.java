@@ -53,6 +53,17 @@ public class MazeGenerator
 
 
     /**
+     * Returns list of walls.
+     *
+     * @return returns ArrayList<Wall>
+     */
+    public ArrayList<Wall> getWalls()
+    {
+        return cellWalls;
+    }
+
+
+    /**
      * Generates a maze based on the DFS Algorithm.
      */
     public void dfsMaze()
@@ -79,7 +90,7 @@ public class MazeGenerator
                 }
             }
         }
-
+        // While there are unvisited cells...
         while (!cells.isEmpty())
         {
 
@@ -95,9 +106,10 @@ public class MazeGenerator
                     tempCells.get((int)Math.random() * (tempCells.size() - 1));
 
                 // Destroy the wall between 2 cells.
-                cellWalls.remove(maze.getWallFromCells(
-                    sCells.peek(),
-                    currentCell));
+                Wall betweenCells =
+                    maze.getWallFromCells(sCells.peek(), currentCell);
+                cellWalls.remove(betweenCells);
+                rmWall(sCells.peek(), currentCell, betweenCells);
 
                 // Add currentCell to the stack and visit it. Remove it from
                 // unvisited cells list.
@@ -117,57 +129,6 @@ public class MazeGenerator
                 sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }
         }
-
-    }
-
-
-// /**
-// * Returns a random cell adjacent to the supplied cell.
-// *
-// * @param c
-// * The cell
-// * @return a random cell around this cell.
-// */
-// private Cell getRandAdjCell(Cell c)
-// {
-// cells.clear(); // Clear cell list to make sure there are not any cells
-// // in it.
-// int wIndex = c.getRandomWallIndex();
-// Wall w = maze.getWallFromCell(c, wIndex);
-// cells.addAll(maze.getAdjacentCells(w));
-// // Add them all to the cell list and find a random one.
-// Cell randCell = cells.get((int)Math.random() * (cells.size() - 1));
-// cells.clear(); // Clear cell list.
-//
-// return randCell;
-// }
-    /**
-     * Returns list of all unvisited neighbors.
-     *
-     * @return ArrayList<Cell> of unvisited cells.
-     */
-    private ArrayList<Cell> getUnvisitedNeighbors(Cell c)
-    {
-        ArrayList<Cell> adjCells = new ArrayList<Cell>();
-
-        if (!c.east().isVisited())
-        {
-            adjCells.add(c.east());
-        }
-        if (!c.west().isVisited())
-        {
-            adjCells.add(c.west());
-        }
-        if (!c.north().isVisited())
-        {
-            adjCells.add(c.north());
-        }
-        if (!c.south().isVisited())
-        {
-            adjCells.add(c.south());
-        }
-
-        return adjCells;
 
     }
 
@@ -201,15 +162,10 @@ public class MazeGenerator
                         : cAdjCells.get(0);
 
                 cells.add(cOpposite); // add the opposite cell
-                int wallPos =
-                    detWalls(cCurrent, cOpposite, cellWalls.get(randWall)); // randWall
-// is the position of the randomWall in between the two cells.
 
-                cOpposite.setWall(cCurrent.oppositeWall(wallPos), false);
-                cCurrent.setWall(wallPos, false); // Remove the wall at the
-                                                  // position of randWall
-                                                  // and set wall to false in
-                                                  // each cell
+                rmWall(cCurrent, cOpposite, cellWalls.get(randWall));
+                // remove the wall.
+
                 // Only add walls that are not already in the maze.
                 for (Wall w : maze.getAdjacentWalls(cOpposite))
                 {
@@ -268,6 +224,72 @@ public class MazeGenerator
             }
         }
 
+    }
+
+
+    // /**
+    // * Returns a random cell adjacent to the supplied cell.
+    // *
+    // * @param c
+    // * The cell
+    // * @return a random cell around this cell.
+    // */
+    // private Cell getRandAdjCell(Cell c)
+    // {
+    // cells.clear(); // Clear cell list to make sure there are not any cells
+    // // in it.
+    // int wIndex = c.getRandomWallIndex();
+    // Wall w = maze.getWallFromCell(c, wIndex);
+    // cells.addAll(maze.getAdjacentCells(w));
+    // // Add them all to the cell list and find a random one.
+    // Cell randCell = cells.get((int)Math.random() * (cells.size() - 1));
+    // cells.clear(); // Clear cell list.
+    //
+    // return randCell;
+    // }
+    /**
+     * Returns list of all unvisited neighbors.
+     *
+     * @return ArrayList<Cell> of unvisited cells.
+     */
+    private ArrayList<Cell> getUnvisitedNeighbors(Cell c)
+    {
+        ArrayList<Cell> adjCells = new ArrayList<Cell>();
+
+        if (!c.east().isVisited())
+        {
+            adjCells.add(c.east());
+        }
+        if (!c.west().isVisited())
+        {
+            adjCells.add(c.west());
+        }
+        if (!c.north().isVisited())
+        {
+            adjCells.add(c.north());
+        }
+        if (!c.south().isVisited())
+        {
+            adjCells.add(c.south());
+        }
+
+        return adjCells;
+
+    }
+
+
+    /**
+     * Removes the wall between the two cells and destroys it in each cell
+     */
+    private void rmWall(Cell c1, Cell c2, Wall w)
+    {
+        int wallPos = detWalls(c1, c2, w); // Find what position the wall is in.
+
+        maze.removeWall(w);
+        c2.setWall(c1.oppositeWall(wallPos), false);
+        c1.setWall(wallPos, false);
+        // Remove the wall at the position of w and set wall to false in
+        // each cell
     }
 
 }
