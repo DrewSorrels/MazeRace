@@ -3,12 +3,11 @@ package com.example.marblemaze;
 import java.util.ArrayList;
 
 /**
- * // -------------------------------------------------------------------------
- * /** Cell is a helper class to make generating mazes easier. NOTE: Different
+ * Cell is a helper class to make generating mazes easier. NOTE: Different
  * from cells in the maze solver project.
  *
- * @author Drew Sorrels (amsorr)
- * @version 2013.12.02
+ * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @version 2013.12.06
  */
 public class Cell
 {
@@ -17,15 +16,6 @@ public class Cell
     private int     x;
     private int     y;
     private boolean isHole;
-
-
-    /**
-     * Creates a new Cell object.
-     */
-    public Cell()
-    {
-        this(0, 0);
-    }
 
 
     /**
