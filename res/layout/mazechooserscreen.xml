@@ -4,33 +4,72 @@
     android:layout_height="match_parent"
     tools:context=".MazeChooserScreen" >
 
-    <Button
-        android:id="@+id/prim"
+    <TextView
+        android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:minWidth="256dip"
-        android:text="Prim&apos;s Maze" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Choose Your Game Mode"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/dfs"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
+        android:layout_alignLeft="@+id/prim"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="20dp"
         android:text="Choose Your Maze"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/dfs"
+        android:layout_below="@+id/TextView01" >
+
+
+        <RadioButton
+            android:id="@+id/normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Normal Mode" />
+        
+        <RadioButton
+            android:id="@+id/shadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shadow Mode" />
+
+        <RadioButton
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action Mode" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/dfs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/prim"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
+        android:layout_centerVertical="true"
         android:text="DFS Maze" />
+
+    <Button
+        android:id="@+id/prim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dfs"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:minWidth="256dip"
+        android:text="Prim&apos;s Maze" />
 
 </RelativeLayout>
