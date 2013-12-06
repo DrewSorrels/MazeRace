@@ -1,8 +1,7 @@
 package com.example.marblemaze;
 
-import android.content.Intent;
 import android.content.Context;
-import android.graphics.PointF;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,78 +12,162 @@ import sofia.graphics.RectangleShape;
 
 // -------------------------------------------------------------------------
 /**
- * A Controller for the marble maze game's main screen.
+ * The marble maze game's main screen. Handles displaying the maze and
+ * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version Nov 15, 2013
+ * @version 2013.12.03
  */
 
 public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
-    private static final float   ACCELERATION_COEFFICIENT = 4.0f;
-    private static final int     COORDINATE_SYSTEM_HEIGHT = 50;
-    private float                ratio;
+    private static final float ACCELERATION_COEFFICIENT = 4.0f;
+    private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
+    private float              ratio;
 
-    private Marble               squishy;
-    private SensorManager        sensorManager;
-    private Sensor               accelerometer;
+    private SensorManager      sensorManager;
+    private Sensor             accelerometer;
 
-    private RectangleShape       pauseButton;
+    private RectangleShape     pauseButton;
 
-    private MazeGenerator        mazeGen;
+    private MazeGenerator      mazeGen;
 
-    @SuppressWarnings("unused")
-    private Maze                 maze;
-
-    private static final boolean MAZE_GENERATION_DISABLED = true;
+    private Maze               maze;
 
 
     @Override
     public void initialize()
     {
-        if (!MAZE_GENERATION_DISABLED) {
-            mazeGen = new MazeGenerator();
-            String algorithm = getIntent().getExtras().getString("algorithm");
+        setupSampleMaze();
+        // setupMaze();
+        setupPhysics();
+        setupMarble();
+        setupWalls(); // TODO remove this after maze generation works
+        setupAccelerometer();
+        setupUi();
+    }
 
-            if (algorithm.equals("prim"))
-            {
-                mazeGen.primMaze();
-            }
-            if (algorithm.equals("dfs"))
-            {
-                mazeGen.dfsMaze();
-            }
 
-            maze = mazeGen.getMaze();
+    /**
+     * Sets up a sample 2x2 maze for display purposes and adds the walls to the
+     * screen.
+     */
+    private void setupSampleMaze()
+    {
+        final int MAZE_SIZE = 4;
+        maze = new Maze(MAZE_SIZE, MAZE_SIZE);
+        Cell topleft = maze.getCell(0, 0);
+        topleft.setWall(0, true);
+        topleft.setWall(1, true);
+        topleft.setWall(2, true);
+        topleft.setWall(3, true);
+        Cell topright = maze.getCell(0, 3);
+        topright.setWall(2, true);
+
+        for (int i = 0; i < MAZE_SIZE; i++)
+        {
+            for (int j = 0; j < MAZE_SIZE; j++)
+            {
+                Cell cellulose = maze.getCell(i, j);
+                for (Wall walle : cellulose.getWalls())
+                {
+                    if (walle.exists()) {
+                        add(walle);
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Generates and displays the maze.
+     */
+    private void setupMaze()
+    {
+        mazeGen = new MazeGenerator();
+        String algorithm = getIntent().getExtras().getString("algorithm");
+
+        if (algorithm.equals("prim"))
+        {
+            mazeGen.primMaze();
+        }
+        if (algorithm.equals("dfs"))
+        {
+            mazeGen.dfsMaze();
         }
 
+        maze = mazeGen.getMaze();
+    }
+
+
+    /**
+     * Sets up the maze screen's coordinate system and gravity.
+     */
+    private void setupPhysics()
+    {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
         ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
 
         // Apply no gravity.
         setGravity(0, 0);
+    }
 
-        // Instantiate & add the marble.
-        squishy = new Marble(15, 15);
+
+    /**
+     * Instantiates & adds the marble.
+     *
+     * @pre maze is not a null pointer
+     */
+    private void setupMarble()
+    {
+        MarbleShape squishy = new MarbleShape(15, 15);
+
         add(squishy);
+        maze.setMarble(squishy);
+    }
 
-        // Add walls into the maze.
-        RectangleShape topWall = new RectangleShape(10, 0, 40, 10);
+
+    /**
+     * Adds four sample walls to the canvas.
+     */
+    private void setupWalls()
+    {
+        RectangleShape topWall =
+            new RectangleShape(1, 0, getCoordinateSystemWidth() - 1, 1);
         topWall.setFillColor(Color.blue);
-        RectangleShape leftWall = new RectangleShape(0, 0, 10, 50);
+        RectangleShape leftWall =
+            new RectangleShape(0, 0, 1, getCoordinateSystemHeight());
         leftWall.setFillColor(Color.red);
-        RectangleShape bottomWall = new RectangleShape(10, 40, 40, 50);
+        RectangleShape bottomWall =
+            new RectangleShape(
+                1,
+                getCoordinateSystemHeight() - 1,
+                getCoordinateSystemWidth() - 1,
+                getCoordinateSystemHeight());
         bottomWall.setFillColor(Color.yellow);
-        RectangleShape rightWall = new RectangleShape(40, 0, 50, 50);
+        RectangleShape rightWall =
+            new RectangleShape(
+                getCoordinateSystemWidth() - 1,
+                0,
+                getCoordinateSystemWidth(),
+                getCoordinateSystemHeight());
         rightWall.setFillColor(Color.green);
 
         add(topWall);
         add(leftWall);
         add(bottomWall);
         add(rightWall);
+    }
 
+
+    /**
+     * Sets up accelerometer event capturing.
+     */
+    private void setupAccelerometer()
+    {
         // Initialize framework for getting accelerometer tilt events.
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         accelerometer =
@@ -94,10 +177,17 @@ public class MarbleMazeScreen
             this,
             accelerometer,
             SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
+
+    /**
+     * Sets up the UI (currently just the pause button).
+     */
+    private void setupUi()
+    {
         // pause button is 56x40
-        float pauseWidth = 5 * 56 / 40f;
-        float pauseHeight = 5;
+        float pauseWidth = 1 * 56 / 40f;
+        float pauseHeight = 1;
         pauseButton =
             new RectangleShape(
                 getCoordinateSystemWidth() - pauseWidth,
@@ -137,12 +227,27 @@ public class MarbleMazeScreen
     }
 
 
+    /**
+     * Detects when a sensor's accuracy changes, in this case that of the
+     * accelerometer.
+     *
+     * @param accel
+     *            the sensor whose accuracy changed
+     * @param accuracy
+     *            the new accuracy
+     */
     public void onAccuracyChanged(Sensor accel, int accuracy)
     {
         // can be safely ignored for this project
     }
 
 
+    /**
+     * Detects when a sensor changes, in this case the accelerometer.
+     *
+     * @param event
+     *            the event with details of the sensor change
+     */
     public void onSensorChanged(SensorEvent event)
     {
         float x = event.values[1];
@@ -171,7 +276,7 @@ public class MarbleMazeScreen
     /**
      * Returns the width of the maze's coordinate system.
      *
-     * @pre ratio has been set (e.g. initialize() has been called)
+     * @pre ratio has been set (e.g. setupPhysics/initialize has been called)
      * @return see above
      */
     public int getCoordinateSystemWidth()

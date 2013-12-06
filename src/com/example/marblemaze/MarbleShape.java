@@ -12,11 +12,13 @@ import sofia.graphics.OvalShape;
  *  @version 2013.11.15
  */
 
-public class Marble
+public class MarbleShape
     extends OvalShape
 {
-    private static final float DENSITY = 1.0f;
-    private static final float RADIUS = 1.0f;
+    private static final float DENSITY = 10f;
+    private static final float RADIUS = 0.4f;
+    private static final float FRICTION = 0.4f;
+    private static final float RESTITUTION = 0.6f;
 
 
     // ----------------------------------------------------------
@@ -25,15 +27,15 @@ public class Marble
      * @param x the starting x-location
      * @param y the starting y-location
      */
-    public Marble(float x, float y)
+    public MarbleShape(float x, float y)
     {
-        super(x, y, Marble.RADIUS);
-        this.setDensity(Marble.DENSITY);
+        super(x, y, MarbleShape.RADIUS);
+        this.setDensity(MarbleShape.DENSITY);
         this.setFillColor(Color.gray);
         this.setColor(Color.black);
-        this.setFriction(2.0f);
+        this.setFriction(MarbleShape.FRICTION);
         this.setShapeMotion(ShapeMotion.DYNAMIC); // dynamic = respond to force
-        this.setRestitution(0.4f); // "bouncy-ness"
+        this.setRestitution(MarbleShape.RESTITUTION); // "bouncy-ness"
     }
 
 }

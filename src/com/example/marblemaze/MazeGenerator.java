@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * // -------------------------------------------------------------------------
- * /** A random maze generator with various algorithms for maze generation.
+ * A random maze generator with various algorithms for maze generation.
  *
  * @author Drew Sorrels (amsorr)
  * @version 2013.11.15
