@@ -2,8 +2,8 @@ package com.example.marblemaze;
 
 
 
-import sofia.graphics.Shape;
 import sofia.graphics.RectangleShape;
+import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
@@ -37,7 +37,7 @@ public class Rocket extends RectangleShape implements Bullet
      */
     public void onCollisionBetween(Shape marble, Shape bullet)
     {
-        if(marble instanceof Marble && bullet instanceof Rocket)
+        if(marble instanceof MarbleShape && bullet instanceof Rocket)
         {
             marble.animate(2000).rotation(560).alpha(0).removeWhenComplete()
             .play();
