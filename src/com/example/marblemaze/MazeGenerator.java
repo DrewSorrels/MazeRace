@@ -89,6 +89,7 @@ public class MazeGenerator
             }
             else
             {
+                //Else, add
                 sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }
         }
