@@ -1,7 +1,6 @@
 package com.example.marblemaze;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 // -------------------------------------------------------------------------
 /**
@@ -350,4 +349,56 @@ public class Maze
         this.marble = marble;
     }
 
+    private Map<Cell, Double> gScores;
+    private Map<Cell, Double> fScores;
+
+
+    public Queue<Cell> solveAStar()
+    {
+        Set<Cell> closed = new HashSet<Cell>();
+        List<Cell> open = new ArrayList<Cell>();
+        Queue<Cell> path = new LinkedList<Cell>();
+
+        gScores = new HashMap<Cell, Double>();
+        fScores = new HashMap<Cell, Double>();
+
+        open.add(start);
+        gScores.put(start, 0d);
+        fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
+
+        while (open.size() > 0)
+        {
+            Collections.sort(open, new HeuristicComparator());
+            Cell current = open.get(0);
+
+            if (current.equals(end)) {
+                return path;
+            }
+
+            open.remove(current);
+            closed.add(current);
+            for (Cell poss : current.getAccessibleNeighbors()) {
+
+            }
+        }
+
+        return path;
+    }
+
+
+    private class HeuristicComparator
+        implements Comparator<Cell>
+    {
+        public int compare(Cell a, Cell b)
+        {
+            return (int)Math.signum(fScores.get(a) - fScores.get(b));
+        }
+    }
+
+
+    private double heuristicAStar(Cell a, Cell b)
+    {
+        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
+            + Math.pow(a.getY() - b.getY(), 2));
+    }
 }

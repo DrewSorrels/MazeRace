@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import android.widget.RadioButton;
 import android.content.Intent;
 import sofia.app.Screen;
 
@@ -13,24 +14,51 @@ import sofia.app.Screen;
 public class MazeChooserScreen
     extends Screen
 {
+    private RadioButton shadow;
+    private RadioButton normal;
+    private RadioButton action;
+
 
     // ----------------------------------------------------------
     /**
      * Opens a prim-generated maze screen.
      */
-    public void primClicked() {
+    public void primClicked()
+    {
         Intent intent = new Intent(this, MazeScreen.class);
         intent.putExtra("algorithm", "prim");
+        if (shadow.isChecked())
+        {
+            intent.putExtra("gamemode", "shadow");
+
+        }
+        else if (action.isChecked())
+        {
+            intent.putExtra("gamemode", "action");
+        }
         startActivity(intent);
     }
+
 
     // ----------------------------------------------------------
     /**
      * Opens a DFS-generated maze screen.
      */
-    public void dfsClicked() {
+    public void dfsClicked()
+    {
+        if(normal.isChecked())
+        {
         Intent intent = new Intent(this, MazeScreen.class);
         intent.putExtra("algorithm", "dfs");
         startActivity(intent);
+        }
+        else if (shadow.isChecked())
+        {
+
+        }
+        else if (action.isChecked())
+        {
+
+        }
     }
 }

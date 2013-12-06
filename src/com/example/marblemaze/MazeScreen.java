@@ -56,6 +56,7 @@ public class MazeScreen
     {
         setupSampleMaze();
         // setupMaze();
+        setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
@@ -114,10 +115,7 @@ public class MazeScreen
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
-                    if (walle.exists())
-                    {
-                        add(walle);
-                    }
+                    add(walle);
                 }
             }
         }
