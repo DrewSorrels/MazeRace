@@ -36,14 +36,20 @@ public class Laser extends LineShape implements Bullet
  // ----------------------------------------------------------
     /**
      * removes the marble when it is hit by the laser
-     * @param marble is the marble
-     * @param bullet is the bullet
+     * @param first is the marble/bullet
+     * @param second is the bullet/marble
      */
-    public void onCollisionBetween(Shape marble, Shape bullet)
+    public void onCollisionBetween(Shape first, Shape second)
     {
-        if(marble instanceof Marble && bullet instanceof Rocket)
+        if(first instanceof Marble && second instanceof Laser)
         {
-            marble.animate(1000).rotation(720).alpha(0).removeWhenComplete()
+            first.animate(1000).rotation(720).alpha(0).removeWhenComplete()
+            .play();
+            this.remove();
+        }
+        if(first instanceof Laser && second instanceof Marble)
+        {
+            second.animate(1000).rotation(720).alpha(0).removeWhenComplete()
             .play();
             this.remove();
         }
