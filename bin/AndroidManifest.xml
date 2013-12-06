@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="MarbleMazeScreen"
+            android:name="MazeScreen"
             android:screenOrientation="landscape" >
         </activity>
         <activity android:name="PauseScreen"

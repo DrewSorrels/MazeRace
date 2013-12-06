@@ -2,8 +2,8 @@ package com.example.marblemaze;
 
 
 
-import sofia.graphics.Shape;
 import sofia.graphics.RectangleShape;
+import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
@@ -32,14 +32,20 @@ public class Rocket extends RectangleShape implements Bullet
  // ----------------------------------------------------------
     /**
      * removes the marble when it is hit by the rocket
-     * @param marble is the marble
-     * @param bullet is the bullet
+     * @param first is the marble/bullet
+     * @param second is the bullet/marble
      */
-    public void onCollisionBetween(Shape marble, Shape bullet)
+    public void onCollisionBetween(Shape first, Shape second)
     {
-        if(marble instanceof Marble && bullet instanceof Rocket)
+        if(first instanceof MarbleShape && second instanceof Rocket)
         {
-            marble.animate(2000).rotation(560).alpha(0).removeWhenComplete()
+            first.animate(2000).rotation(560).alpha(0).removeWhenComplete()
+            .play();
+            this.remove();
+        }
+        else if(first instanceof Rocket && second instanceof MarbleShape)
+        {
+            second.animate(2000).rotation(560).alpha(0).removeWhenComplete()
             .play();
             this.remove();
         }

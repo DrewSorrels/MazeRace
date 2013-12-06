@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Cell is a helper class to make generating mazes easier. NOTE: Different
  * from cells in the maze solver project.
  *
- * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @author Drew Sorrels (amsorr)
+ * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.06
  */
 public class Cell
