@@ -8,8 +8,10 @@ import java.util.ArrayList;
  * The Maze is simply a maze through which the user must direct the marble to
  * travel through.
  *
- * @author nkilmer8, amsorr
- * @version Nov 15, 2013
+ * @author Nick Kilmer (nkilmer8)
+ * @author Drew Sorrels (amsorr)
+ * @author Dennis Lysenko (dlysenko)
+ * @version 2013.12.06
  */
 public class Maze
 {
@@ -31,7 +33,7 @@ public class Maze
      */
     public Maze(int width, int height)
     {
-        start = new Cell();
+        start = new Cell(0, 0);
         end = new Cell(width - 1, height - 1);
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
@@ -41,7 +43,7 @@ public class Maze
         {
             for (int a = 0; a < height; a++)
             {
-                grid[i][a] = new Cell();
+                grid[i][a] = new Cell(i, a);
                 temp.addAll(grid[i][a].getWalls());
                 // Iterate over each of the walls to add it to the list of walls
                 // if a wall at that position and orientation isn't already
@@ -89,6 +91,46 @@ public class Maze
             cellWall = findWall(example.getX(), example.getY() + 1, true);
         }
         return cellWall;
+    }
+
+
+    /**
+     * Find wall between two cells.
+     *
+     * @param c1
+     *            The first wall
+     * @param c2
+     *            The second wall.
+     * @return wall between c1 and c2. null if they are not next to eachother.
+     */
+    public Wall getWallFromCells(Cell c1, Cell c2)
+    {
+        // If the y coords are the same
+        if (c1.getY() == c2.getY())
+        {
+            if (c1.getX() + 1 == c2.getX())
+            {
+                return getWallFromCell(c1, 1);
+            }
+            else if (c1.getX() == c2.getX() + 1)
+            {
+                return getWallFromCell(c1, 3);
+            }
+        }
+        // If x coords are the same.
+        else if (c1.getX() == c2.getX())
+        {
+            if (c1.getY() + 1 == c2.getY())
+            {
+                return getWallFromCell(c1, 2);
+            }
+            else if (c1.getY() == c2.getY() + 1)
+            {
+                return getWallFromCell(c1, 0);
+            }
+        }
+
+        return null;
     }
 
 
@@ -219,6 +261,28 @@ public class Maze
     }
 
 
+    /**
+     * Returns the width of the maze.
+     *
+     * @return width of maze.
+     */
+    public int width()
+    {
+        return grid.length;
+    }
+
+
+    /**
+     * Returns height of the maze.
+     *
+     * @return the height
+     */
+    public int height()
+    {
+        return grid[0].length;
+    }
+
+
     // ----------------------------------------------------------
     /**
      * makes certain cells Holes - only cells surounded on three sides by walls
@@ -242,12 +306,25 @@ public class Maze
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Returns the marble belonging to the maze.
+     *
+     * @return the marble
+     */
     public MarbleShape getMarble()
     {
         return marble;
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Attaches a new marble to the maze.
+     *
+     * @param marble
+     *            the marble to attach
+     */
     public void setMarble(MarbleShape marble)
     {
         this.marble = marble;

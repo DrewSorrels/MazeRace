@@ -16,18 +16,31 @@ import sofia.graphics.RectangleShape;
  * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.03
+ * @version 2013.12.06
  */
 
-public class MarbleMazeScreen
+public class MazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
+    /**
+     * The coefficient by which the accelerometer's built in motion sensor
+     * values are multiplied to find a suitable gravity value.
+     */
     private static final float ACCELERATION_COEFFICIENT = 4.0f;
-    private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
-    private float              ratio;
 
-    private MarbleShape             squishy;
+    /**
+     * The height (in meters) of the coordinate system, scaled to fit the
+     * screen. As an example, if the screen is 1000 pixels high and the
+     * coordinate system height is 25, one meter = 40 pixels.
+     */
+    private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
+
+    /**
+     * The amount of pixels in a meter based on the coordinate system height.
+     */
+    private float              pixelsPerMeter;
+
     private SensorManager      sensorManager;
     private Sensor             accelerometer;
 
@@ -41,11 +54,10 @@ public class MarbleMazeScreen
     @Override
     public void initialize()
     {
-        // setupSampleMaze();
-        setupMaze();
+        setupSampleMaze();
+        // setupMaze();
         setupPhysics();
         setupMarble();
-        setupWalls(); // TODO remove this after maze generation works
         setupAccelerometer();
         setupUi();
     }
@@ -57,33 +69,20 @@ public class MarbleMazeScreen
      */
     private void setupSampleMaze()
     {
-        final int MAZE_SIZE = 2;
+        final int MAZE_SIZE = 4;
         maze = new Maze(MAZE_SIZE, MAZE_SIZE);
         Cell topleft = maze.getCell(0, 0);
         topleft.setWall(0, true);
         topleft.setWall(1, true);
         topleft.setWall(2, true);
         topleft.setWall(3, true);
-        Cell topright = maze.getCell(0, 1);
-        topright.setWall(3, true);
-
-        for (int i = 0; i < MAZE_SIZE; i++)
-        {
-            for (int j = 0; j < MAZE_SIZE; j++)
-            {
-                Cell cellulose = maze.getCell(i, j);
-                for (Wall walle : cellulose.getWalls())
-                {
-                    System.out.println(walle.getBounds());
-                    add(walle);
-                }
-            }
-        }
+        Cell topright = maze.getCell(0, 3);
+        topright.setWall(2, true);
     }
 
 
     /**
-     * Generates and displays the maze.
+     * Generates and displays the maze based on the selected algorithm.
      */
     private void setupMaze()
     {
@@ -104,12 +103,34 @@ public class MarbleMazeScreen
 
 
     /**
+     * Adds all the walls from <code>maze</code> to
+     */
+    private void setupAddWalls()
+    {
+        for (int i = 0; i < maze.width(); i++)
+        {
+            for (int j = 0; j < maze.height(); j++)
+            {
+                Cell cellulose = maze.getCell(i, j);
+                for (Wall walle : cellulose.getWalls())
+                {
+                    if (walle.exists())
+                    {
+                        add(walle);
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
      * Sets up the maze screen's coordinate system and gravity.
      */
     private void setupPhysics()
     {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
-        ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
+        pixelsPerMeter = getHeight() / COORDINATE_SYSTEM_HEIGHT;
 
         // Apply no gravity.
         setGravity(0, 0);
@@ -118,12 +139,15 @@ public class MarbleMazeScreen
 
     /**
      * Instantiates & adds the marble.
+     *
+     * @pre maze is not a null pointer
      */
     private void setupMarble()
     {
-        // Instantiate & add the marble.
-        squishy = new MarbleShape(15, 15);
+        MarbleShape squishy = new MarbleShape(15, 15);
+
         add(squishy);
+        maze.setMarble(squishy);
     }
 
 
@@ -132,7 +156,6 @@ public class MarbleMazeScreen
      */
     private void setupWalls()
     {
-        // Add walls into the maze.
         RectangleShape topWall =
             new RectangleShape(1, 0, getCoordinateSystemWidth() - 1, 1);
         topWall.setFillColor(Color.blue);
@@ -142,7 +165,7 @@ public class MarbleMazeScreen
         RectangleShape bottomWall =
             new RectangleShape(
                 1,
-                49,
+                getCoordinateSystemHeight() - 1,
                 getCoordinateSystemWidth() - 1,
                 getCoordinateSystemHeight());
         bottomWall.setFillColor(Color.yellow);
@@ -151,7 +174,7 @@ public class MarbleMazeScreen
                 getCoordinateSystemWidth() - 1,
                 0,
                 getCoordinateSystemWidth(),
-                50);
+                getCoordinateSystemHeight());
         rightWall.setFillColor(Color.green);
 
         add(topWall);
@@ -184,8 +207,8 @@ public class MarbleMazeScreen
     private void setupUi()
     {
         // pause button is 56x40
-        float pauseWidth = 5 * 56 / 40f;
-        float pauseHeight = 5;
+        float pauseWidth = 1 * 56 / 40f;
+        float pauseHeight = 1;
         pauseButton =
             new RectangleShape(
                 getCoordinateSystemWidth() - pauseWidth,
@@ -260,9 +283,10 @@ public class MarbleMazeScreen
 
     // ----------------------------------------------------------
     /**
-     * Returns the height of the maze's coordinate system.
+     * Returns the height of the maze's coordinate system (
+     * {@code COORDINATE_SYSTEM_HEIGHT}).
      *
-     * @return see above
+     * @return the height of the maze's coordinate system
      */
     public int getCoordinateSystemHeight()
     {
@@ -274,12 +298,13 @@ public class MarbleMazeScreen
     /**
      * Returns the width of the maze's coordinate system.
      *
-     * @pre ratio has been set (e.g. setupPhysics/initialize has been called)
-     * @return see above
+     * @pre {@code pixelsPerMeter} has been set (i.e. {@code setupPhysics} has
+     *      been called)
+     * @return the width of the maze's coordinate system
      */
     public int getCoordinateSystemWidth()
     {
-        return (int)(getWidth() / ratio);
+        return (int)(getWidth() / pixelsPerMeter);
     }
 
 }
