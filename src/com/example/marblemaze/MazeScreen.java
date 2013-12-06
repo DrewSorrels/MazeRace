@@ -115,10 +115,7 @@ public class MazeScreen
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
-                    if (walle.exists())
-                    {
-                        add(walle);
-                    }
+                    add(walle);
                 }
             }
         }

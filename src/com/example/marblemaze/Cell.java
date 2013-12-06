@@ -1,10 +1,11 @@
 package com.example.marblemaze;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Cell is a helper class to make generating mazes easier. NOTE: Different
- * from cells in the maze solver project.
+ * Cell is a helper class to make generating mazes easier. NOTE: Different from
+ * cells in the maze solver project.
  *
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
@@ -70,6 +71,29 @@ public class Cell
             }
         }
         return count;
+    }
+
+    /**
+     * Returns a list of unobstructed cells adjacent to this one.
+     * @return see literally one line up
+     */
+    public List<Cell> getAccessibleNeighbors() {
+        List<Cell> ret = new ArrayList<Cell>();
+
+        if (!walls[0].exists()) {
+            ret.add(north());
+        }
+        if (!walls[1].exists()) {
+            ret.add(east());
+        }
+        if (!walls[2].exists()) {
+            ret.add(south());
+        }
+        if (!walls[3].exists()) {
+            ret.add(west());
+        }
+
+        return ret;
     }
 
 
@@ -251,5 +275,17 @@ public class Cell
     public boolean isVisited()
     {
         return visited;
+    }
+
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof Cell))
+        {
+            return false;
+        }
+        Cell other = (Cell)obj;
+        return x == other.x && y == other.y;
     }
 }
