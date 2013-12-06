@@ -53,20 +53,87 @@ public class MazeGenerator
     }
 
 
+    /**
+     * Generates a maze based on the DFS Algorithm.
+     */
     public void dfsMaze()
     {
         Cell end = maze.getGoal();
         sCells.push(end);
 
+        for (int i = 0; i < maze.width(); i++)
+        {
+            for (int j = 0; j < maze.height(); j++)
+            {
+                cells.add(maze.getCell(i, j));
+            }
+        }
+
+        while (!cells.isEmpty())
+        {
+            ArrayList<Cell> tempCells = getUnvisitedNeighbors(sCells.peek());
+            if (tempCells.size() > 0)
+            {
+                Cell currentCell =
+                    tempCells.get((int)Math.random() * (tempCells.size() - 1));
+
+                sCells.push(currentCell);
+                cells.remove(currentCell);
+
+            }
+            else
+            {
+                sCells.pop();
+            }
+        }
+
     }
 
 
-    private Cell getRandAdjCell(Cell c)
+// /**
+// * Returns a random cell adjacent to the supplied cell.
+// *
+// * @param c
+// * The cell
+// * @return a random cell around this cell.
+// */
+// private Cell getRandAdjCell(Cell c)
+// {
+// cells.clear(); // Clear cell list to make sure there are not any cells
+// // in it.
+// int wIndex = c.getRandomWallIndex();
+// Wall w = maze.getWallFromCell(c, wIndex);
+// cells.addAll(maze.getAdjacentCells(w));
+// // Add them all to the cell list and find a random one.
+// Cell randCell = cells.get((int)Math.random() * (cells.size() - 1));
+// cells.clear(); // Clear cell list.
+//
+// return randCell;
+// }
+
+    private ArrayList<Cell> getUnvisitedNeighbors(Cell c)
     {
-        int wIndex = c.getRandomWallIndex();
-        Wall w = maze.getWallFromCell(c, wIndex);
-        cells.addAll(maze.getAdjacentCells(w));
-        return c;
+        ArrayList<Cell> adjCells = new ArrayList<Cell>();
+
+        if (!c.east().isVisited())
+        {
+            adjCells.add(c.east());
+        }
+        if (!c.west().isVisited())
+        {
+            adjCells.add(c.west());
+        }
+        if (!c.north().isVisited())
+        {
+            adjCells.add(c.north());
+        }
+        if (!c.south().isVisited())
+        {
+            adjCells.add(c.south());
+        }
+
+        return adjCells;
+
     }
 
 

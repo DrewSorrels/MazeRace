@@ -17,6 +17,7 @@ public class Cell
     private int     x;
     private int     y;
     private boolean isHole;
+    private boolean visited;
 
 
     /**
@@ -41,6 +42,7 @@ public class Cell
         walls = new Wall[4];
         this.x = x;
         this.y = y;
+        visited = false;
         for (int i = 0; i < walls.length; i++)
         {
             if (i == 0 || i == 3)
@@ -240,4 +242,23 @@ public class Cell
         isHole = true;
     }
 
+
+    /**
+     * Visits the cell.
+     */
+    public void visitCell()
+    {
+        visited = true;
+    }
+
+
+    /**
+     * Returns visited status of cell.
+     *
+     * @return visited property.
+     */
+    public boolean isVisited()
+    {
+        return visited;
+    }
 }

@@ -218,6 +218,28 @@ public class Maze
     }
 
 
+    /**
+     * Returns the width of the maze.
+     *
+     * @return width of maze.
+     */
+    public int width()
+    {
+        return grid.length;
+    }
+
+
+    /**
+     * Returns height of the maze.
+     *
+     * @return the height
+     */
+    public int height()
+    {
+        return grid[0].length;
+    }
+
+
     // ----------------------------------------------------------
     /**
      * makes certain cells Holes - only cells surounded on three sides by walls
