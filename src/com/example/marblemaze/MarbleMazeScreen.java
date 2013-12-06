@@ -16,16 +16,30 @@ import sofia.graphics.RectangleShape;
  * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.03
+ * @version 2013.12.06
  */
 
 public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
+    /**
+     * The coefficient by which the accelerometer's built in motion sensor
+     * values are multiplied to find a suitable gravity value.
+     */
     private static final float ACCELERATION_COEFFICIENT = 4.0f;
+
+    /**
+     * The height (in meters) of the coordinate system, scaled to fit the
+     * screen. As an example, if the screen is 1000 pixels high and the
+     * coordinate system height is 25, one meter = 40 pixels.
+     */
     private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
-    private float              ratio;
+
+    /**
+     * The amount of pixels in a meter based on the coordinate system height.
+     */
+    private float              pixelsPerMeter;
 
     private SensorManager      sensorManager;
     private Sensor             accelerometer;
@@ -44,7 +58,6 @@ public class MarbleMazeScreen
         // setupMaze();
         setupPhysics();
         setupMarble();
-        setupWalls(); // TODO remove this after maze generation works
         setupAccelerometer();
         setupUi();
     }
@@ -73,7 +86,8 @@ public class MarbleMazeScreen
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
-                    if (walle.exists()) {
+                    if (walle.exists())
+                    {
                         add(walle);
                     }
                 }
@@ -109,7 +123,7 @@ public class MarbleMazeScreen
     private void setupPhysics()
     {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
-        ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
+        pixelsPerMeter = getHeight() / COORDINATE_SYSTEM_HEIGHT;
 
         // Apply no gravity.
         setGravity(0, 0);
@@ -281,7 +295,7 @@ public class MarbleMazeScreen
      */
     public int getCoordinateSystemWidth()
     {
-        return (int)(getWidth() / ratio);
+        return (int)(getWidth() / pixelsPerMeter);
     }
 
 }

@@ -8,7 +8,8 @@ import sofia.graphics.RectangleShape;
  * // -------------------------------------------------------------------------
  * /** Wall acts as the borders and walls in the maze. Collides with the ball.
  *
- * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @author Drew Sorrels (amsorr)
+ * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.06
  */
 public class Wall
