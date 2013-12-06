@@ -16,16 +16,30 @@ import sofia.graphics.RectangleShape;
  * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.03
+ * @version 2013.12.06
  */
 
-public class MarbleMazeScreen
+public class MazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
+    /**
+     * The coefficient by which the accelerometer's built in motion sensor
+     * values are multiplied to find a suitable gravity value.
+     */
     private static final float ACCELERATION_COEFFICIENT = 4.0f;
+
+    /**
+     * The height (in meters) of the coordinate system, scaled to fit the
+     * screen. As an example, if the screen is 1000 pixels high and the
+     * coordinate system height is 25, one meter = 40 pixels.
+     */
     private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
-    private float              ratio;
+
+    /**
+     * The amount of pixels in a meter based on the coordinate system height.
+     */
+    private float              pixelsPerMeter;
 
     private SensorManager      sensorManager;
     private Sensor             accelerometer;
@@ -44,7 +58,6 @@ public class MarbleMazeScreen
         // setupMaze();
         setupPhysics();
         setupMarble();
-        setupWalls(); // TODO remove this after maze generation works
         setupAccelerometer();
         setupUi();
     }
@@ -65,25 +78,11 @@ public class MarbleMazeScreen
         topleft.setWall(3, true);
         Cell topright = maze.getCell(0, 3);
         topright.setWall(2, true);
-
-        for (int i = 0; i < MAZE_SIZE; i++)
-        {
-            for (int j = 0; j < MAZE_SIZE; j++)
-            {
-                Cell cellulose = maze.getCell(i, j);
-                for (Wall walle : cellulose.getWalls())
-                {
-                    if (walle.exists()) {
-                        add(walle);
-                    }
-                }
-            }
-        }
     }
 
 
     /**
-     * Generates and displays the maze.
+     * Generates and displays the maze based on the selected algorithm.
      */
     private void setupMaze()
     {
@@ -104,12 +103,34 @@ public class MarbleMazeScreen
 
 
     /**
+     * Adds all the walls from <code>maze</code> to
+     */
+    private void setupAddWalls()
+    {
+        for (int i = 0; i < maze.width(); i++)
+        {
+            for (int j = 0; j < maze.height(); j++)
+            {
+                Cell cellulose = maze.getCell(i, j);
+                for (Wall walle : cellulose.getWalls())
+                {
+                    if (walle.exists())
+                    {
+                        add(walle);
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
      * Sets up the maze screen's coordinate system and gravity.
      */
     private void setupPhysics()
     {
         getCoordinateSystem().height(COORDINATE_SYSTEM_HEIGHT);
-        ratio = getHeight() / COORDINATE_SYSTEM_HEIGHT;
+        pixelsPerMeter = getHeight() / COORDINATE_SYSTEM_HEIGHT;
 
         // Apply no gravity.
         setGravity(0, 0);
@@ -262,9 +283,10 @@ public class MarbleMazeScreen
 
     // ----------------------------------------------------------
     /**
-     * Returns the height of the maze's coordinate system.
+     * Returns the height of the maze's coordinate system (
+     * {@code COORDINATE_SYSTEM_HEIGHT}).
      *
-     * @return see above
+     * @return the height of the maze's coordinate system
      */
     public int getCoordinateSystemHeight()
     {
@@ -276,12 +298,13 @@ public class MarbleMazeScreen
     /**
      * Returns the width of the maze's coordinate system.
      *
-     * @pre ratio has been set (e.g. setupPhysics/initialize has been called)
-     * @return see above
+     * @pre {@code pixelsPerMeter} has been set (i.e. {@code setupPhysics} has
+     *      been called)
+     * @return the width of the maze's coordinate system
      */
     public int getCoordinateSystemWidth()
     {
-        return (int)(getWidth() / ratio);
+        return (int)(getWidth() / pixelsPerMeter);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.marblemaze;
 
-import sofia.graphics.Shape;
 import sofia.graphics.LineShape;
+import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
@@ -41,13 +41,13 @@ public class Laser extends LineShape implements Bullet
      */
     public void onCollisionBetween(Shape first, Shape second)
     {
-        if(first instanceof Marble && second instanceof Laser)
+        if(first instanceof MarbleShape && second instanceof Laser)
         {
             first.animate(1000).rotation(720).alpha(0).removeWhenComplete()
             .play();
             this.remove();
         }
-        if(first instanceof Laser && second instanceof Marble)
+        if(first instanceof Laser && second instanceof MarbleShape)
         {
             second.animate(1000).rotation(720).alpha(0).removeWhenComplete()
             .play();
