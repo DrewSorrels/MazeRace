@@ -1,13 +1,15 @@
 package com.example.marblemaze;
 
+import android.graphics.RectF;
+import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 
 /**
  * // -------------------------------------------------------------------------
  * /** Wall acts as the borders and walls in the maze. Collides with the ball.
  *
- * @author Drew Sorrels (amsorr)
- * @version 2013.12.02
+ * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @version 2013.12.06
  */
 public class Wall
     extends RectangleShape
@@ -45,7 +47,16 @@ public class Wall
         xStart = x;
         yStart = y;
         this.horizontal = horizontal;
-        this.exists = true;
+        this.exists = false;
+
+        setFillColor(Color.black);
+
+        // Set up bounds
+        float iShort = 0.1f;
+        float iLong = 1.1f;
+        float xExtent = horizontal ? iLong : iShort;
+        float yExtent = horizontal ? iShort : iLong;
+        setBounds(new RectF(xStart, yStart, xStart + xExtent, yStart + yExtent));
     }
 
 
