@@ -19,7 +19,7 @@ public class MazeChooserScreen
      * Opens a prim-generated maze screen.
      */
     public void primClicked() {
-        Intent intent = new Intent(this, MarbleMazeScreen.class);
+        Intent intent = new Intent(this, MazeScreen.class);
         intent.putExtra("algorithm", "prim");
         startActivity(intent);
     }
@@ -29,7 +29,7 @@ public class MazeChooserScreen
      * Opens a DFS-generated maze screen.
      */
     public void dfsClicked() {
-        Intent intent = new Intent(this, MarbleMazeScreen.class);
+        Intent intent = new Intent(this, MazeScreen.class);
         intent.putExtra("algorithm", "dfs");
         startActivity(intent);
     }

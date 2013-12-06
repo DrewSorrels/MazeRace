@@ -19,7 +19,7 @@ import sofia.graphics.RectangleShape;
  * @version 2013.12.06
  */
 
-public class MarbleMazeScreen
+public class MazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
@@ -82,7 +82,7 @@ public class MarbleMazeScreen
 
 
     /**
-     * Generates and displays the maze.
+     * Generates and displays the maze based on the selected algorithm.
      */
     private void setupMaze()
     {
@@ -102,6 +102,9 @@ public class MarbleMazeScreen
     }
 
 
+    /**
+     * Adds all the walls from <code>maze</code> to
+     */
     private void setupAddWalls()
     {
         for (int i = 0; i < maze.width(); i++)
@@ -280,9 +283,10 @@ public class MarbleMazeScreen
 
     // ----------------------------------------------------------
     /**
-     * Returns the height of the maze's coordinate system.
+     * Returns the height of the maze's coordinate system (
+     * {@code COORDINATE_SYSTEM_HEIGHT}).
      *
-     * @return see above
+     * @return the height of the maze's coordinate system
      */
     public int getCoordinateSystemHeight()
     {
@@ -294,8 +298,9 @@ public class MarbleMazeScreen
     /**
      * Returns the width of the maze's coordinate system.
      *
-     * @pre ratio has been set (e.g. setupPhysics/initialize has been called)
-     * @return see above
+     * @pre {@code pixelsPerMeter} has been set (i.e. {@code setupPhysics} has
+     *      been called)
+     * @return the width of the maze's coordinate system
      */
     public int getCoordinateSystemWidth()
     {
