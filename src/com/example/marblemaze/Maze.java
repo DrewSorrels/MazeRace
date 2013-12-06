@@ -95,6 +95,46 @@ public class Maze
 
 
     /**
+     * Find wall between two cells.
+     *
+     * @param c1
+     *            The first wall
+     * @param c2
+     *            The second wall.
+     * @return wall between c1 and c2. null if they are not next to eachother.
+     */
+    public Wall getWallFromCells(Cell c1, Cell c2)
+    {
+        // If the y coords are the same
+        if (c1.getY() == c2.getY())
+        {
+            if (c1.getX() + 1 == c2.getX())
+            {
+                return getWallFromCell(c1, 1);
+            }
+            else if (c1.getX() == c2.getX() + 1)
+            {
+                return getWallFromCell(c1, 3);
+            }
+        }
+        // If x coords are the same.
+        else if (c1.getX() == c2.getX())
+        {
+            if (c1.getY() + 1 == c2.getY())
+            {
+                return getWallFromCell(c1, 2);
+            }
+            else if (c1.getY() == c2.getY() + 1)
+            {
+                return getWallFromCell(c1, 0);
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
      * Returns a wall at the given position and orientation
      *
      * @param x
@@ -269,6 +309,7 @@ public class Maze
     // ----------------------------------------------------------
     /**
      * Returns the marble belonging to the maze.
+     *
      * @return the marble
      */
     public MarbleShape getMarble()
@@ -280,7 +321,9 @@ public class Maze
     // ----------------------------------------------------------
     /**
      * Attaches a new marble to the maze.
-     * @param marble the marble to attach
+     *
+     * @param marble
+     *            the marble to attach
      */
     public void setMarble(MarbleShape marble)
     {

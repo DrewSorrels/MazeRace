@@ -1,8 +1,8 @@
 package com.example.marblemaze;
 
-import java.util.Stack;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * A random maze generator with various algorithms for maze generation.
@@ -60,6 +60,7 @@ public class MazeGenerator
         Cell end = maze.getGoal();
         sCells.push(end);
 
+        // Add all cells to list of unvisited cells.
         for (int i = 0; i < maze.width(); i++)
         {
             for (int j = 0; j < maze.height(); j++)
@@ -67,17 +68,41 @@ public class MazeGenerator
                 cells.add(maze.getCell(i, j));
             }
         }
+        // Add all walls to the list.
+        for (Cell c : cells)
+        {
+            for (Wall w : c.getWalls())
+            {
+                if (!cellWalls.contains(w))
+                {
+                    cellWalls.add(w);
+                }
+            }
+        }
 
         while (!cells.isEmpty())
         {
-            ArrayList<Cell> tempCells = getUnvisitedNeighbors(sCells.peek());
+
+            ArrayList<Cell> tempCells = new ArrayList<Cell>();
+            if (sCells.size() > 0)
+            {
+                tempCells = getUnvisitedNeighbors(sCells.peek());
+            }
             if (tempCells.size() > 0)
             {
                 // If there are unvisited neighbors.
                 Cell currentCell =
                     tempCells.get((int)Math.random() * (tempCells.size() - 1));
 
+                // Destroy the wall between 2 cells.
+                cellWalls.remove(maze.getWallFromCells(
+                    sCells.peek(),
+                    currentCell));
+
+                // Add currentCell to the stack and visit it. Remove it from
+                // unvisited cells list.
                 sCells.push(currentCell);
+                currentCell.visitCell();
                 cells.remove(currentCell);
 
             }
@@ -88,7 +113,7 @@ public class MazeGenerator
             }
             else
             {
-                //Else, add
+                // If there aren't any cells left in the stack,
                 sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }
         }
@@ -116,7 +141,11 @@ public class MazeGenerator
 //
 // return randCell;
 // }
-
+    /**
+     * Returns list of all unvisited neighbors.
+     *
+     * @return ArrayList<Cell> of unvisited cells.
+     */
     private ArrayList<Cell> getUnvisitedNeighbors(Cell c)
     {
         ArrayList<Cell> adjCells = new ArrayList<Cell>();
