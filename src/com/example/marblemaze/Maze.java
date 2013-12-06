@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class Maze
 {
-    private Cell[][]   grid;
-    private List<Wall> walls;
-    private Cell       start;
-    private Cell       end;
+    private Cell[][]    grid;
+    private List<Wall>  walls;
+    private Cell        start;
+    private Cell        end;
+    private MarbleShape marble;
 
 
     // ----------------------------------------------------------
@@ -239,4 +240,17 @@ public class Maze
             }
         }
     }
+
+
+    public MarbleShape getMarble()
+    {
+        return marble;
+    }
+
+
+    public void setMarble(MarbleShape marble)
+    {
+        this.marble = marble;
+    }
+
 }

@@ -23,33 +23,62 @@ public class MarbleMazeScreen
     extends ShapeScreen
     implements SensorEventListener
 {
-    private static final float   ACCELERATION_COEFFICIENT = 4.0f;
-    private static final int     COORDINATE_SYSTEM_HEIGHT = 50;
-    private float                ratio;
+    private static final float ACCELERATION_COEFFICIENT = 4.0f;
+    private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
+    private float              ratio;
 
-    private Marble               squishy;
-    private SensorManager        sensorManager;
-    private Sensor               accelerometer;
+    private MarbleShape             squishy;
+    private SensorManager      sensorManager;
+    private Sensor             accelerometer;
 
-    private RectangleShape       pauseButton;
+    private RectangleShape     pauseButton;
 
-    private MazeGenerator        mazeGen;
+    private MazeGenerator      mazeGen;
 
-    @SuppressWarnings("unused")
-    private Maze                 maze;
-
-    private static final boolean MAZE_GENERATION_DISABLED = true;
+    private Maze               maze;
 
 
     @Override
     public void initialize()
     {
+        // setupSampleMaze();
         setupMaze();
         setupPhysics();
         setupMarble();
         setupWalls(); // TODO remove this after maze generation works
         setupAccelerometer();
         setupUi();
+    }
+
+
+    /**
+     * Sets up a sample 2x2 maze for display purposes and adds the walls to the
+     * screen.
+     */
+    private void setupSampleMaze()
+    {
+        final int MAZE_SIZE = 2;
+        maze = new Maze(MAZE_SIZE, MAZE_SIZE);
+        Cell topleft = maze.getCell(0, 0);
+        topleft.setWall(0, true);
+        topleft.setWall(1, true);
+        topleft.setWall(2, true);
+        topleft.setWall(3, true);
+        Cell topright = maze.getCell(0, 1);
+        topright.setWall(3, true);
+
+        for (int i = 0; i < MAZE_SIZE; i++)
+        {
+            for (int j = 0; j < MAZE_SIZE; j++)
+            {
+                Cell cellulose = maze.getCell(i, j);
+                for (Wall walle : cellulose.getWalls())
+                {
+                    System.out.println(walle.getBounds());
+                    add(walle);
+                }
+            }
+        }
     }
 
 
@@ -93,7 +122,7 @@ public class MarbleMazeScreen
     private void setupMarble()
     {
         // Instantiate & add the marble.
-        squishy = new Marble(15, 15);
+        squishy = new MarbleShape(15, 15);
         add(squishy);
     }
 
@@ -104,13 +133,25 @@ public class MarbleMazeScreen
     private void setupWalls()
     {
         // Add walls into the maze.
-        RectangleShape topWall = new RectangleShape(10, 0, 40, 10);
+        RectangleShape topWall =
+            new RectangleShape(1, 0, getCoordinateSystemWidth() - 1, 1);
         topWall.setFillColor(Color.blue);
-        RectangleShape leftWall = new RectangleShape(0, 0, 10, 50);
+        RectangleShape leftWall =
+            new RectangleShape(0, 0, 1, getCoordinateSystemHeight());
         leftWall.setFillColor(Color.red);
-        RectangleShape bottomWall = new RectangleShape(10, 40, 40, 50);
+        RectangleShape bottomWall =
+            new RectangleShape(
+                1,
+                49,
+                getCoordinateSystemWidth() - 1,
+                getCoordinateSystemHeight());
         bottomWall.setFillColor(Color.yellow);
-        RectangleShape rightWall = new RectangleShape(40, 0, 50, 50);
+        RectangleShape rightWall =
+            new RectangleShape(
+                getCoordinateSystemWidth() - 1,
+                0,
+                getCoordinateSystemWidth(),
+                50);
         rightWall.setFillColor(Color.green);
 
         add(topWall);
