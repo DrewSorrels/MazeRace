@@ -62,7 +62,7 @@ public class MazeScreen
     {
         // setupSampleMaze();
         setupMaze();
-        setupAddWalls();
+        // setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
@@ -106,6 +106,7 @@ public class MazeScreen
         }
 
         maze = mazeGen.getMaze();
+        maze.addObserver(this);
     }
 
 
@@ -152,7 +153,6 @@ public class MazeScreen
     {
         MarbleShape squishy = new MarbleShape(15, 15);
 
-        add(squishy);
         maze.setMarble(squishy);
     }
 

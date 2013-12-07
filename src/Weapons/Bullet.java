@@ -23,16 +23,4 @@ public interface Bullet
      * @param y is the y velocity
      */
     void move(int x, int y);
-
-    // ----------------------------------------------------------
-    /**
-     * removes the marble when it is hit by the bullet
-     * @param marble is the marble
-     * @param bullet is the bullet
-     */
-    void onCollisionBetween(Shape marble, Shape bullet);
-
-
-
-
 }

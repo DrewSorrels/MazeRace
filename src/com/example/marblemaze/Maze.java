@@ -25,6 +25,7 @@ public class Maze
     private Cell        start;
     private Cell        end;
     private MarbleShape marble;
+    private List<Hole> holes;
 
 
     // ----------------------------------------------------------
@@ -40,6 +41,10 @@ public class Maze
     {
         start = new Cell(0, 0);
         end = new Cell(width - 1, height - 1);
+
+        start.addObserver(this);
+        end.addObserver(this);
+
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
 
@@ -49,10 +54,13 @@ public class Maze
             for (int a = 0; a < height; a++)
             {
                 grid[i][a] = new Cell(i, a);
+                grid[i][a].addObserver(this);
                 temp.addAll(grid[i][a].getWalls());
                 // Iterate over each of the walls to add it to the list of walls
                 // if a wall at that position and orientation isn't already
                 // there.
+                System.out.println("Temp walls size in constructor"
+                    + temp.size());
                 for (Wall w : temp)
                 {
                     if (!walls.contains(w))
@@ -60,7 +68,7 @@ public class Maze
                         walls.add(w);
                     }
                 }
-
+                temp.clear();
             }
         }
     }
@@ -173,14 +181,13 @@ public class Maze
      */
     public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
-        int x = example.getX();
-        int y = example.getY();
         ArrayList<Wall> wallArray = new ArrayList<Wall>();
-
+        System.out.println("Walls size: " + walls.size());
         for (Wall w : walls)
         {
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
+            System.out.println("FINDING WALLS");
             if (w.isHorizontal()
                 && (w.getX() == example.getX() && (w.getY() == example.getY() || w
                     .getY() == example.getY() + 1)))
@@ -232,20 +239,23 @@ public class Maze
         int x = (int)wally.getX();
         int y = (int)wally.getY();
         ArrayList<Cell> cellArray = new ArrayList<Cell>();
-        if (wally.isHorizontal())
+        if (x < this.width() && y < this.height())
         {
-            cellArray.add(grid[x][y]);
-            if (y - 1 >= 0)
+            if (wally.isHorizontal())
             {
-                cellArray.add(grid[x][y - 1]);
+                cellArray.add(grid[x][y]);
+                if (y - 1 >= 0)
+                {
+                    cellArray.add(grid[x][y - 1]);
+                }
             }
-        }
-        else
-        {
-            cellArray.add(grid[x][y]);
-            if (x - 1 >= 0)
+            else
             {
-                cellArray.add(grid[x - 1][y]);
+                cellArray.add(grid[x][y]);
+                if (x - 1 >= 0)
+                {
+                    cellArray.add(grid[x - 1][y]);
+                }
             }
         }
         return cellArray;
@@ -312,9 +322,8 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * makes certain cells Holes - only cells surounded on three sides by walls
-     *
      * @todo notify observers!!
+     * makes certain cells Holes - only cells surrounded on three sides by walls
      */
     public void Hole()
     {
@@ -326,7 +335,7 @@ public class Maze
                 {
                     if (Math.random() < .2)
                     {
-                        grid[i][j].makeHole();
+                        holes.add(new Hole(grid[i][j].getBounds()));
                     }
 
                 }
@@ -363,12 +372,17 @@ public class Maze
         notifyObservers(new MarbleAddedEvent(this.marble, marble));
 
         this.marble = marble;
+        marble.addObserver(this);
     }
 
     private Map<Cell, Double> gScores;
     private Map<Cell, Double> fScores;
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return a Queue representing the shortest path to solve a maze
+     */
     public Queue<Cell> solveAStar()
     {
         Set<Cell> closed = new HashSet<Cell>();
@@ -467,6 +481,8 @@ public class Maze
     /**
      * Handles updates from the MarbleShape (when it dies) or the walls when
      * they are set to existent/nonexistent.
+     * @param obs the object that was updated
+     * @param event the type of event that happened
      */
     public void update(Observable obs, Object event)
     {
@@ -476,5 +492,18 @@ public class Maze
         {
             notifyObservers(event);
         }
+    }
+
+    /**
+     * Finds if the cell is inside the bounds of this maze.
+     *
+     * @param c
+     *            The cell
+     * @return Whether it is in bounds or not.
+     */
+    public boolean inBounds(Cell c)
+    {
+        return c.getX() >= 0 && c.getX() < width() && c.getY() >= 0
+            && c.getY() < height();
     }
 }

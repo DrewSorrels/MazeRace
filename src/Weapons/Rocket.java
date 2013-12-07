@@ -34,23 +34,12 @@ public class Rocket extends RectangleShape implements Bullet
     /**
      * removes the marble when it is hit by the rocket
      * @param first is the marble/bullet
-     * @param second is the bullet/marble
      */
-    public void onCollisionBetween(Shape first, Shape second)
+    public void onCollisionWith(MarbleShape first)
     {
-        if(first instanceof MarbleShape && second instanceof Rocket)
-        {
-            first.animate(2000).rotation(560).alpha(0).removeWhenComplete()
-            .play();
-            this.remove();
-        }
-        else if(first instanceof Rocket && second instanceof MarbleShape)
-        {
-            second.animate(2000).rotation(560).alpha(0).removeWhenComplete()
-            .play();
-            this.remove();
-        }
+        first.animate(2000).rotation(560).alpha(0).removeWhenComplete()
+        .play();
+        this.remove();
     }
-
 
 }
