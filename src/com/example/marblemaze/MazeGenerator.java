@@ -283,6 +283,10 @@ public class MazeGenerator
      */
     private void rmWall(Cell c1, Cell c2, Wall w)
     {
+        if (w == null) {
+            return;
+        }
+
         int wallPos = detWalls(c1, c2, w); // Find what position the wall is in.
 
         maze.removeWall(w);
