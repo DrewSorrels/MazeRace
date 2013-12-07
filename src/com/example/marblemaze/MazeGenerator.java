@@ -146,14 +146,11 @@ public class MazeGenerator
     {
         cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
         // walls around startPoint
-
-        System.out.println("Added walls");
         while (!cellWalls.isEmpty())
         {
             int randWall =
                 (int)Math.floor(Math.random() * (cellWalls.size() - 1) + 0.5);
             // Efficient random int
-            System.out.println("Rand wall" + randWall);
 
             List<Cell> cAdjCells = new ArrayList<Cell>();
             cAdjCells.addAll(maze.getAdjacentCells(cellWalls.get(randWall)));
