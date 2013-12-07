@@ -257,6 +257,26 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
+     * Removes w from list of walls.
+     *
+     * @param w
+     *            the wall
+     * @return the wall that was removed
+     */
+    public Wall removeWall(Wall w)
+    {
+        if (w == null)
+        {
+            return w;
+        }
+
+        walls.remove(w);
+        return w;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
      * @param a
      *            is the x-coordinate
      * @param b
