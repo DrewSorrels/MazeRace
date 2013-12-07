@@ -20,8 +20,8 @@ public class MazeGenerator
 
     private Maze             maze;
 
-    private static final int MAZE_WIDTH  = 15;
-    private static final int MAZE_HEIGHT = 10;
+    private static final int MAZE_WIDTH  = 5;
+    private static final int MAZE_HEIGHT = 5;
 
 
     /**
@@ -80,8 +80,10 @@ public class MazeGenerator
         {
             for (Wall w : c.getWalls())
             {
+                System.out.println("can I add?");
                 if (!cellWalls.contains(w))
                 {
+                    System.out.println("Add walls");
                     cellWalls.add(w);
                 }
             }
@@ -93,12 +95,12 @@ public class MazeGenerator
             ArrayList<Cell> tempCells = new ArrayList<Cell>();
             if (sCells.size() > 0)
             {
-                System.out.println("sCells.size > 0");
+                System.out.println("sCells.size " + sCells.size());
                 tempCells = getUnvisitedNeighbors(sCells.peek());
             }
             if (tempCells.size() > 0)
             {
-                System.out.println("tempCells.size() > 0");
+                System.out.println("tempCells.size()" + tempCells.size());
                 // If there are unvisited neighbors.
                 Cell currentCell =
                     tempCells.get((int)Math.random() * (tempCells.size() - 1));
@@ -111,14 +113,18 @@ public class MazeGenerator
 
                 // Add currentCell to the stack and visit it. Remove it from
                 // unvisited cells list.
-                sCells.push(currentCell);
+                if (cells.contains(currentCell))
+                {
+                    sCells.push(currentCell);
+                }
                 currentCell.visitCell();
+
                 cells.remove(currentCell);
 
             }
             else if (!sCells.isEmpty())
             {
-                System.out.println("sCells.isEmpty");
+                System.out.println("sCells pop");
                 // Otherwise, pop it off the cell.
                 sCells.pop();
             }
@@ -152,9 +158,10 @@ public class MazeGenerator
             List<Cell> cAdjCells = new ArrayList<Cell>();
             cAdjCells.addAll(maze.getAdjacentCells(cellWalls.get(randWall)));
 
-            if (!cells.containsAll(cAdjCells)) // if the maze cell opposite the
-                                               // wall
-                                               // is not a part of the maze yet.
+            if (!cells.containsAll(cAdjCells) && cAdjCells.size() > 1) // if the
+// maze cell opposite the
+            // wall
+            // is not a part of the maze yet.
             {
                 // If the cell is already in the list, make this the current
                 // cell. Otherwise add the other cell.
@@ -269,21 +276,21 @@ public class MazeGenerator
     {
         ArrayList<Cell> adjCells = new ArrayList<Cell>();
 
-        if (!c.east().isVisited())
+        if (!c.east().isVisited() && maze.inBounds(c.east()))
         {
-            adjCells.add(c.east());
+            adjCells.add(maze.getCell(c.east().getX(), c.east().getY()));
         }
-        if (!c.west().isVisited())
+        if (!c.west().isVisited() && maze.inBounds(c.west()))
         {
-            adjCells.add(c.west());
+            adjCells.add(maze.getCell(c.west().getX(), c.west().getY()));
         }
-        if (!c.north().isVisited())
+        if (!c.north().isVisited() && maze.inBounds(c.north()))
         {
-            adjCells.add(c.north());
+            adjCells.add(maze.getCell(c.north().getX(), c.north().getY()));
         }
-        if (!c.south().isVisited())
+        if (!c.south().isVisited() && maze.inBounds(c.south()))
         {
-            adjCells.add(c.south());
+            adjCells.add(maze.getCell(c.south().getX(), c.south().getY()));
         }
 
         return adjCells;
@@ -296,7 +303,8 @@ public class MazeGenerator
      */
     private void rmWall(Cell c1, Cell c2, Wall w)
     {
-        if (w == null) {
+        if (w == null)
+        {
             return;
         }
 

@@ -47,7 +47,7 @@ public class Wall
         xStart = x;
         yStart = y;
         this.horizontal = horizontal;
-        this.exists = false;
+        this.exists = true;
 
         setFillColor(Color.black);
 

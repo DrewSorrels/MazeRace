@@ -107,6 +107,7 @@ public class Cell
         ArrayList<Wall> ilWalls = new ArrayList<Wall>();
         for (int i = 0; i < walls.length; i++)
         {
+
             if (walls[i].exists())
             {
                 ilWalls.add(walls[i]);

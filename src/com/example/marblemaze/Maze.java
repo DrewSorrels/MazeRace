@@ -56,6 +56,8 @@ public class Maze
                 // Iterate over each of the walls to add it to the list of walls
                 // if a wall at that position and orientation isn't already
                 // there.
+                System.out.println("Temp walls size in constructor"
+                    + temp.size());
                 for (Wall w : temp)
                 {
                     if (!walls.contains(w))
@@ -63,7 +65,7 @@ public class Maze
                         walls.add(w);
                     }
                 }
-
+                temp.clear();
             }
         }
     }
@@ -179,11 +181,12 @@ public class Maze
         int x = example.getX();
         int y = example.getY();
         ArrayList<Wall> wallArray = new ArrayList<Wall>();
-
+        System.out.println("Walls size: " + walls.size());
         for (Wall w : walls)
         {
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
+            System.out.println("FINDING WALLS");
             if (w.isHorizontal()
                 && (w.getX() == example.getX() && (w.getY() == example.getY() || w
                     .getY() == example.getY() + 1)))
@@ -235,20 +238,23 @@ public class Maze
         int x = (int)wally.getX();
         int y = (int)wally.getY();
         ArrayList<Cell> cellArray = new ArrayList<Cell>();
-        if (wally.isHorizontal())
+        if (x < this.width() && y < this.height())
         {
-            cellArray.add(grid[x][y]);
-            if (y - 1 >= 0)
+            if (wally.isHorizontal())
             {
-                cellArray.add(grid[x][y - 1]);
+                cellArray.add(grid[x][y]);
+                if (y - 1 >= 0)
+                {
+                    cellArray.add(grid[x][y - 1]);
+                }
             }
-        }
-        else
-        {
-            cellArray.add(grid[x][y]);
-            if (x - 1 >= 0)
+            else
             {
-                cellArray.add(grid[x - 1][y]);
+                cellArray.add(grid[x][y]);
+                if (x - 1 >= 0)
+                {
+                    cellArray.add(grid[x - 1][y]);
+                }
             }
         }
         return cellArray;
@@ -398,11 +404,13 @@ public class Maze
                     continue;
                 }
 
-                if (!open.contains(poss) || tentativeFScore < fScores.get(poss)) {
+                if (!open.contains(poss) || tentativeFScore < fScores.get(poss))
+                {
                     cameFrom.put(poss, current);
                     gScores.put(poss, tentativeGScore);
                     fScores.put(poss, tentativeFScore);
-                    if (!open.contains(poss)) {
+                    if (!open.contains(poss))
+                    {
                         open.add(poss);
                     }
                 }
@@ -412,11 +420,18 @@ public class Maze
         return null;
     }
 
-    private LinkedList<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell current) {
+
+    private LinkedList<Cell> reconstructPath(
+        Map<Cell, Cell> cameFrom,
+        Cell current)
+    {
         LinkedList<Cell> ret;
-        if (cameFrom.containsKey(current)) {
+        if (cameFrom.containsKey(current))
+        {
             ret = reconstructPath(cameFrom, cameFrom.get(current));
-        } else {
+        }
+        else
+        {
             ret = new LinkedList<Cell>();
 
         }
@@ -445,5 +460,19 @@ public class Maze
     private double heuristicAStar(Cell a, Cell b)
     {
         return distBetween(a, b);
+    }
+
+
+    /**
+     * Finds if the cell is inside the bounds of this maze.
+     *
+     * @param c
+     *            The cell
+     * @return Whether it is in bounds or not.
+     */
+    public boolean inBounds(Cell c)
+    {
+        return c.getX() >= 0 && c.getX() < width() && c.getY() >= 0
+            && c.getY() < height();
     }
 }
