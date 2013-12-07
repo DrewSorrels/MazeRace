@@ -1,6 +1,15 @@
 package com.example.marblemaze;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 // -------------------------------------------------------------------------
 /**
@@ -10,7 +19,7 @@ import java.util.*;
  * @author Nick Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.06
+ * @version 2013.12.07
  */
 public class Maze
 {
@@ -357,7 +366,7 @@ public class Maze
     {
         Set<Cell> closed = new HashSet<Cell>();
         List<Cell> open = new ArrayList<Cell>();
-        Queue<Cell> path = new LinkedList<Cell>();
+        Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
 
         gScores = new HashMap<Cell, Double>();
         fScores = new HashMap<Cell, Double>();
@@ -371,18 +380,48 @@ public class Maze
             Collections.sort(open, new HeuristicComparator());
             Cell current = open.get(0);
 
-            if (current.equals(end)) {
-                return path;
+            if (current.equals(end))
+            {
+                return reconstructPath(cameFrom, current);
             }
 
             open.remove(current);
             closed.add(current);
-            for (Cell poss : current.getAccessibleNeighbors()) {
+            for (Cell poss : current.getAccessibleNeighbors())
+            {
+                double tentativeGScore = gScores.get(current) + 1;
+                double tentativeFScore =
+                    tentativeGScore + heuristicAStar(poss, end);
+                if (closed.contains(poss)
+                    && tentativeFScore > fScores.get(poss))
+                {
+                    continue;
+                }
 
+                if (!open.contains(poss) || tentativeFScore < fScores.get(poss)) {
+                    cameFrom.put(poss, current);
+                    gScores.put(poss, tentativeGScore);
+                    fScores.put(poss, tentativeFScore);
+                    if (!open.contains(poss)) {
+                        open.add(poss);
+                    }
+                }
             }
         }
 
-        return path;
+        return null;
+    }
+
+    private LinkedList<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell current) {
+        LinkedList<Cell> ret;
+        if (cameFrom.containsKey(current)) {
+            ret = reconstructPath(cameFrom, cameFrom.get(current));
+        } else {
+            ret = new LinkedList<Cell>();
+
+        }
+        ret.add(current);
+        return ret;
     }
 
 
@@ -396,9 +435,15 @@ public class Maze
     }
 
 
-    private double heuristicAStar(Cell a, Cell b)
+    private double distBetween(Cell a, Cell b)
     {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
             + Math.pow(a.getY() - b.getY(), 2));
+    }
+
+
+    private double heuristicAStar(Cell a, Cell b)
+    {
+        return distBetween(a, b);
     }
 }
