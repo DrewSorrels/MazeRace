@@ -54,7 +54,7 @@ public class MazeScreen
     @Override
     public void initialize()
     {
-        // setupSampleMaze();
+        //  setupSampleMaze();
         setupMaze();
         setupAddWalls();
         setupPhysics();
