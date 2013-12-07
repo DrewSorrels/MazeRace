@@ -40,7 +40,7 @@ public class MazeScreen
      * screen. As an example, if the screen is 1000 pixels high and the
      * coordinate system height is 25, one meter = 40 pixels.
      */
-    private static final int   COORDINATE_SYSTEM_HEIGHT = 25;
+    private static final int   COORDINATE_SYSTEM_HEIGHT = 15;
 
     /**
      * The amount of pixels in a meter based on the coordinate system height.

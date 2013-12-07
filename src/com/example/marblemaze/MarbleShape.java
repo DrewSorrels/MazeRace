@@ -21,7 +21,7 @@ public class MarbleShape
     extends OvalShape implements ObservableMazeComponent
 {
     private static final float DENSITY = 10f;
-    private static final float RADIUS = 0.4f;
+    private static final float RADIUS = 0.3f;
     private static final float FRICTION = 0.4f;
     private static final float RESTITUTION = 0.6f;
 
