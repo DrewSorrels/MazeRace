@@ -1,15 +1,10 @@
 package com.example.marblemaze;
 
-import java.util.Comparator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import com.example.marblemaze.observableevents.MarbleAddedEvent;
+import com.example.marblemaze.observableevents.MarbleRemovedEvent;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
+import java.util.*;
 
 // -------------------------------------------------------------------------
 /**
@@ -22,6 +17,8 @@ import java.util.Set;
  * @version 2013.12.07
  */
 public class Maze
+    extends Observable
+    implements Observer
 {
     private Cell[][]    grid;
     private List<Wall>  walls;
@@ -168,11 +165,11 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * finds all the walls surroudning a specific cell.
+     * finds all the walls surrounding a specific cell.
      *
      * @param example
      *            is the cell to be tested
-     * @return an arraylist of the walls surrounding the cell
+     * @return an ArrayList<Wall> of the walls surrounding the cell
      */
     public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
@@ -267,8 +264,10 @@ public class Maze
     {
         if (w == null)
         {
-            return w;
+            return null;
         }
+
+        notifyObservers(new WallRemovedEvent(w));
 
         walls.remove(w);
         return w;
@@ -314,6 +313,8 @@ public class Maze
     // ----------------------------------------------------------
     /**
      * makes certain cells Holes - only cells surounded on three sides by walls
+     *
+     * @todo notify observers!!
      */
     public void Hole()
     {
@@ -355,6 +356,12 @@ public class Maze
      */
     public void setMarble(MarbleShape marble)
     {
+        /*
+         * Notify observers with the old marble (so it can be removed) and the
+         * new marble so it can be added.
+         */
+        notifyObservers(new MarbleAddedEvent(this.marble, marble));
+
         this.marble = marble;
     }
 
@@ -398,11 +405,13 @@ public class Maze
                     continue;
                 }
 
-                if (!open.contains(poss) || tentativeFScore < fScores.get(poss)) {
+                if (!open.contains(poss) || tentativeFScore < fScores.get(poss))
+                {
                     cameFrom.put(poss, current);
                     gScores.put(poss, tentativeGScore);
                     fScores.put(poss, tentativeFScore);
-                    if (!open.contains(poss)) {
+                    if (!open.contains(poss))
+                    {
                         open.add(poss);
                     }
                 }
@@ -412,11 +421,18 @@ public class Maze
         return null;
     }
 
-    private LinkedList<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell current) {
+
+    private LinkedList<Cell> reconstructPath(
+        Map<Cell, Cell> cameFrom,
+        Cell current)
+    {
         LinkedList<Cell> ret;
-        if (cameFrom.containsKey(current)) {
+        if (cameFrom.containsKey(current))
+        {
             ret = reconstructPath(cameFrom, cameFrom.get(current));
-        } else {
+        }
+        else
+        {
             ret = new LinkedList<Cell>();
 
         }
@@ -445,5 +461,20 @@ public class Maze
     private double heuristicAStar(Cell a, Cell b)
     {
         return distBetween(a, b);
+    }
+
+
+    /**
+     * Handles updates from the MarbleShape (when it dies) or the walls when
+     * they are set to existent/nonexistent.
+     */
+    public void update(Observable obs, Object event)
+    {
+        if (event instanceof WallRemovedEvent
+            || event instanceof WallAddedEvent
+            || event instanceof MarbleRemovedEvent)
+        {
+            notifyObservers(event);
+        }
     }
 }
