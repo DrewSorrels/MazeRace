@@ -4,11 +4,9 @@ import sofia.util.Timer;
 
 public abstract class WeaponFactory
 {
-    private int   x;
-    private int   y;
-    private int   cooldown;
-
-    private Timer time;
+    private int  x;
+    private int  y;
+    private long cooldown;
 
 
     /**
@@ -21,27 +19,16 @@ public abstract class WeaponFactory
      * @param cd
      *            Cooldown for the weapon factory.
      */
-    public WeaponFactory(int x, int y, int cd)
+    public WeaponFactory(int x, int y, long cd)
     {
         this.x = x;
         this.y = y;
         cooldown = cd;
 
-        // time = new Timer(this, null, cd, cd);
+        Timer.callRepeatedly(this, "createBullet", cooldown);
     }
 
 
     public abstract void createBullet();
 
-
-    public void start()
-    {
-        time.start();
-    }
-
-
-    public void stop()
-    {
-        time.stop();
-    }
 }
