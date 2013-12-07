@@ -54,7 +54,7 @@ public class MazeScreen
     @Override
     public void initialize()
     {
-        // setupSampleMaze();
+        //  setupSampleMaze();
         setupMaze();
         setupAddWalls();
         setupPhysics();
@@ -108,10 +108,12 @@ public class MazeScreen
      */
     private void setupAddWalls()
     {
+        System.out.println("WAT");
         for (int i = 0; i < maze.width(); i++)
         {
             for (int j = 0; j < maze.height(); j++)
             {
+                System.out.println("WAT" + i + j);
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
