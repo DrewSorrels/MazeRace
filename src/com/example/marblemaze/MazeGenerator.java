@@ -89,14 +89,16 @@ public class MazeGenerator
         // While there are unvisited cells...
         while (!cells.isEmpty())
         {
-
+            System.out.println("HEEEEEEEEEEE");
             ArrayList<Cell> tempCells = new ArrayList<Cell>();
             if (sCells.size() > 0)
             {
+                System.out.println("sCells.size > 0");
                 tempCells = getUnvisitedNeighbors(sCells.peek());
             }
             if (tempCells.size() > 0)
             {
+                System.out.println("tempCells.size() > 0");
                 // If there are unvisited neighbors.
                 Cell currentCell =
                     tempCells.get((int)Math.random() * (tempCells.size() - 1));
@@ -116,11 +118,13 @@ public class MazeGenerator
             }
             else if (!sCells.isEmpty())
             {
+                System.out.println("sCells.isEmpty");
                 // Otherwise, pop it off the cell.
                 sCells.pop();
             }
             else
             {
+                System.out.println("else");
                 // If there aren't any cells left in the stack,
                 sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }
@@ -237,6 +241,7 @@ public class MazeGenerator
      *            The cell
      * @return a random cell around this cell.
      */
+    @SuppressWarnings("unused")
     private Cell getRandAdjCell(Cell c)
     {
         ArrayList<Cell> randCells = new ArrayList<Cell>();
