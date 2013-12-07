@@ -46,19 +46,16 @@ public class MazeChooserScreen
      */
     public void dfsClicked()
     {
-        if(normal.isChecked())
-        {
         Intent intent = new Intent(this, MazeScreen.class);
         intent.putExtra("algorithm", "dfs");
-        startActivity(intent);
-        }
-        else if (shadow.isChecked())
+        if (shadow.isChecked())
         {
-
+            intent.putExtra("gamemode", "shadow");
         }
         else if (action.isChecked())
         {
-
+            intent.putExtra("gamemode", "action");
         }
+        startActivity(intent);
     }
 }

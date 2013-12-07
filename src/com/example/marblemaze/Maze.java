@@ -1,7 +1,15 @@
 package com.example.marblemaze;
 
-import java.util.List;
+import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 // -------------------------------------------------------------------------
 /**
@@ -11,7 +19,7 @@ import java.util.ArrayList;
  * @author Nick Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.06
+ * @version 2013.12.07
  */
 public class Maze
 {
@@ -249,6 +257,26 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
+     * Removes w from list of walls.
+     *
+     * @param w
+     *            the wall
+     * @return the wall that was removed
+     */
+    public Wall removeWall(Wall w)
+    {
+        if (w == null)
+        {
+            return w;
+        }
+
+        walls.remove(w);
+        return w;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
      * @param a
      *            is the x-coordinate
      * @param b
@@ -330,4 +358,92 @@ public class Maze
         this.marble = marble;
     }
 
+    private Map<Cell, Double> gScores;
+    private Map<Cell, Double> fScores;
+
+
+    public Queue<Cell> solveAStar()
+    {
+        Set<Cell> closed = new HashSet<Cell>();
+        List<Cell> open = new ArrayList<Cell>();
+        Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
+
+        gScores = new HashMap<Cell, Double>();
+        fScores = new HashMap<Cell, Double>();
+
+        open.add(start);
+        gScores.put(start, 0d);
+        fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
+
+        while (open.size() > 0)
+        {
+            Collections.sort(open, new HeuristicComparator());
+            Cell current = open.get(0);
+
+            if (current.equals(end))
+            {
+                return reconstructPath(cameFrom, current);
+            }
+
+            open.remove(current);
+            closed.add(current);
+            for (Cell poss : current.getAccessibleNeighbors())
+            {
+                double tentativeGScore = gScores.get(current) + 1;
+                double tentativeFScore =
+                    tentativeGScore + heuristicAStar(poss, end);
+                if (closed.contains(poss)
+                    && tentativeFScore > fScores.get(poss))
+                {
+                    continue;
+                }
+
+                if (!open.contains(poss) || tentativeFScore < fScores.get(poss)) {
+                    cameFrom.put(poss, current);
+                    gScores.put(poss, tentativeGScore);
+                    fScores.put(poss, tentativeFScore);
+                    if (!open.contains(poss)) {
+                        open.add(poss);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private LinkedList<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell current) {
+        LinkedList<Cell> ret;
+        if (cameFrom.containsKey(current)) {
+            ret = reconstructPath(cameFrom, cameFrom.get(current));
+        } else {
+            ret = new LinkedList<Cell>();
+
+        }
+        ret.add(current);
+        return ret;
+    }
+
+
+    private class HeuristicComparator
+        implements Comparator<Cell>
+    {
+        public int compare(Cell a, Cell b)
+        {
+            return (int)Math.signum(fScores.get(a) - fScores.get(b));
+        }
+    }
+
+
+    private double distBetween(Cell a, Cell b)
+    {
+        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
+            + Math.pow(a.getY() - b.getY(), 2));
+    }
+
+
+    private double heuristicAStar(Cell a, Cell b)
+    {
+        return distBetween(a, b);
+    }
 }

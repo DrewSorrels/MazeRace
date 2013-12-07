@@ -9,6 +9,7 @@ import sofia.graphics.OvalShape;
  *  This marble is an oval shape that rolls around on the phone screen.
  *
  *  @author Dennis Lysenko (dlysenko)
+ *  @author Nicholas Kilmer (nkilmer8)
  *  @version 2013.12.06
  */
 
@@ -38,4 +39,12 @@ public class MarbleShape
         this.setRestitution(MarbleShape.RESTITUTION); // "bouncy-ness"
     }
 
+    // ----------------------------------------------------------
+    /**
+     * sets the gravity of the marble
+     */
+    public void setGravityToZero()
+    {
+        this.setGravityScale(0);
+    }
 }
