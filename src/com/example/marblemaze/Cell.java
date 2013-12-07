@@ -1,8 +1,11 @@
 package com.example.marblemaze;
 
 import android.graphics.RectF;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Cell is a helper class to make generating mazes easier. NOTE: Different from
@@ -13,6 +16,7 @@ import java.util.List;
  * @version 2013.12.06
  */
 public class Cell
+    extends Observable
 {
 
     private Wall[]  walls;
@@ -72,23 +76,30 @@ public class Cell
         return count;
     }
 
+
     /**
      * Returns a list of unobstructed cells adjacent to this one.
+     *
      * @return see literally one line up
      */
-    public List<Cell> getAccessibleNeighbors() {
+    public List<Cell> getAccessibleNeighbors()
+    {
         List<Cell> ret = new ArrayList<Cell>();
 
-        if (!walls[0].exists()) {
+        if (!walls[0].exists())
+        {
             ret.add(north());
         }
-        if (!walls[1].exists()) {
+        if (!walls[1].exists())
+        {
             ret.add(east());
         }
-        if (!walls[2].exists()) {
+        if (!walls[2].exists())
+        {
             ret.add(south());
         }
-        if (!walls[3].exists()) {
+        if (!walls[3].exists())
+        {
             ret.add(west());
         }
 
@@ -267,13 +278,33 @@ public class Cell
         return x == other.x && y == other.y;
     }
 
+
     // ----------------------------------------------------------
     /**
      * finds the bounds of the cell
+     *
      * @return a RectF with the specified lengths
      */
     public RectF getBounds()
     {
-        return new RectF(x,y,x+1,y+1);
+        return new RectF(x, y, x + 1, y + 1);
+    }
+
+
+    /**
+     * Handles updates from the walls when they are set to existent/nonexistent.
+     *
+     * @param obs
+     *            the object that was updated
+     * @param event
+     *            the type of event that happened
+     */
+    public void update(Observable obs, Object event)
+    {
+        if (event instanceof WallRemovedEvent
+            || event instanceof WallAddedEvent)
+        {
+            notifyObservers(event);
+        }
     }
 }

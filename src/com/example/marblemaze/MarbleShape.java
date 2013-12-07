@@ -1,8 +1,12 @@
 package com.example.marblemaze;
 
-import sofia.graphics.ShapeMotion;
+import java.util.Observable;
+import java.util.Observer;
+import com.example.marblemaze.observableevents.MarbleRemovedEvent;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import sofia.graphics.Color;
 import sofia.graphics.OvalShape;
+import sofia.graphics.ShapeMotion;
 
 // -------------------------------------------------------------------------
 /**
@@ -14,12 +18,14 @@ import sofia.graphics.OvalShape;
  */
 
 public class MarbleShape
-    extends OvalShape
+    extends OvalShape implements ObservableMazeComponent
 {
     private static final float DENSITY = 10f;
     private static final float RADIUS = 0.3f;
     private static final float FRICTION = 0.4f;
     private static final float RESTITUTION = 0.6f;
+
+    private Observable observable;
 
 
     // ----------------------------------------------------------
@@ -31,6 +37,9 @@ public class MarbleShape
     public MarbleShape(float x, float y)
     {
         super(x, y, MarbleShape.RADIUS);
+
+        this.observable = new Observable();
+
         this.setDensity(MarbleShape.DENSITY);
         this.setFillColor(Color.gray);
         this.setColor(Color.black);
@@ -46,5 +55,21 @@ public class MarbleShape
     public void setGravityToZero()
     {
         this.setGravityScale(0);
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+        notifyObservers(new MarbleRemovedEvent(this));
+    }
+
+    public void addObserver(Observer obs)
+    {
+        observable.addObserver(obs);
+    }
+
+    public void notifyObservers(Object arg)
+    {
+        observable.notifyObservers(arg);
     }
 }

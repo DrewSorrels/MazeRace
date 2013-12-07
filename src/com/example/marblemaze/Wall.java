@@ -1,6 +1,11 @@
 package com.example.marblemaze;
 
 import android.graphics.RectF;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
+import java.util.Observable;
+import java.util.Observer;
 import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 
@@ -10,17 +15,21 @@ import sofia.graphics.RectangleShape;
  *
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.06
+ * @version 2013.12.07
  */
 public class Wall
     extends RectangleShape
+    implements ObservableMazeComponent
 {
-    private float   xStart;
-    private float   yStart;
-    private float   height;
-    private float   width;
-    private boolean horizontal;
-    private boolean exists;
+    private float      xStart;
+    private float      yStart;
+    private float      height;
+    private float      width;
+    private boolean    horizontal;
+    private boolean    exists;
+
+    private Observable observable;
+
 
     /**
      * Default constructor for a wall.
@@ -44,6 +53,9 @@ public class Wall
     public Wall(float x, float y, boolean horizontal)
     {
         super();
+
+        this.observable = new Observable();
+
         xStart = x;
         yStart = y;
         this.horizontal = horizontal;
@@ -66,6 +78,7 @@ public class Wall
     public void destroyWall()
     {
         exists = false;
+        notifyObservers(new WallRemovedEvent(this));
     }
 
 
@@ -77,7 +90,21 @@ public class Wall
      */
     public void setWall(boolean value)
     {
+        if (exists == value)
+        {
+            return; // so that we don't unnecessarily notify observers
+        }
+
         exists = value;
+
+        if (exists)
+        {
+            notifyObservers(new WallAddedEvent(this));
+        }
+        else
+        {
+            notifyObservers(new WallRemovedEvent(this));
+        }
     }
 
 
@@ -138,6 +165,11 @@ public class Wall
             height = 3;
             width = 0.8f;
         }
+
+        // Sort of a hackaround to re-add the wall to the MazeScreen
+        // to reflect its new bounds
+        notifyObservers(new WallRemovedEvent(this));
+        notifyObservers(new WallAddedEvent(this));
     }
 
 
@@ -182,6 +214,18 @@ public class Wall
     public float getHeight()
     {
         return height;
+    }
+
+
+    public void addObserver(Observer obs)
+    {
+        observable.addObserver(obs);
+    }
+
+
+    public void notifyObservers(Object arg)
+    {
+        observable.notifyObservers(arg);
     }
 
 }

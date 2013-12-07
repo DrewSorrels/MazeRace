@@ -1,15 +1,10 @@
 package com.example.marblemaze;
 
-import java.util.Comparator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import com.example.marblemaze.observableevents.MarbleAddedEvent;
+import com.example.marblemaze.observableevents.MarbleRemovedEvent;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
+import java.util.*;
 
 // -------------------------------------------------------------------------
 /**
@@ -22,6 +17,8 @@ import java.util.Set;
  * @version 2013.12.07
  */
 public class Maze
+    extends Observable
+    implements Observer
 {
     private Cell[][]    grid;
     private List<Wall>  walls;
@@ -44,6 +41,10 @@ public class Maze
     {
         start = new Cell(0, 0);
         end = new Cell(width - 1, height - 1);
+
+        start.addObserver(this);
+        end.addObserver(this);
+
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
 
@@ -53,6 +54,7 @@ public class Maze
             for (int a = 0; a < height; a++)
             {
                 grid[i][a] = new Cell(i, a);
+                grid[i][a].addObserver(this);
                 temp.addAll(grid[i][a].getWalls());
                 // Iterate over each of the walls to add it to the list of walls
                 // if a wall at that position and orientation isn't already
@@ -171,11 +173,11 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * finds all the walls surroudning a specific cell.
+     * finds all the walls surrounding a specific cell.
      *
      * @param example
      *            is the cell to be tested
-     * @return an arraylist of the walls surrounding the cell
+     * @return an ArrayList<Wall> of the walls surrounding the cell
      */
     public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
@@ -272,8 +274,10 @@ public class Maze
     {
         if (w == null)
         {
-            return w;
+            return null;
         }
+
+        notifyObservers(new WallRemovedEvent(w));
 
         walls.remove(w);
         return w;
@@ -320,6 +324,7 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
+     * @todo notify observers!!
      * makes certain cells Holes - only cells surrounded on three sides by walls
      */
     public void Hole()
@@ -362,7 +367,14 @@ public class Maze
      */
     public void setMarble(MarbleShape marble)
     {
+        /*
+         * Notify observers with the old marble (so it can be removed) and the
+         * new marble so it can be added.
+         */
+        notifyObservers(new MarbleAddedEvent(this.marble, marble));
+
         this.marble = marble;
+        marble.addObserver(this);
     }
 
     private Map<Cell, Double> gScores;
@@ -467,6 +479,22 @@ public class Maze
         return distBetween(a, b);
     }
 
+
+    /**
+     * Handles updates from the MarbleShape (when it dies) or the walls when
+     * they are set to existent/nonexistent.
+     * @param obs the object that was updated
+     * @param event the type of event that happened
+     */
+    public void update(Observable obs, Object event)
+    {
+        if (event instanceof WallRemovedEvent
+            || event instanceof WallAddedEvent
+            || event instanceof MarbleRemovedEvent)
+        {
+            notifyObservers(event);
+        }
+    }
 
     /**
      * Finds if the cell is inside the bounds of this maze.

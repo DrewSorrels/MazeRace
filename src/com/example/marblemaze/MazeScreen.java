@@ -6,6 +6,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import com.example.marblemaze.observableevents.MarbleAddedEvent;
+import com.example.marblemaze.observableevents.MarbleRemovedEvent;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
+import java.util.Observable;
+import java.util.Observer;
 import sofia.app.ShapeScreen;
 import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
@@ -21,7 +27,7 @@ import sofia.graphics.RectangleShape;
 
 public class MazeScreen
     extends ShapeScreen
-    implements SensorEventListener
+    implements SensorEventListener, Observer
 {
     /**
      * The coefficient by which the accelerometer's built in motion sensor
@@ -54,9 +60,9 @@ public class MazeScreen
     @Override
     public void initialize()
     {
-        //  setupSampleMaze();
+        // setupSampleMaze();
         setupMaze();
-        setupAddWalls();
+        // setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
@@ -100,6 +106,7 @@ public class MazeScreen
         }
 
         maze = mazeGen.getMaze();
+        maze.addObserver(this);
     }
 
 
@@ -146,7 +153,6 @@ public class MazeScreen
     {
         MarbleShape squishy = new MarbleShape(15, 15);
 
-        add(squishy);
         maze.setMarble(squishy);
     }
 
@@ -305,6 +311,32 @@ public class MazeScreen
     public int getCoordinateSystemWidth()
     {
         return (int)(getWidth() / pixelsPerMeter);
+    }
+
+
+    public void update(Observable obs, Object event)
+    {
+        if (event instanceof WallRemovedEvent)
+        {
+            ((WallRemovedEvent)event).getWall().remove();
+        }
+        if (event instanceof WallAddedEvent)
+        {
+            add(((WallRemovedEvent)event).getWall());
+        }
+        if (event instanceof MarbleAddedEvent)
+        {
+            MarbleAddedEvent maEvent = (MarbleAddedEvent)event;
+            if (maEvent.getOldMarble() != null)
+            {
+                maEvent.getOldMarble().remove();
+            }
+            add(maEvent.getNewMarble());
+        }
+        if (event instanceof MarbleRemovedEvent)
+        {
+            ((MarbleRemovedEvent)event).getMarble().remove();
+        }
     }
 
 }
