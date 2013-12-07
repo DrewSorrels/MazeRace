@@ -1,4 +1,4 @@
-package com.example.marblemaze;
+package Weapons;
 
 import sofia.graphics.Shape;
 
@@ -22,7 +22,7 @@ public interface Bullet
      * @param x is the x velocity
      * @param y is the y velocity
      */
-    public abstract void move(int x, int y);
+    void move(int x, int y);
 
     // ----------------------------------------------------------
     /**
@@ -30,7 +30,7 @@ public interface Bullet
      * @param marble is the marble
      * @param bullet is the bullet
      */
-    public abstract void onCollisionBetween(Shape marble, Shape bullet);
+    void onCollisionBetween(Shape marble, Shape bullet);
 
 
 
