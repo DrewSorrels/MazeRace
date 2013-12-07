@@ -20,8 +20,8 @@ public class MazeGenerator
 
     private Maze             maze;
 
-    private static final int MAZE_WIDTH  = 5;
-    private static final int MAZE_HEIGHT = 5;
+    private static final int MAZE_WIDTH  = 15;
+    private static final int MAZE_HEIGHT = 15;
 
 
     /**
@@ -103,7 +103,7 @@ public class MazeGenerator
                 System.out.println("tempCells.size()" + tempCells.size());
                 // If there are unvisited neighbors.
                 Cell currentCell =
-                    tempCells.get((int)Math.random() * (tempCells.size() - 1));
+                    tempCells.get((int)Math.floor(Math.random() * (tempCells.size() - 1) + 0.5));
 
                 // Destroy the wall between 2 cells.
                 Wall betweenCells =
@@ -113,10 +113,9 @@ public class MazeGenerator
 
                 // Add currentCell to the stack and visit it. Remove it from
                 // unvisited cells list.
-                if (cells.contains(currentCell))
-                {
-                    sCells.push(currentCell);
-                }
+
+                sCells.push(currentCell);
+
                 currentCell.visitCell();
 
                 cells.remove(currentCell);
@@ -273,21 +272,33 @@ public class MazeGenerator
     {
         ArrayList<Cell> adjCells = new ArrayList<Cell>();
 
-        if (!c.east().isVisited() && maze.inBounds(c.east()))
+        if (maze.inBounds(c.east()))
         {
-            adjCells.add(maze.getCell(c.east().getX(), c.east().getY()));
+            if (!maze.getCell(c.east().getX(), c.east().getY()).isVisited())
+            {
+                adjCells.add(maze.getCell(c.east().getX(), c.east().getY()));
+            }
         }
-        if (!c.west().isVisited() && maze.inBounds(c.west()))
+        if (maze.inBounds(c.west()))
         {
-            adjCells.add(maze.getCell(c.west().getX(), c.west().getY()));
+            if (!maze.getCell(c.west().getX(), c.west().getY()).isVisited())
+            {
+                adjCells.add(maze.getCell(c.west().getX(), c.west().getY()));
+            }
         }
-        if (!c.north().isVisited() && maze.inBounds(c.north()))
+        if (maze.inBounds(c.north()))
         {
-            adjCells.add(maze.getCell(c.north().getX(), c.north().getY()));
+            if (!maze.getCell(c.north().getX(), c.north().getY()).isVisited())
+            {
+                adjCells.add(maze.getCell(c.north().getX(), c.north().getY()));
+            }
         }
-        if (!c.south().isVisited() && maze.inBounds(c.south()))
+        if (maze.inBounds(c.south()))
         {
-            adjCells.add(maze.getCell(c.south().getX(), c.south().getY()));
+            if (!maze.getCell(c.south().getX(), c.south().getY()).isVisited())
+            {
+                adjCells.add(maze.getCell(c.south().getX(), c.south().getY()));
+            }
         }
 
         return adjCells;

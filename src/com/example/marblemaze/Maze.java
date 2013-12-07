@@ -28,7 +28,7 @@ public class Maze
     private Cell        start;
     private Cell        end;
     private MarbleShape marble;
-    private List<Hole> holes;
+    private List<Hole>  holes;
 
 
     // ----------------------------------------------------------
@@ -290,7 +290,9 @@ public class Maze
      */
     public Cell getCell(int a, int b)
     {
+
         return grid[a][b];
+
     }
 
 
@@ -477,5 +479,12 @@ public class Maze
     {
         return c.getX() >= 0 && c.getX() < width() && c.getY() >= 0
             && c.getY() < height();
+    }
+
+
+    public boolean inBounds(int x, int y)
+    {
+        return inBounds(new Cell(x, y));
+
     }
 }
