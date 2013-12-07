@@ -28,6 +28,7 @@ public class Maze
     private Cell        start;
     private Cell        end;
     private MarbleShape marble;
+    private List<Hole> holes;
 
 
     // ----------------------------------------------------------
@@ -178,8 +179,6 @@ public class Maze
      */
     public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
-        int x = example.getX();
-        int y = example.getY();
         ArrayList<Wall> wallArray = new ArrayList<Wall>();
         System.out.println("Walls size: " + walls.size());
         for (Wall w : walls)
@@ -319,7 +318,7 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * makes certain cells Holes - only cells surounded on three sides by walls
+     * makes certain cells Holes - only cells surrounded on three sides by walls
      */
     public void Hole()
     {
@@ -331,7 +330,7 @@ public class Maze
                 {
                     if (Math.random() < .2)
                     {
-                        grid[i][j].makeHole();
+                        holes.add(new Hole(grid[i][j].getBounds()));
                     }
 
                 }
@@ -368,6 +367,10 @@ public class Maze
     private Map<Cell, Double> fScores;
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return a Queue representing the shortest path to solve a maze
+     */
     public Queue<Cell> solveAStar()
     {
         Set<Cell> closed = new HashSet<Cell>();
