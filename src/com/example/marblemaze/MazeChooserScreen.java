@@ -9,13 +9,13 @@ import sofia.app.Screen;
  * /** Select the maze generation algorithm.
  *
  * @author Drew Sorrels (amsorr), Dennis Lysenko (dlysenko)
+ * @author Nicholad Kilmer (nkilmer8)
  * @version 2013.12.03
  */
 public class MazeChooserScreen
     extends Screen
 {
     private RadioButton shadow;
-    private RadioButton normal;
     private RadioButton action;
 
 

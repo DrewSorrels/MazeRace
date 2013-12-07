@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import android.graphics.RectF;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class Cell
     private Wall[]  walls;
     private int     x;
     private int     y;
-    private boolean isHole;
     private boolean visited;
 
 
@@ -50,7 +50,6 @@ public class Cell
                 walls[i] = new Wall(x, y + 1, i % 2 == 0);
             }
         }
-        isHole = false;
 
     }
 
@@ -236,28 +235,6 @@ public class Cell
     }
 
 
-    // ----------------------------------------------------------
-    /**
-     * determines if the cell is a hole
-     *
-     * @return boolean isTrue
-     */
-    public boolean isHole()
-    {
-        return isHole;
-    }
-
-
-    // ----------------------------------------------------------
-    /**
-     * sets the cell to be a hole
-     */
-    public void makeHole()
-    {
-        isHole = true;
-    }
-
-
     /**
      * Visits the cell.
      */
@@ -287,5 +264,15 @@ public class Cell
         }
         Cell other = (Cell)obj;
         return x == other.x && y == other.y;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * finds the bounds of the cell
+     * @return a RectF with the specified lengths
+     */
+    public RectF getBounds()
+    {
+        return new RectF(x,y,x+1,y+1);
     }
 }
