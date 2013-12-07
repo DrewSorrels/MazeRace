@@ -1,7 +1,8 @@
-package com.example.marblemaze;
+package Weapons;
 
 
 
+import com.example.marblemaze.MarbleShape;
 import sofia.graphics.RectangleShape;
 import sofia.graphics.Shape;
 

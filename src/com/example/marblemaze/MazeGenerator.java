@@ -33,10 +33,6 @@ public class MazeGenerator
         cellWalls = new ArrayList<Wall>();
         cells = new ArrayList<Cell>();
 
-        cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
-// walls
-// around startPoint
-
         sCells = new Stack<Cell>();
     }
 
@@ -138,10 +134,17 @@ public class MazeGenerator
      */
     public void primMaze()
     {
+        cellWalls.addAll(maze.getAdjacentWalls(maze.getCell(0, 0))); // All
+        // walls around startPoint
+
+        System.out.println("Added walls");
         while (!cellWalls.isEmpty())
         {
             int randWall =
                 (int)Math.floor(Math.random() * (cellWalls.size() - 1) + 0.5);
+            // Efficient random int
+            System.out.println("Rand wall" + randWall);
+
             List<Cell> cAdjCells = new ArrayList<Cell>();
             cAdjCells.addAll(maze.getAdjacentCells(cellWalls.get(randWall)));
 
@@ -227,26 +230,31 @@ public class MazeGenerator
     }
 
 
-    // /**
-    // * Returns a random cell adjacent to the supplied cell.
-    // *
-    // * @param c
-    // * The cell
-    // * @return a random cell around this cell.
-    // */
-    // private Cell getRandAdjCell(Cell c)
-    // {
-    // cells.clear(); // Clear cell list to make sure there are not any cells
-    // // in it.
-    // int wIndex = c.getRandomWallIndex();
-    // Wall w = maze.getWallFromCell(c, wIndex);
-    // cells.addAll(maze.getAdjacentCells(w));
-    // // Add them all to the cell list and find a random one.
-    // Cell randCell = cells.get((int)Math.random() * (cells.size() - 1));
-    // cells.clear(); // Clear cell list.
-    //
-    // return randCell;
-    // }
+    /**
+     * Returns a random cell adjacent to the supplied cell.
+     *
+     * @param c
+     *            The cell
+     * @return a random cell around this cell.
+     */
+    private Cell getRandAdjCell(Cell c)
+    {
+        ArrayList<Cell> randCells = new ArrayList<Cell>();
+
+        randCells.clear();
+        // Clear cell list to make sure there are not any cells in it.
+        int wIndex = c.getRandomWallIndex();
+        Wall w = maze.getWallFromCell(c, wIndex);
+        randCells.addAll(maze.getAdjacentCells(w));
+        // Add them all to the cell list and find a random one.
+
+        Cell randCell = randCells.get((int)Math.random() * (cells.size() - 1));
+        randCells.clear(); // Clear cell list.
+
+        return randCell;
+    }
+
+
     /**
      * Returns list of all unvisited neighbors.
      *
