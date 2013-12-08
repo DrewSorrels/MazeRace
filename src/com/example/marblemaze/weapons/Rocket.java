@@ -1,12 +1,12 @@
 package com.example.marblemaze.weapons;
 
-import com.example.marblemaze.observableevents.BulletRemovedEvent;
-import com.example.marblemaze.observableevents.MarbleRemovedEvent;
-import java.util.Observer;
-import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import android.graphics.RectF;
-import sofia.graphics.Color;
 import com.example.marblemaze.MarbleShape;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
+import java.util.Observer;
+import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 import sofia.graphics.Shape;
 
@@ -77,6 +77,7 @@ public class Rocket
         {
             setBounds(new RectF(x, y, x - xExtent, y + yExtent));
         }
+        notifyObservers(new BulletAddedEvent(this));
 
     }
 
@@ -91,6 +92,8 @@ public class Rocket
      */
     public void move(float x, float y)
     {
+        System.out.println("MOVING in dir: " + direction + "(" + this.getX()
+            + ", " + this.getY());
         switch (direction)
         {
             case 0:

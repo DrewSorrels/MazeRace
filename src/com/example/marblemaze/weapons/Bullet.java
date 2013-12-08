@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import java.util.Observer;
 import sofia.graphics.Shape;
 
 
@@ -39,4 +40,22 @@ public interface Bullet
      */
     Shape getShape();
 
+    // ----------------------------------------------------------
+    /**
+     * Adds an observer that would like to be notified of changes to this wall.
+     *
+     * @param obs
+     *            the observer in question
+     */
+    void addObserver(Observer obs);
+
+
+    // ----------------------------------------------------------
+    /**
+     * Notifies all of the given observers that a change has been made.
+     *
+     * @param arg
+     *            information about the change that was made
+     */
+    void notifyObservers(Object arg);
 }

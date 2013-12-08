@@ -1,6 +1,7 @@
 package com.example.marblemaze.weapons;
 
-import sofia.util.Timer;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import sofia.graphics.Color;
 
 // -------------------------------------------------------------------------
@@ -14,9 +15,11 @@ public class RocketSpawner
     extends WeaponSpawner
 {
 
-    private int direction;
-    private int x;
-    private int y;
+    private int                     direction;
+    private int                     x;
+    private int                     y;
+
+    private ObservableMazeComponent observer;
 
 
     // ----------------------------------------------------------
@@ -37,9 +40,10 @@ public class RocketSpawner
         this.y = y;
         direction = 1;
 
+        observer = new ObservableMazeComponent();
+
         this.setFillColor(Color.red);
         this.setColor(Color.greenYellow);
-        Timer.callRepeatedly(this, "createBullet", cd);
     }
 
 
@@ -55,6 +59,7 @@ public class RocketSpawner
         {
             b.move(0.2f, 0);
         }
+        notifyObservers(new BulletAddedEvent(b));
         return b;
     }
 

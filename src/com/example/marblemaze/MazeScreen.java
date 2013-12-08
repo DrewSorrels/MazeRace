@@ -1,7 +1,6 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.observableevents.BulletAddedEvent;
-import com.example.marblemaze.observableevents.BulletRemovedEvent;
+import com.example.marblemaze.weapons.Bullet;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,6 +9,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.WindowManager;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
@@ -22,6 +23,7 @@ import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
 import sofia.graphics.RectangleShape;
+import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
@@ -170,9 +172,10 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(13, 16, 1000));
+        spawners.add(new LaserSpawner(16, 13, 1000));
         for (WeaponSpawner w : spawners)
         {
+            w.addObserver(this);
             add(w);
         }
     }
@@ -340,7 +343,10 @@ public class MazeScreen
         if (event instanceof BulletAddedEvent)
         {
             System.out.println("bullet added");
-            add(((BulletAddedEvent)event).getBullet().getShape());
+            Bullet b = ((BulletAddedEvent)event).getBullet();
+            add(b.getShape());
+            b.getShape().applyLinearImpulse(40,0);
+            b.move(0.4f, 0);
         }
         if (event instanceof HoleAddedEvent)
         {

@@ -1,7 +1,7 @@
 package com.example.marblemaze.weapons;
 
+import com.example.marblemaze.observableevents.BulletAddedEvent;
 import sofia.graphics.Color;
-import sofia.util.Timer;
 
 /**
  * // -------------------------------------------------------------------------
@@ -38,22 +38,22 @@ public class LaserSpawner
 
         this.setFillColor(Color.red);
         this.setColor(Color.greenYellow);
-        Timer.callRepeatedly(this, "createBullet", cd);
     }
 
 
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Laser(x, y, direction);
+        Bullet b = new Laser(x + 1.5f, y, direction);
         if (direction % 2 == 0)
         {
-            b.move(0, 0.2f);
+            b.move(0, 0.4f);
         }
         else
         {
-            b.move(0.2f, 0);
+            b.move(0.4f, 0);
         }
+        notifyObservers(new BulletAddedEvent(b));
         return b;
     }
 
