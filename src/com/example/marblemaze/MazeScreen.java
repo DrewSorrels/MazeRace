@@ -1,7 +1,5 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.observableevents.BulletAddedEvent;
-import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,11 +8,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.WindowManager;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.weapons.Bullet;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
 import java.util.ArrayList;
@@ -92,6 +93,7 @@ public class MazeScreen
     private void setupMaze()
     {
         mazeGen = new MazeGenerator();
+
         String algorithm = getIntent().getExtras().getString("algorithm");
 
         if (algorithm.equals("prim"))
@@ -104,15 +106,9 @@ public class MazeScreen
         }
 
         maze = mazeGen.getMaze();
-        maze.addObserver(this);
 
+        maze.addObserver(this);
         maze.addHoles();
-        // The following loop is needed b/c for some reason the holes never
-        // notify their observers when they are added
-//        for (Hole h : maze.getHoles()) {
-//            add(h);
-//            add(h.getCollisionHole());
-//        }
     }
 
 
@@ -168,9 +164,10 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(13, 16, 1000));
+        spawners.add(new LaserSpawner(16, 13, 1000));
         for (WeaponSpawner w : spawners)
         {
+            w.addObserver(this);
             add(w);
         }
     }
@@ -270,7 +267,14 @@ public class MazeScreen
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
         setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
-        maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
+        try
+        {
+            maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
+        }
+        catch (NullPointerException npe)
+        {
+            // Marble not on screen, don't bother with anything
+        }
     }
 
 
@@ -326,7 +330,9 @@ public class MazeScreen
         if (event instanceof MarbleRemovedEvent)
         {
             System.out.println("marbleremoved");
-            ((MarbleRemovedEvent)event).getMarble().remove();
+            // ((MarbleRemovedEvent)event).getMarble().remove();
+            Intent intent = new Intent(this, LossScreen.class);
+            startActivity(intent);
         }
         if (event instanceof BulletRemovedEvent)
         {
@@ -336,7 +342,10 @@ public class MazeScreen
         if (event instanceof BulletAddedEvent)
         {
             System.out.println("bullet added");
-            add(((BulletAddedEvent)event).getBullet().getShape());
+            Bullet b = ((BulletAddedEvent)event).getBullet();
+            add(b.getShape());
+            b.getShape().applyLinearImpulse(40, 0);
+            b.move(0.4f, 0);
         }
         if (event instanceof HoleAddedEvent)
         {
