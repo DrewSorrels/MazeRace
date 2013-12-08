@@ -1,5 +1,7 @@
 package com.example.marblemaze.weapons;
 
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
+import java.util.Observer;
 import sofia.graphics.RectangleShape;
 import sofia.util.Timer;
 
@@ -13,9 +15,11 @@ import sofia.util.Timer;
 public abstract class WeaponSpawner
     extends RectangleShape
 {
-    private int  x;
-    private int  y;
-    private long cooldown;
+    private int                     x;
+    private int                     y;
+    private long                    cooldown;
+
+    private ObservableMazeComponent observer;
 
 
     /**
@@ -34,12 +38,39 @@ public abstract class WeaponSpawner
         this.x = x;
         this.y = y;
         cooldown = cd;
+        observer = new ObservableMazeComponent();
 
-//        Timer.callRepeatedly(this, "createBullet", cooldown);
+        Timer.callRepeatedly(this, "createBullet", cooldown);
 
     }
 
 
     public abstract Bullet createBullet();
+
+
+    // ----------------------------------------------------------
+    /**
+     * Adds an observer that would like to be notified of changes to this wall.
+     *
+     * @param obs
+     *            the observer in question
+     */
+    public void addObserver(Observer obs)
+    {
+        observer.addObserver(obs);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Notifies all of the given observers that a change has been made.
+     *
+     * @param arg
+     *            information about the change that was made
+     */
+    public void notifyObservers(Object arg)
+    {
+        observer.notifyObservers(arg);
+    }
 
 }

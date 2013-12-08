@@ -1,8 +1,8 @@
 package com.example.marblemaze.weapons;
 
-
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
 import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import java.util.Observer;
@@ -23,7 +23,7 @@ public class Laser
     implements Bullet
 {
     private static final float      DENSITY     = 10f;
-    private static final float      FRICTION    = 0.4f;
+    private static final float      FRICTION    = 0.0f;
     private static final float      RESTITUTION = 0.0f;
 
     private int                     direction;
@@ -55,7 +55,7 @@ public class Laser
 
         this.direction = dir;
         // Set up bounds
-        float iShort = 0.1f;
+        float iShort = 0.05f;
         float iLong = 1.1f;
         float xExtent = dir % 2 == 0 ? iShort : iLong;
         float yExtent = dir % 2 == 0 ? iLong : iShort;
@@ -78,6 +78,8 @@ public class Laser
         {
             setBounds(new RectF(x, y, x - xExtent, y + yExtent));
         }
+
+        notifyObservers(new BulletAddedEvent(this));
     }
 
 
@@ -91,6 +93,8 @@ public class Laser
      */
     public void move(float x, float y)
     {
+        System.out.println("MOVING in dir: " + direction + "(" + this.getX()
+            + ", " + this.getY());
         switch (direction)
         {
             case 0:
