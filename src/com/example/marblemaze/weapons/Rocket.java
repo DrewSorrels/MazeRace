@@ -40,7 +40,7 @@ public class Rocket
         super();
         this.setBullet(true);
 
-        this.setColor(Color.red);
+        this.setColor(Color.blue);
         this.setFriction(Rocket.FRICTION);
         this.setRestitution(Rocket.RESTITUTION);
         this.setDensity(Rocket.DENSITY);
