@@ -2,7 +2,6 @@ package com.example.marblemaze;
 
 import android.content.Intent;
 import android.widget.Button;
-import cs2114.restaurant.RestaurantScreen;
 
 // -------------------------------------------------------------------------
 /**
@@ -43,6 +42,6 @@ public class TitleScreenTests
     public void testScreen()
     {
         prepareForUpcomingActivity(Intent.ACTION_VIEW);
-        click(startButton);
+        click(startGame);
     }
 }
