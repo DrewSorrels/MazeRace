@@ -41,6 +41,7 @@ public class Rocket
         this.setBullet(true);
 
         this.setColor(Color.blue);
+        this.setFillColor(Color.blue);
         this.setFriction(Rocket.FRICTION);
         this.setRestitution(Rocket.RESTITUTION);
         this.setDensity(Rocket.DENSITY);
@@ -84,8 +85,23 @@ public class Rocket
      */
     public void move(float x, float y)
     {
-        this.applyLinearImpulse(x, y);
-
+        switch (direction)
+        {
+            case 0:
+                this.setLinearVelocity(0, -y);
+                break;
+            case 1:
+                this.setLinearVelocity(x, 0);
+                break;
+            case 2:
+                this.setLinearVelocity(0, y);
+                break;
+            case 3:
+                this.setLinearVelocity(-x, 0);
+                break;
+            default:
+                break;
+        }
     }
 
 
