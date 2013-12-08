@@ -15,10 +15,14 @@ public class RocketSpawner
     extends WeaponSpawner
 {
 
-    private int                     direction;
-    private int                     x;
-    private int                     y;
+    private int                       direction;
+    private int                       x;
+    private int                       y;
 
+    /**
+     * Used to notify the screen when it creates new rockets.
+     */
+    protected ObservableMazeComponent observer;
 
 
     // ----------------------------------------------------------
