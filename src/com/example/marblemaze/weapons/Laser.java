@@ -46,7 +46,7 @@ public class Laser
     public Laser(float x, float y, int dir)
     {
         super();
-//        this.setBullet(true);
+        this.setBullet(true);
         this.observable = new ObservableMazeComponent();
 
         this.setColor(Color.red);
@@ -80,7 +80,6 @@ public class Laser
         {
             setBounds(new RectF(x, y, x - xExtent, y + yExtent));
         }
-
         notifyObservers(new BulletAddedEvent(this));
     }
 

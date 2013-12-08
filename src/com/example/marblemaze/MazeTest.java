@@ -9,7 +9,7 @@ import student.TestCase;
  * @author Nicholas Kilmer (nkilmer8)
  * @version 2013.12.08
  */
-public class TestMaze
+public class MazeTest
     extends TestCase
 {
     private Maze test;
