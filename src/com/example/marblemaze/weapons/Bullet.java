@@ -1,5 +1,7 @@
 package com.example.marblemaze.weapons;
 
+import sofia.graphics.Shape;
+
 
 // -------------------------------------------------------------------------
 /**
