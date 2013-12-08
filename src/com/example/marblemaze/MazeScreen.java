@@ -30,7 +30,7 @@ import sofia.graphics.Shape;
  * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.06
+ * @version 2013.12.08
  */
 
 public class MazeScreen
@@ -108,6 +108,12 @@ public class MazeScreen
         maze.addObserver(this);
 
         maze.addHoles();
+        // The following loop is needed b/c for some reason the holes never
+        // notify their observers when they are added
+//        for (Hole h : maze.getHoles()) {
+//            add(h);
+//            add(h.getCollisionHole());
+//        }
     }
 
 
@@ -195,8 +201,8 @@ public class MazeScreen
     private void setupUi()
     {
         // pause button is 56x40
-        float pauseWidth = 1 * 56 / 40f;
-        float pauseHeight = 1;
+        float pauseHeight = 2;
+        float pauseWidth = pauseHeight * 56 / 40f;
         pauseButton =
             new RectangleShape(
                 getCoordinateSystemWidth() - pauseWidth,
@@ -299,7 +305,6 @@ public class MazeScreen
 
     public void update(Observable obs, Object event)
     {
-        System.out.println("observer updated");
         if (event instanceof WallRemovedEvent)
         {
             System.out.println("wallremoved");
