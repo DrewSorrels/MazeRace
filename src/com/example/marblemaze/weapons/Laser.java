@@ -87,21 +87,21 @@ public class Laser
         switch (direction)
         {
             case 0:
-                this.applyLinearImpulse(x, -y);
+                this.setLinearVelocity(0, -y);
                 break;
             case 1:
-                this.applyLinearImpulse(x, y);
+                this.setLinearVelocity(x, 0);
                 break;
             case 2:
-                this.applyLinearImpulse(x, y);
+                this.setLinearVelocity(0, y);
                 break;
             case 3:
-                this.applyLinearImpulse(-x, y);
+                this.setLinearVelocity(-x, 0);
                 break;
             default:
                 break;
         }
-        this.applyLinearImpulse(x, y);
+
     }
 
 

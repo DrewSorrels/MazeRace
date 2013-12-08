@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import sofia.graphics.Color;
 import sofia.util.Timer;
 
 /**
@@ -35,6 +36,8 @@ public class LaserSpawner
         this.y = y;
         direction = 1;
 
+        this.setFillColor(Color.red);
+
         createBullet();
     }
 
@@ -43,14 +46,14 @@ public class LaserSpawner
     public Bullet createBullet()
     {
         Bullet b = new Laser(x, y, direction);
-//        if (direction % 2 == 0)
-//        {
-//            b.move(0, 0.2f);
-//        }
-//        else
-//        {
-//            b.move(0.2f, 0);
-//        }
+        if (direction % 2 == 0)
+        {
+            b.move(0, 0.2f);
+        }
+        else
+        {
+            b.move(0.2f, 0);
+        }
         return b;
     }
 

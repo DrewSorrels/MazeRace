@@ -158,7 +158,7 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(1, 1, 1));
+        spawners.add(new LaserSpawner(13, 16, 0));
         for (WeaponSpawner w : spawners)
         {
             add(w);
