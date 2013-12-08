@@ -326,7 +326,8 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * makes certain cells Holes - only cells surrounded on three sides by walls
+     * makes certain cells Holes - only cells surrounded on three sides by
+     * walls.
      */
     public void addHoles()
     {
@@ -339,7 +340,9 @@ public class Maze
                     if (Math.random() < .2)
                     {
                         Hole h = new Hole(grid[i][j].getBounds());
+                        System.out.println(h.getBounds());
                         holes.add(h);
+                        System.out.println(this.countObservers());
                         notifyObservers(new HoleAddedEvent(h));
                     }
 
