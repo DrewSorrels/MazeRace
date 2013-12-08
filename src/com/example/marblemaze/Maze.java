@@ -97,7 +97,7 @@ public class Maze
      */
     public Wall getWallFromCell(Cell example, int direction)
     {
-        Wall cellWall;// = example;
+        Wall cellWall;
 
         if (direction == 0 || direction == 3)
         {
@@ -198,15 +198,15 @@ public class Maze
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
             if (w.isHorizontal()
-                && (w.getX() == example.getX() && (w.getY() == example.getY() || w
-                    .getY() == example.getY() + 1)))
+                && (w.getX() == example.getX() && (w.getY() == example.getY()
+                || w.getY() == example.getY() + 1)))
             {
                 wallArray.add(w);
             } // If it is vertical, then y must be the same and x must be same
               // or one higher.
             else if (!w.isHorizontal()
-                && ((w.getX() == example.getX() || w.getX() == example.getX() + 1) && w
-                    .getY() == example.getY()))
+                && ((w.getX() == example.getX() || w.getX() == example.getX()
+                + 1) && w.getY() == example.getY()))
             {
                 wallArray.add(w);
             }
@@ -347,19 +347,15 @@ public class Maze
                 {
                     if (Math.random() < .2)
                     {
-                        addHole(grid[i][j]);
+                        Hole h = new Hole(grid[i][j].getBounds());
+                        holes.add(h);
+                        setChanged();
+                        notifyObservers(new HoleAddedEvent(h));
                     }
 
                 }
             }
         }
-    }
-
-    public void addHole(Cell c) {
-        Hole h = new Hole(c.getBounds());
-        holes.add(h);
-        setChanged();
-        notifyObservers(new HoleAddedEvent(h));
     }
 
 
@@ -502,6 +498,9 @@ public class Maze
     }
 
 
+    /**
+     * reconstructs the path and returns the correct list.
+     */
     private LinkedList<Cell> reconstructPath(
         Map<Cell, Cell> cameFrom,
         Cell current)
@@ -521,9 +520,20 @@ public class Maze
     }
 
 
+    /**
+     * // -------------------------------------------------------------------------
+    /**
+     *  Writes the comparator in order to specify the solution
+     *
+     *  @author Dennis Lysenko (dlysenko)
+     *  @version 2013.12.08
+     */
     private class HeuristicComparator
         implements Comparator<Cell>
     {
+        /**
+         * @return the integer showing the compare
+         */
         public int compare(Cell a, Cell b)
         {
             return (int)Math.signum(fScores.get(a) - fScores.get(b));
@@ -531,6 +541,10 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     * @return a double of the distance
+     */
     private double distBetween(Cell a, Cell b)
     {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
@@ -538,6 +552,9 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     */
     private double heuristicAStar(Cell a, Cell b)
     {
         return distBetween(a, b);

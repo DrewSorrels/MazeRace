@@ -15,6 +15,9 @@ public class MazeTest
     private Maze test;
 
 
+    /**
+     * sets up the test case
+     */
     public void setUp()
     {
         test = new Maze(2, 2);
@@ -23,7 +26,7 @@ public class MazeTest
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * tests the getWallFromCell method
      */
     public void testGetWallFromCell()
     {
@@ -87,6 +90,7 @@ public class MazeTest
         assertEquals(test.width(), 2);
     }
 
+
     // ----------------------------------------------------------
     /**
      * tests the inBounds method
@@ -94,8 +98,8 @@ public class MazeTest
     public void testInBounds()
     {
         assertTrue(test.inBounds(test.getCell(1, 1)));
-        assertFalse(test.inBounds(new Cell(4,4)));
-        assertFalse(test.inBounds(4,4));
-        assertTrue(test.inBounds(1,1));
+        assertFalse(test.inBounds(new Cell(4, 4)));
+        assertFalse(test.inBounds(4, 4));
+        assertTrue(test.inBounds(1, 1));
     }
 }

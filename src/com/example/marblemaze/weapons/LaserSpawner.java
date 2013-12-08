@@ -1,7 +1,5 @@
 package com.example.marblemaze.weapons;
 
-import com.example.marblemaze.observableevents.BulletAddedEvent;
-import java.util.TimerTask;
 import sofia.graphics.Color;
 
 /**

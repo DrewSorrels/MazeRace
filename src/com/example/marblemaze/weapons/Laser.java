@@ -85,7 +85,7 @@ public class Laser
 
 
     /**
-     * Place a description of your method here.
+     * moves the laser
      *
      * @param x
      *            is the x velocity
@@ -139,6 +139,11 @@ public class Laser
         this.remove();
     }
 
+    // ----------------------------------------------------------
+    /**
+     * removes the laser when it hits a wall
+     * @param walle is the wall that the laser is colliding with
+     */
     public void onCollisionWith(Wall walle) {
         this.remove();
     }
@@ -171,7 +176,7 @@ public class Laser
 
 
     /**
-     * Returns this laser as a bullet.
+     * @return this laser as a bullet.
      */
     public Shape getShape()
     {
