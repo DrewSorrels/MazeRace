@@ -103,6 +103,8 @@ public class MazeScreen
 
         maze = mazeGen.getMaze();
         maze.addObserver(this);
+
+        maze.addHoles();
     }
 
 
@@ -321,7 +323,10 @@ public class MazeScreen
         }
         if (event instanceof HoleAddedEvent)
         {
-            add(((HoleAddedEvent)event).getHole());
+            System.out.println("holeadded");
+            HoleAddedEvent haEvent = (HoleAddedEvent) event;
+            add(haEvent.getHole());
+            add(haEvent.getHole().getCollisionHole());
         }
     }
 

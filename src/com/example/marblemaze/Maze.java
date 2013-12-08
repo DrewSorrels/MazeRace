@@ -40,6 +40,7 @@ public class Maze
      */
     public Maze(int width, int height)
     {
+        holes = new ArrayList<Hole>();
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
 
