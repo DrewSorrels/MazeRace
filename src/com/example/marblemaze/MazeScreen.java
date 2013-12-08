@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.weapons.Bullet;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -338,9 +339,10 @@ public class MazeScreen
         if (event instanceof BulletAddedEvent)
         {
             System.out.println("bullet added");
-            Shape b = ((BulletAddedEvent)event).getBullet().getShape();
-            add(b);
-            b.applyLinearImpulse(4,0);
+            Bullet b = ((BulletAddedEvent)event).getBullet();
+            add(b.getShape());
+            b.getShape().applyLinearImpulse(40,0);
+            b.move(0.4f, 0);
         }
         if (event instanceof HoleAddedEvent)
         {
