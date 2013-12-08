@@ -1,5 +1,7 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.BulletAddedEvent;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -160,7 +162,7 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(13, 16, 0));
+        spawners.add(new LaserSpawner(13, 16, 1000));
         for (WeaponSpawner w : spawners)
         {
             add(w);
@@ -321,12 +323,24 @@ public class MazeScreen
             System.out.println("marbleremoved");
             ((MarbleRemovedEvent)event).getMarble().remove();
         }
+<<<<<<< HEAD
+        if (event instanceof BulletRemovedEvent)
+        {
+            System.out.println("bullet removed");
+            ((BulletRemovedEvent)event).getBullet().remove();
+        }
+        if (event instanceof BulletAddedEvent)
+        {
+            System.out.println("bullet added");
+            add(((BulletAddedEvent)event).getBullet().getShape());
+=======
         if (event instanceof HoleAddedEvent)
         {
             System.out.println("holeadded");
             HoleAddedEvent haEvent = (HoleAddedEvent) event;
             add(haEvent.getHole());
             add(haEvent.getHole().getCollisionHole());
+>>>>>>> 97bdd13df7d34c11fceed132dc2933f55f2c2208
         }
     }
 

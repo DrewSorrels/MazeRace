@@ -1,5 +1,9 @@
 package com.example.marblemaze.weapons;
 
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
+import com.example.marblemaze.observableevents.MarbleRemovedEvent;
+import java.util.Observer;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import android.graphics.RectF;
 import sofia.graphics.Color;
 import com.example.marblemaze.MarbleShape;
@@ -20,11 +24,12 @@ public class Rocket
     implements Bullet
 {
 
-    private static final float DENSITY     = 10f;
-    private static final float FRICTION    = 0.4f;
-    private static final float RESTITUTION = 0.0f;
+    private static final float      DENSITY     = 10f;
+    private static final float      FRICTION    = 0.4f;
+    private static final float      RESTITUTION = 0.0f;
 
-    private int                direction;
+    private int                     direction;
+    private ObservableMazeComponent observable;
 
 
     // ----------------------------------------------------------
@@ -39,6 +44,7 @@ public class Rocket
     {
         super();
         this.setBullet(true);
+        this.observable = new ObservableMazeComponent();
 
         this.setColor(Color.blue);
         this.setFillColor(Color.blue);
@@ -116,6 +122,51 @@ public class Rocket
     {
         first.animate(2000).rotation(560).alpha(0).removeWhenComplete().play();
         this.remove();
+    }
+
+
+    /**
+     * Removes the Rocket.
+     */
+    public void remove()
+    {
+        super.remove();
+        notifyObservers(new BulletRemovedEvent(this));
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Adds an observer that would like to be notified of changes to this wall.
+     *
+     * @param obs
+     *            the observer in question
+     */
+    public void addObserver(Observer obs)
+    {
+        observable.addObserver(obs);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Notifies all of the given observers that a change has been made.
+     *
+     * @param arg
+     *            information about the change that was made
+     */
+    public void notifyObservers(Object arg)
+    {
+        observable.notifyObservers(arg);
+    }
+
+
+    /**
+     * Returns this rocket as a shape.
+     */
+    public Shape getShape()
+    {
+        return this;
     }
 
 }
