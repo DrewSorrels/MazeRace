@@ -25,7 +25,7 @@ public class Rocket
 {
 
     private static final float      DENSITY     = 10f;
-    private static final float      FRICTION    = 0.4f;
+    private static final float      FRICTION    = 0.01f;
     private static final float      RESTITUTION = 0.0f;
 
     private int                     direction;

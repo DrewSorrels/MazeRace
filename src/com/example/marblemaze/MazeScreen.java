@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -353,6 +354,12 @@ public class MazeScreen
             HoleAddedEvent haEvent = (HoleAddedEvent)event;
             add(haEvent.getHole());
             add(haEvent.getHole().getCollisionHole());
+        }
+        if (event instanceof WeaponSpawnerAddedEvent)
+        {
+            System.out.println("Added spawner");
+            WeaponSpawnerAddedEvent wsEvent = (WeaponSpawnerAddedEvent)event;
+            add(wsEvent.getWeaponSpawner());
         }
     }
 
