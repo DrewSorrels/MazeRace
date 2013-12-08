@@ -1,12 +1,12 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import android.graphics.RectF;
 import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
  * Tests the {@link Cell} class.
- *
  * @author Nicholas Kilmer (nkilmer8)
  * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.07
@@ -136,6 +136,9 @@ public class TestCell
      */
     public void testGetBounds()
     {
+        ObservableMazeComponent obs = new ObservableMazeComponent();
+        Object event = new Object();
+        test.update(obs, event);
         RectF rectTest = new RectF(2, 2, 3, 3);
         assertEquals(test.getBounds(), rectTest);
     }

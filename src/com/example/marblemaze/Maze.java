@@ -15,7 +15,7 @@ import java.util.*;
  * @author Nick Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.07
+ * @version 2013.12.08
  */
 public class Maze
     extends Observable
@@ -55,8 +55,6 @@ public class Maze
                 // Iterate over each of the walls to add it to the list of walls
                 // if a wall at that position and orientation isn't already
                 // there.
-                System.out.println("Temp walls size in constructor"
-                    + temp.size());
                 for (Wall w : temp)
                 {
                     if (!walls.contains(w))
@@ -183,12 +181,10 @@ public class Maze
     public ArrayList<Wall> getAdjacentWalls(Cell example)
     {
         ArrayList<Wall> wallArray = new ArrayList<Wall>();
-        System.out.println("Walls size: " + walls.size());
         for (Wall w : walls)
         {
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
-            System.out.println("FINDING WALLS");
             if (w.isHorizontal()
                 && (w.getX() == example.getX() && (w.getY() == example.getY() || w
                     .getY() == example.getY() + 1)))
@@ -340,9 +336,8 @@ public class Maze
                     if (Math.random() < .2)
                     {
                         Hole h = new Hole(grid[i][j].getBounds());
-                        System.out.println(h.getBounds());
                         holes.add(h);
-                        System.out.println(this.countObservers());
+                        setChanged();
                         notifyObservers(new HoleAddedEvent(h));
                     }
 
@@ -377,7 +372,6 @@ public class Maze
          * Notify observers with the old marble (so it can be removed) and the
          * new marble so it can be added.
          */
-        System.out.println("Set marble, notifying observers");
         setChanged();
         notifyObservers(new MarbleAddedEvent(this.marble, marble));
 
@@ -501,7 +495,8 @@ public class Maze
     {
         if (event instanceof WallRemovedEvent
             || event instanceof WallAddedEvent
-            || event instanceof MarbleRemovedEvent)
+            || event instanceof MarbleRemovedEvent
+            || event instanceof HoleAddedEvent)
         {
             setChanged();
             notifyObservers(event);

@@ -13,7 +13,7 @@ import sofia.graphics.ShapeMotion;
  *
  * @author Dennis Lysenko (dlysenko)
  * @author Nicholas Kilmer (nkilmer8)
- * @version 2013.12.06
+ * @version 2013.12.08
  */
 
 public class MarbleShape
@@ -25,6 +25,12 @@ public class MarbleShape
     private static final float      RESTITUTION = 0.3f;
 
     private ObservableMazeComponent observable;
+
+    /**
+     * When the marble hits a hole, dying is set to true so that subsequent
+     * collisions with holes do not start unnecessary animations.
+     */
+    private boolean                 dying;
 
 
     // ----------------------------------------------------------
@@ -50,15 +56,6 @@ public class MarbleShape
         this.setRestitution(MarbleShape.RESTITUTION); // "bouncy-ness"
     }
 
-
-    // ----------------------------------------------------------
-    /**
-     * sets the gravity of the marble
-     */
-    public void setGravityToZero()
-    {
-        this.setGravityScale(0);
-    }
 
 
     @Override
@@ -92,5 +89,30 @@ public class MarbleShape
     public void notifyObservers(Object arg)
     {
         observable.notifyObservers(arg);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Returns the value of <code>dying</code> See the javadoc for
+     * <code>dying</code> for an explanation of its use.
+     *
+     * @return the value of <code>dying</code>
+     */
+    public boolean isDying()
+    {
+        return dying;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Sets the value of <code>dying</code> See the javadoc for
+     * <code>dying</code> for an explanation of its use.
+     * @param dying the value to set
+     */
+    public void setDying(boolean dying)
+    {
+        this.dying = dying;
     }
 }
