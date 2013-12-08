@@ -323,7 +323,6 @@ public class MazeScreen
             System.out.println("marbleremoved");
             ((MarbleRemovedEvent)event).getMarble().remove();
         }
-<<<<<<< HEAD
         if (event instanceof BulletRemovedEvent)
         {
             System.out.println("bullet removed");
@@ -333,14 +332,13 @@ public class MazeScreen
         {
             System.out.println("bullet added");
             add(((BulletAddedEvent)event).getBullet().getShape());
-=======
+        }
         if (event instanceof HoleAddedEvent)
         {
             System.out.println("holeadded");
-            HoleAddedEvent haEvent = (HoleAddedEvent) event;
+            HoleAddedEvent haEvent = (HoleAddedEvent)event;
             add(haEvent.getHole());
             add(haEvent.getHole().getCollisionHole());
->>>>>>> 97bdd13df7d34c11fceed132dc2933f55f2c2208
         }
     }
 

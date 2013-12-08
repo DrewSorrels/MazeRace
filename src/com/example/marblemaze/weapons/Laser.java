@@ -1,17 +1,14 @@
 package com.example.marblemaze.weapons;
 
-<<<<<<< HEAD
-import sofia.graphics.Shape;
-import com.example.marblemaze.observableevents.BulletRemovedEvent;
-import java.util.Observer;
-import com.example.marblemaze.observableevents.ObservableMazeComponent;
-import sofia.graphics.Color;
-=======
->>>>>>> 97bdd13df7d34c11fceed132dc2933f55f2c2208
+
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
+import java.util.Observer;
 import sofia.graphics.Color;
 import sofia.graphics.LineShape;
+import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
