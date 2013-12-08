@@ -1,5 +1,8 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.weapons.LaserSpawner;
+import com.example.marblemaze.weapons.WeaponSpawner;
+import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -67,6 +70,8 @@ public class MazeScreen
         setupMarble();
         setupAccelerometer();
         setupUi();
+
+        setupSpawners();
     }
 
 
@@ -154,6 +159,21 @@ public class MazeScreen
         MarbleShape squishy = new MarbleShape(15, 15);
 
         maze.setMarble(squishy);
+    }
+
+
+    /**
+     * Instantiates and adds spawners.
+     */
+    private void setupSpawners()
+    {
+        ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
+
+        spawners.add(new LaserSpawner(15, 15, 2));
+        for (WeaponSpawner w : spawners)
+        {
+            add(w);
+        }
     }
 
 

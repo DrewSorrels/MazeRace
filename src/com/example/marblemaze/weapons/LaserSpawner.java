@@ -38,7 +38,7 @@ public class LaserSpawner
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Laser(x, y, 0);
+        Bullet b = new Laser(x, y, direction);
         if (direction % 2 == 0)
         {
             b.move(0, 0.2f);
