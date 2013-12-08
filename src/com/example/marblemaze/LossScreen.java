@@ -16,17 +16,6 @@ public class LossScreen
 
     // ----------------------------------------------------------
     /**
-     * Gives the user the option to replay the game.
-     */
-    public void lossReplayClicked()
-    {
-        Intent intent = new Intent(this, MazeScreen.class);
-        intent.putExtra("maze", getIntent().getExtras().getString("maze"));
-        startActivity(intent);
-    }
-
-    // ----------------------------------------------------------
-    /**
      * Gives the user an option to choose a new name.
      */
     public void lossPlayAnotherClicked() {

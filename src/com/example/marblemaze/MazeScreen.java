@@ -1,6 +1,5 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.weapons.Bullet;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -16,6 +15,7 @@ import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.weapons.Bullet;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
 import sofia.graphics.RectangleShape;
-import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
@@ -95,25 +94,18 @@ public class MazeScreen
     {
         mazeGen = new MazeGenerator();
 
-        Object mazePoss = getIntent().getExtras().get("maze");
+        String algorithm = getIntent().getExtras().getString("algorithm");
 
-        if (mazePoss != null && mazePoss instanceof Maze) {
-            maze = (Maze) mazePoss;
-            maze.addObserver(this);
-        } else {
-            String algorithm = getIntent().getExtras().getString("algorithm");
-
-            if (algorithm.equals("prim"))
-            {
-                mazeGen.primMaze();
-            }
-            if (algorithm.equals("dfs"))
-            {
-                mazeGen.dfsMaze();
-            }
-
-            maze = mazeGen.getMaze();
+        if (algorithm.equals("prim"))
+        {
+            mazeGen.primMaze();
         }
+        if (algorithm.equals("dfs"))
+        {
+            mazeGen.dfsMaze();
+        }
+
+        maze = mazeGen.getMaze();
 
         maze.addObserver(this);
         maze.addHoles();
@@ -275,7 +267,14 @@ public class MazeScreen
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
         setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
-        maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
+        try
+        {
+            maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
+        }
+        catch (NullPointerException npe)
+        {
+            // Marble not on screen, don't bother with anything
+        }
     }
 
 
@@ -345,7 +344,7 @@ public class MazeScreen
             System.out.println("bullet added");
             Bullet b = ((BulletAddedEvent)event).getBullet();
             add(b.getShape());
-            b.getShape().applyLinearImpulse(40,0);
+            b.getShape().applyLinearImpulse(40, 0);
             b.move(0.4f, 0);
         }
         if (event instanceof HoleAddedEvent)

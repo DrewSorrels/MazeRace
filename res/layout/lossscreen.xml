@@ -17,18 +17,8 @@
         android:id="@+id/lossPlayAnother"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="59dp"
+        android:layout_centerVertical="true"
         android:text="Play Another Maze" />
-
-    <Button
-        android:id="@+id/lossReplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lossPlayAnother"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:text="Replay This Maze" />
-
+    
 </RelativeLayout>

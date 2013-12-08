@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import java.io.Serializable;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
@@ -19,8 +20,13 @@ import java.util.*;
  */
 public class Maze
     extends Observable
-    implements Observer
+    implements Observer, Serializable
 {
+    /**
+     * Serializable field.
+     */
+    public static final long serialVersionUID = 1L;
+
     private Cell[][]    grid;
     private List<Wall>  walls;
     private Cell        start;
@@ -500,6 +506,10 @@ public class Maze
         {
             setChanged();
             notifyObservers(event);
+        }
+
+        if (event instanceof MarbleRemovedEvent) {
+            this.marble = null;
         }
     }
 
