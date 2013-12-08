@@ -1,5 +1,9 @@
 package com.example.marblemaze.weapons;
 
+import sofia.graphics.Shape;
+import com.example.marblemaze.observableevents.BulletRemovedEvent;
+import java.util.Observer;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import sofia.graphics.Color;
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
@@ -17,11 +21,12 @@ public class Laser
     extends LineShape
     implements Bullet
 {
-    private static final float DENSITY     = 10f;
-    private static final float FRICTION    = 0.4f;
-    private static final float RESTITUTION = 0.0f;
+    private static final float      DENSITY     = 10f;
+    private static final float      FRICTION    = 0.4f;
+    private static final float      RESTITUTION = 0.0f;
 
-    private int                direction;
+    private int                     direction;
+    private ObservableMazeComponent observable;
 
 
     // ----------------------------------------------------------
@@ -32,6 +37,7 @@ public class Laser
     {
         super();
         this.setBullet(true);
+        this.observable = new ObservableMazeComponent();
 
         this.setColor(Color.red);
         this.setFriction(Laser.FRICTION);
@@ -97,6 +103,16 @@ public class Laser
     }
 
 
+    /**
+     * Removes the laser.
+     */
+    public void remove()
+    {
+        super.remove();
+        notifyObservers(new BulletRemovedEvent(this));
+    }
+
+
     // ----------------------------------------------------------
     /**
      * removes the marble when it is hit by the laser
@@ -111,4 +127,38 @@ public class Laser
         this.remove();
     }
 
+
+    // ----------------------------------------------------------
+    /**
+     * Adds an observer that would like to be notified of changes to this wall.
+     *
+     * @param obs
+     *            the observer in question
+     */
+    public void addObserver(Observer obs)
+    {
+        observable.addObserver(obs);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Notifies all of the given observers that a change has been made.
+     *
+     * @param arg
+     *            information about the change that was made
+     */
+    public void notifyObservers(Object arg)
+    {
+        observable.notifyObservers(arg);
+    }
+
+
+    /**
+     * Returns this laser as a bullet.
+     */
+    public Shape getShape()
+    {
+        return this;
+    }
 }

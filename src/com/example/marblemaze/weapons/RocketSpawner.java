@@ -1,18 +1,19 @@
 package com.example.marblemaze.weapons;
 
-import sofia.graphics.Color;
 import sofia.util.Timer;
+import sofia.graphics.Color;
 
+// -------------------------------------------------------------------------
 /**
- * // -------------------------------------------------------------------------
- * /** Creates a spawner object that spawns lasers in a given direction.
+ * A spawner that creates rockets.
  *
  * @author Drew Sorrels (amsorr)
  * @version 2013.12.07
  */
-public class LaserSpawner
+public class RocketSpawner
     extends WeaponSpawner
 {
+
     private int direction;
     private int x;
     private int y;
@@ -27,9 +28,9 @@ public class LaserSpawner
      * @param y
      *            The y coordinate
      * @param cd
-     *            Cooldown of the LaserSpawner.
+     *            Cooldown of the RocketSpawner.
      */
-    public LaserSpawner(int x, int y, long cd)
+    public RocketSpawner(int x, int y, long cd)
     {
         super(x, y, cd);
         this.x = x;
@@ -45,7 +46,7 @@ public class LaserSpawner
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Laser(x, y, direction);
+        Bullet b = new Rocket(x, y, direction);
         if (direction % 2 == 0)
         {
             b.move(0, 0.2f);

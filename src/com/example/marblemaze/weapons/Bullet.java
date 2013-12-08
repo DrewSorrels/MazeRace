@@ -23,4 +23,19 @@ public interface Bullet
      *            is the y velocity
      */
     void move(float x, float y);
+
+
+    // ----------------------------------------------------------
+    /**
+     * Removes the bullet.
+     */
+    void remove();
+
+
+    /**
+     * Returns the shape in the bullet.
+     * @return A Bullet (Shape)
+     */
+    Shape getShape();
+
 }
