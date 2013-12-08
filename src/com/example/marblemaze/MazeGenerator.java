@@ -64,9 +64,6 @@ public class MazeGenerator
     public void testMaze() {
         maze = new Maze(2, 2);
         Cell tl = maze.getCell(0, 0);
-        Cell tr = maze.getCell(1, 0);
-        Cell bl = maze.getCell(0, 1);
-        Cell br = maze.getCell(1, 1);
 
         maze.addHole(tl);
     }
