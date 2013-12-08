@@ -19,12 +19,14 @@ import sofia.graphics.RectangleShape;
 public class Wall
     extends RectangleShape
 {
-    private float      xStart;
-    private float      yStart;
-    private float      height;
-    private float      width;
-    private boolean    horizontal;
-    private boolean    exists;
+    private float                   xStart;
+    private float                   yStart;
+    private float                   height;
+    private float                   width;
+    private boolean                 horizontal;
+    private boolean                 exists;
+    private boolean                 blinking;
+    private Animator<?>             blinkingAnimator;
 
     private ObservableMazeComponent observable;
 
@@ -238,6 +240,46 @@ public class Wall
     public void notifyObservers(Object arg)
     {
         observable.notifyObservers(arg);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Returns whether or not the wall is blinking.
+     *
+     * @return whether or not the wall is blinking
+     */
+    public boolean isBlinking()
+    {
+        return blinking;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Starts or stops this wall blinking.
+     *
+     * @param blinking
+     *            true to start, false to stop
+     */
+    public void setBlinking(boolean blinking)
+    {
+        if (blinking == this.blinking)
+        {
+            return;
+        }
+
+        if (blinking)
+        {
+            System.out.println("blinking!!");
+            this.animate(5000).alpha(0).oscillate().play();
+        }
+        else if (blinkingAnimator != null)
+        {
+            blinkingAnimator.stop();
+        }
+
+        this.blinking = blinking;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.marblemaze;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.io.Serializable;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
@@ -27,12 +29,12 @@ public class Maze
      */
     public static final long serialVersionUID = 1L;
 
-    private Cell[][]    grid;
-    private List<Wall>  walls;
-    private Cell        start;
-    private Cell        end;
-    private MarbleShape marble;
-    private List<Hole>  holes;
+    private Cell[][]         grid;
+    private List<Wall>       walls;
+    private Cell             start;
+    private Cell             end;
+    private MarbleShape      marble;
+    private List<Hole>       holes;
 
 
     // ----------------------------------------------------------
@@ -508,7 +510,8 @@ public class Maze
             notifyObservers(event);
         }
 
-        if (event instanceof MarbleRemovedEvent) {
+        if (event instanceof MarbleRemovedEvent)
+        {
             this.marble = null;
         }
     }
@@ -542,5 +545,36 @@ public class Maze
     {
         return inBounds(new Cell(x, y));
 
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Starts or stops all of the walls in the maze from blinking.
+     *
+     * @param b
+     *            true to start blinking, false to stop
+     */
+    public void setBlinkingWalls(boolean b)
+    {
+        for (Wall wall : walls)
+        {
+            if (wall.isBlinking() != b)
+            {
+                wall.setBlinking(b);
+            }
+        }
+    }
+
+
+    public List<Wall> getWalls()
+    {
+        return walls;
+    }
+
+
+    public List<Hole> getHoles()
+    {
+        return holes;
     }
 }

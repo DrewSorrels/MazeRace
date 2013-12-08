@@ -1,6 +1,7 @@
 package com.example.marblemaze.weapons;
 
 import android.graphics.RectF;
+import com.example.marblemaze.Wall;
 import com.example.marblemaze.MarbleShape;
 import com.example.marblemaze.observableevents.BulletAddedEvent;
 import com.example.marblemaze.observableevents.BulletRemovedEvent;
@@ -16,7 +17,7 @@ import sofia.graphics.Shape;
  *
  * @author Nicholas Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
- * @version 2013.12.06
+ * @version 2013.12.08
  */
 public class Laser
     extends LineShape
@@ -52,6 +53,7 @@ public class Laser
         this.setFriction(Laser.FRICTION);
         this.setRestitution(Laser.RESTITUTION);
         this.setDensity(Laser.DENSITY);
+        //this.setGravityScale(0.0f);
 
         this.direction = dir;
         // Set up bounds
@@ -93,8 +95,6 @@ public class Laser
      */
     public void move(float x, float y)
     {
-        System.out.println("MOVING in dir: " + direction + "(" + this.getX()
-            + ", " + this.getY());
         switch (direction)
         {
             case 0:
@@ -137,6 +137,10 @@ public class Laser
     {
         first.animate(1000).rotation(720).fillColor(Color.red).alpha(0)
             .removeWhenComplete().play();
+        this.remove();
+    }
+
+    public void onCollisionWith(Wall walle) {
         this.remove();
     }
 
