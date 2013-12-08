@@ -7,16 +7,10 @@ import student.TestCase;
 // -------------------------------------------------------------------------
 /**
  * Tests the {@link Cell} class.
-<<<<<<< HEAD
  *
  * @author Nicholas Kilmer (nkilmer8)
  * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.08
-=======
- * @author Nicholas Kilmer (nkilmer8)
- * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.07
->>>>>>> 5eaefbcd0d6b118d3c804ad2a45be033b94a383e
  */
 public class TestCell
     extends TestCase
@@ -42,9 +36,7 @@ public class TestCell
     public void testGetNumWalls()
     {
         assertEquals(test.getNumWalls(), 4);
-<<<<<<< HEAD
         assertEquals(test.getWallPos().size(), 4);
-=======
         test.setWall(0, false);
         assertEquals(test.getNumWalls(), 3);
         test.setWall(1, false);
@@ -151,6 +143,5 @@ public class TestCell
         test.update(obs, event);
         RectF rectTest = new RectF(2, 2, 3, 3);
         assertEquals(test.getBounds(), rectTest);
->>>>>>> 5eaefbcd0d6b118d3c804ad2a45be033b94a383e
     }
 }
