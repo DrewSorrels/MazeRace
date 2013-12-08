@@ -1,5 +1,7 @@
 package com.example.marblemaze.weapons;
 
+import sofia.util.Timer;
+
 /**
  * // -------------------------------------------------------------------------
  * /** Creates a spawner object that spawns lasers in a given direction.
@@ -31,22 +33,24 @@ public class LaserSpawner
         super(x, y, cd);
         this.x = x;
         this.y = y;
-        direction = 0;
+        direction = 1;
+
+        createBullet();
     }
 
 
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Laser(x, y, 0);
-        if (direction % 2 == 0)
-        {
-            b.move(0, 0.2f);
-        }
-        else
-        {
-            b.move(0.2f, 0);
-        }
+        Bullet b = new Laser(x, y, direction);
+//        if (direction % 2 == 0)
+//        {
+//            b.move(0, 0.2f);
+//        }
+//        else
+//        {
+//            b.move(0.2f, 0);
+//        }
         return b;
     }
 

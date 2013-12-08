@@ -1,5 +1,8 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.weapons.LaserSpawner;
+import com.example.marblemaze.weapons.WeaponSpawner;
+import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -62,11 +65,13 @@ public class MazeScreen
     {
         // setupSampleMaze();
         setupMaze();
-        // setupAddWalls();
+         setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
         setupUi();
+
+        setupSpawners();
     }
 
 
@@ -120,7 +125,7 @@ public class MazeScreen
         {
             for (int j = 0; j < maze.height(); j++)
             {
-                System.out.println("WAT" + i + j);
+                System.out.println("WAT" + i + ", " + j);
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
@@ -154,6 +159,21 @@ public class MazeScreen
         MarbleShape squishy = new MarbleShape(15, 15);
 
         maze.setMarble(squishy);
+    }
+
+
+    /**
+     * Instantiates and adds spawners.
+     */
+    private void setupSpawners()
+    {
+        ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
+
+        spawners.add(new LaserSpawner(1, 1, 1));
+        for (WeaponSpawner w : spawners)
+        {
+            add(w);
+        }
     }
 
 
