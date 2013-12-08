@@ -68,7 +68,7 @@ public class MazeGenerator
         Cell bl = maze.getCell(0, 1);
         Cell br = maze.getCell(1, 1);
 
-
+        maze.addHole(tl);
     }
 
     /**

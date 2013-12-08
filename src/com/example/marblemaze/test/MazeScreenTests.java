@@ -1,7 +1,6 @@
-package com.example.marblemaze;
+package com.example.marblemaze.test;
 
-import android.content.Intent;
-
+import com.example.marblemaze.MazeScreen;
 
 //-------------------------------------------------------------------------
 /**
@@ -13,6 +12,8 @@ import android.content.Intent;
 public class MazeScreenTests
  extends student.AndroidTestCase<MazeScreen>
 {
+    private MazeScreen mazeScreen;
+
     // ----------------------------------------------------------
     /**
      * Test cases that extend AndroidTestCase must have a parameterless
@@ -23,13 +24,17 @@ public class MazeScreenTests
         super(MazeScreen.class);
     }
 
+    public void setUp() throws Exception {
+        super.setUp();
+    }
+
     public void assertScreenWorks() {
-        Intent intent = new Intent(getScreen(), MazeScreen.class);
-        intent.putExtra("algorithm", "test");
-        intent.putExtra("slalom", false);
-        intent.putExtra("enemies", false);
-        intent.putExtra("blinkingWalls", false);
-        intent.putExtra("holes", false);
-        getScreen().startActivity(intent);
+//        Intent intent = new Intent(getScreen(), MazeScreen.class);
+//        intent.putExtra("algorithm", "test");
+//        intent.putExtra("slalom", false);
+//        intent.putExtra("enemies", false);
+//        intent.putExtra("blinkingWalls", false);
+//        intent.putExtra("holes", false);
+//        getScreen().startActivity(intent);
     }
 }
