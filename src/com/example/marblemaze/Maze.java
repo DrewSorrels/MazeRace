@@ -276,6 +276,7 @@ public class Maze
             return null;
         }
 
+        setChanged();
         notifyObservers(new WallRemovedEvent(w));
 
         walls.remove(w);
@@ -370,6 +371,8 @@ public class Maze
          * Notify observers with the old marble (so it can be removed) and the
          * new marble so it can be added.
          */
+        System.out.println("Set marble, notifying observers");
+        setChanged();
         notifyObservers(new MarbleAddedEvent(this.marble, marble));
 
         this.marble = marble;
@@ -494,6 +497,7 @@ public class Maze
             || event instanceof WallAddedEvent
             || event instanceof MarbleRemovedEvent)
         {
+            setChanged();
             notifyObservers(event);
         }
     }

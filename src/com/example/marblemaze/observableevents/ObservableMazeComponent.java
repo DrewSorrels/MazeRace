@@ -1,6 +1,6 @@
 package com.example.marblemaze.observableevents;
 
-import java.util.Observer;
+import java.util.Observable;
 
 // -------------------------------------------------------------------------
 /**
@@ -11,19 +11,15 @@ import java.util.Observer;
  * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.07
  */
-public interface ObservableMazeComponent
+public class ObservableMazeComponent extends Observable
 {
-    // ----------------------------------------------------------
-    /**
-     * Adds an observer to this observable component.
-     * @param obs the observer that is interested
-     */
-    public void addObserver(Observer obs);
-
     // ----------------------------------------------------------
     /**
      * Notifies observers that a change has occurred.
      * @param arg information about the change
      */
-    public void notifyObservers(Object arg);
+    public void notifyObservers(Object arg) {
+        super.setChanged();
+        super.notifyObservers(arg);
+    }
 }

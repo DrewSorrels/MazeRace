@@ -8,6 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
     
+    <instrumentation
+        android:targetPackage="com.example.marblemaze"
+        android:name="android.test.InstrumentationTestRunner"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
