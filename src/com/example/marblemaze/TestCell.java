@@ -18,13 +18,11 @@ public class TestCell
     private Cell test;
 
 
-    @SuppressWarnings("unused")
     /**
      * sets up the test case
      */
     public void setUp()
     {
-        RectF best = new RectF(0, 0, 0, 0);
         test = new Cell(2, 2);
     }
 

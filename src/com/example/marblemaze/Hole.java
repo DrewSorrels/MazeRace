@@ -80,7 +80,8 @@ public class Hole
         public void onCollisionWith(MarbleShape first)
         {
             if (!first.isDying()) {
-                first.animate(1000).rotation(720).color(Color.blue).alpha(0).removeWhenComplete()
+                first.animate(1000).rotation(720).
+                color(Color.blue).alpha(0).removeWhenComplete()
                     .play();
                 first.setDying(true);
             }

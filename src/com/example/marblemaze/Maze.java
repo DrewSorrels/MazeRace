@@ -617,12 +617,20 @@ public class Maze
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return the list of walls
+     */
     public List<Wall> getWalls()
     {
         return walls;
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return the list of holes
+     */
     public List<Hole> getHoles()
     {
         return holes;
