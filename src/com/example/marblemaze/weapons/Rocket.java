@@ -47,7 +47,7 @@ public class Rocket
 
         this.direction = dir;
         // Set up bounds
-        float iShort = 0.1f;
+        float iShort = 0.5f;
         float iLong = 1.1f;
         float xExtent = dir % 2 == 0 ? iShort : iLong;
         float yExtent = dir % 2 == 0 ? iLong : iShort;

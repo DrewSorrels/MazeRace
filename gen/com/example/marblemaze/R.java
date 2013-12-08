@@ -27,29 +27,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int resume_button=0x7f020002;
     }
     public static final class id {
-<<<<<<< HEAD
         public static final int TextView01=0x7f070002;
         public static final int action=0x7f070006;
         public static final int dfs=0x7f070000;
         public static final int normal=0x7f070004;
         public static final int prim=0x7f070001;
         public static final int radioGroup1=0x7f070003;
-=======
-        public static final int TextView01=0x7f070003;
-        public static final int action=0x7f070007;
-        public static final int dfs=0x7f070000;
-        public static final int normal=0x7f070005;
-        public static final int prim=0x7f070001;
-        public static final int radioGroup1=0x7f070004;
->>>>>>> eaba699f1c0953629ed00340b84b5d7477a726e7
         public static final int resume=0x7f070008;
         public static final int shadow=0x7f070005;
         public static final int startGame=0x7f070009;
-<<<<<<< HEAD
         public static final int title=0x7f070007;
-=======
-        public static final int title=0x7f070002;
->>>>>>> eaba699f1c0953629ed00340b84b5d7477a726e7
     }
     public static final class layout {
         public static final int mazechooserscreen=0x7f030000;

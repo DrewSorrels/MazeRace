@@ -1,18 +1,20 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.weapons.LaserSpawner;
-import com.example.marblemaze.weapons.WeaponSpawner;
-import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.WindowManager;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.weapons.LaserSpawner;
+import com.example.marblemaze.weapons.WeaponSpawner;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
@@ -72,6 +74,13 @@ public class MazeScreen
         setupUi();
 
         setupSpawners();
+    }
+
+
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
