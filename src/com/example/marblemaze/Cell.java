@@ -107,6 +107,26 @@ public class Cell
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Returns ArrayList<Integer> of wall positions.
+     *
+     * @return ArrayList of Integer positions
+     */
+    public ArrayList<Integer> getWallPos()
+    {
+        ArrayList<Integer> iWalls = new ArrayList<Integer>();
+        for (int i = 0; i < walls.length; i++)
+        {
+            if (walls[i].exists())
+            {
+                iWalls.add(i);
+            }
+        }
+        return iWalls;
+    }
+
+
     /**
      * Returns an ArrayList of the walls.
      *
