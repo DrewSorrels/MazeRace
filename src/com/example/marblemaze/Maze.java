@@ -327,8 +327,7 @@ public class Maze
      * @todo notify observers!!
      * makes certain cells Holes - only cells surrounded on three sides by walls
      */
-    public void Hole()
-    {
+    public void Hole()    {
         for (int i = 0; i < grid.length; i++)
         {
             for (int j = 0; j < grid[i].length; j++)
