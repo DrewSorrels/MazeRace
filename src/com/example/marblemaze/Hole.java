@@ -9,7 +9,8 @@ import sofia.graphics.OvalShape;
  * Creates holes that will cause the user to lose upon entering said hole.
  *
  * @author Nicholas Kilmer (nkilmer8)
- * @version 2013.12.07
+ * @author Dennis Lysenko (dlysenko)
+ * @version 2013.12.08
  */
 public class Hole
     extends OvalShape

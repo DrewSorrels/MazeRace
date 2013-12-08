@@ -29,7 +29,7 @@ import sofia.graphics.RectangleShape;
  * processing the physics of the marble.
  *
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.06
+ * @version 2013.12.08
  */
 
 public class MazeScreen

@@ -15,7 +15,7 @@ import java.util.*;
  * @author Nick Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
  * @author Dennis Lysenko (dlysenko)
- * @version 2013.12.07
+ * @version 2013.12.08
  */
 public class Maze
     extends Observable

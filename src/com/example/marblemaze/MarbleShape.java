@@ -13,7 +13,7 @@ import sofia.graphics.ShapeMotion;
  *
  * @author Dennis Lysenko (dlysenko)
  * @author Nicholas Kilmer (nkilmer8)
- * @version 2013.12.06
+ * @version 2013.12.08
  */
 
 public class MarbleShape
