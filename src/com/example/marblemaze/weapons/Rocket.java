@@ -42,4 +42,10 @@ public class Rocket extends RectangleShape implements Bullet
         this.remove();
     }
 
+    public void move(float x, float y)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
 }

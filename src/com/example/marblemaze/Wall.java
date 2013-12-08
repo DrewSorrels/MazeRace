@@ -19,7 +19,6 @@ import sofia.graphics.RectangleShape;
  */
 public class Wall
     extends RectangleShape
-    implements ObservableMazeComponent
 {
     private float      xStart;
     private float      yStart;
@@ -28,7 +27,7 @@ public class Wall
     private boolean    horizontal;
     private boolean    exists;
 
-    private Observable observable;
+    private ObservableMazeComponent observable;
 
 
     /**
@@ -54,7 +53,7 @@ public class Wall
     {
         super();
 
-        this.observable = new Observable();
+        this.observable = new ObservableMazeComponent();
 
         xStart = x;
         yStart = y;

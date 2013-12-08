@@ -62,7 +62,7 @@ public class MazeScreen
     {
         // setupSampleMaze();
         setupMaze();
-        // setupAddWalls();
+        setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
@@ -316,16 +316,20 @@ public class MazeScreen
 
     public void update(Observable obs, Object event)
     {
+        System.out.println("observer updated");
         if (event instanceof WallRemovedEvent)
         {
+            System.out.println("wallremoved");
             ((WallRemovedEvent)event).getWall().remove();
         }
         if (event instanceof WallAddedEvent)
         {
+            System.out.println("walladded");
             add(((WallRemovedEvent)event).getWall());
         }
         if (event instanceof MarbleAddedEvent)
         {
+            System.out.println("marbleadded");
             MarbleAddedEvent maEvent = (MarbleAddedEvent)event;
             if (maEvent.getOldMarble() != null)
             {
@@ -335,6 +339,7 @@ public class MazeScreen
         }
         if (event instanceof MarbleRemovedEvent)
         {
+            System.out.println("marbleremoved");
             ((MarbleRemovedEvent)event).getMarble().remove();
         }
     }
