@@ -19,7 +19,6 @@ public class RocketSpawner
     private int                     x;
     private int                     y;
 
-    private ObservableMazeComponent observer;
 
 
     // ----------------------------------------------------------

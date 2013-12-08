@@ -36,9 +36,9 @@ public class Rocket
     /**
      * Create a new Rocket object.
      *
-     * @param f
-     * @param g
-     * @param dir
+     * @param f is the x float
+     * @param g is the y float
+     * @param dir is the int direction
      */
     public Rocket(float f, float g, int dir)
     {
@@ -83,7 +83,7 @@ public class Rocket
 
 
     /**
-     * Place a description of your method here.
+     * moves the rocket
      *
      * @param x
      *            is the x velocity
@@ -165,7 +165,7 @@ public class Rocket
 
 
     /**
-     * Returns this rocket as a shape.
+     * @return this rocket as a shape.
      */
     public Shape getShape()
     {

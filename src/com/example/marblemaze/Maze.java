@@ -97,7 +97,7 @@ public class Maze
      */
     public Wall getWallFromCell(Cell example, int direction)
     {
-        Wall cellWall;// = example;
+        Wall cellWall;
 
         if (direction == 0 || direction == 3)
         {
@@ -510,6 +510,9 @@ public class Maze
     }
 
 
+    /**
+     * reconstructs the path and returns the correct list.
+     */
     private LinkedList<Cell> reconstructPath(
         Map<Cell, Cell> cameFrom,
         Cell current)
@@ -529,9 +532,19 @@ public class Maze
     }
 
 
+    /**
+     * // ----------------------------------------------------------------------
+     * --- /** Writes the comparator in order to specify the solution
+     *
+     * @author Dennis Lysenko (dlysenko)
+     * @version 2013.12.08
+     */
     private class HeuristicComparator
         implements Comparator<Cell>
     {
+        /**
+         * @return the integer showing the compare
+         */
         public int compare(Cell a, Cell b)
         {
             return (int)Math.signum(fScores.get(a) - fScores.get(b));
@@ -539,6 +552,11 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     *
+     * @return a double of the distance
+     */
     private double distBetween(Cell a, Cell b)
     {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
@@ -546,6 +564,9 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     */
     private double heuristicAStar(Cell a, Cell b)
     {
         return distBetween(a, b);
