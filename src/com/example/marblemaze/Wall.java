@@ -68,7 +68,8 @@ public class Wall
         float iLong = 1.1f;
         float xExtent = horizontal ? iLong : iShort;
         float yExtent = horizontal ? iShort : iLong;
-        setBounds(new RectF(xStart, yStart, xStart + xExtent, yStart + yExtent));
+        setBounds(new RectF(xStart, yStart, xStart + xExtent,
+            yStart + yExtent));
     }
 
 

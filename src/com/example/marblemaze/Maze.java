@@ -97,7 +97,7 @@ public class Maze
      */
     public Wall getWallFromCell(Cell example, int direction)
     {
-        Wall cellWall;// = example;
+        Wall cellWall;
 
         if (direction == 0 || direction == 3)
         {
@@ -355,7 +355,15 @@ public class Maze
         }
     }
 
-    public void addHole(Cell c) {
+
+    /**
+     * Adds a hole to the maze and notifies observers.
+     *
+     * @param c
+     *            The cell where the hole will be added.
+     */
+    public void addHole(Cell c)
+    {
         Hole h = new Hole(c.getBounds());
         holes.add(h);
         setChanged();
@@ -502,6 +510,9 @@ public class Maze
     }
 
 
+    /**
+     * reconstructs the path and returns the correct list.
+     */
     private LinkedList<Cell> reconstructPath(
         Map<Cell, Cell> cameFrom,
         Cell current)
@@ -521,9 +532,19 @@ public class Maze
     }
 
 
+    /**
+     * // ----------------------------------------------------------------------
+     * --- /** Writes the comparator in order to specify the solution
+     *
+     * @author Dennis Lysenko (dlysenko)
+     * @version 2013.12.08
+     */
     private class HeuristicComparator
         implements Comparator<Cell>
     {
+        /**
+         * @return the integer showing the compare
+         */
         public int compare(Cell a, Cell b)
         {
             return (int)Math.signum(fScores.get(a) - fScores.get(b));
@@ -531,6 +552,11 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     *
+     * @return a double of the distance
+     */
     private double distBetween(Cell a, Cell b)
     {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
@@ -538,6 +564,9 @@ public class Maze
     }
 
 
+    /**
+     * returns the distance between the two cells
+     */
     private double heuristicAStar(Cell a, Cell b)
     {
         return distBetween(a, b);
@@ -621,12 +650,20 @@ public class Maze
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return the list of walls
+     */
     public List<Wall> getWalls()
     {
         return walls;
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * @return the list of holes
+     */
     public List<Hole> getHoles()
     {
         return holes;

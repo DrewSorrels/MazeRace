@@ -17,7 +17,7 @@ public interface Bullet
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * moves the bullet
      *
      * @param x
      *            is the x velocity
