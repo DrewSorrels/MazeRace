@@ -39,12 +39,6 @@ public class Maze
      */
     public Maze(int width, int height)
     {
-        start = new Cell(0, 0);
-        end = new Cell(width - 1, height - 1);
-
-        start.addObserver(this);
-        end.addObserver(this);
-
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
 
@@ -71,6 +65,11 @@ public class Maze
                 temp.clear();
             }
         }
+        start = grid[0][0];
+        end = grid[width - 1][height - 1];
+
+        start.addObserver(this);
+        end.addObserver(this);
     }
 
 
@@ -325,8 +324,8 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * @todo notify observers!!
-     * makes certain cells Holes - only cells surrounded on three sides by walls
+     * @todo notify observers!! makes certain cells Holes - only cells
+     *       surrounded on three sides by walls
      */
     public void Hole()
     {
@@ -486,8 +485,11 @@ public class Maze
     /**
      * Handles updates from the MarbleShape (when it dies) or the walls when
      * they are set to existent/nonexistent.
-     * @param obs the object that was updated
-     * @param event the type of event that happened
+     *
+     * @param obs
+     *            the object that was updated
+     * @param event
+     *            the type of event that happened
      */
     public void update(Observable obs, Object event)
     {
@@ -499,6 +501,7 @@ public class Maze
             notifyObservers(event);
         }
     }
+
 
     /**
      * Finds if the cell is inside the bounds of this maze.
