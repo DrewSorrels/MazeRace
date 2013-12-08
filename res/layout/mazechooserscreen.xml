@@ -5,15 +5,6 @@
     tools:context=".MazeChooserScreen" >
 
     <Button
-<<<<<<< HEAD
-        android:id="@+id/prim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:minWidth="256dip"
-        android:text="Prim&apos;s Maze" />
-=======
         android:id="@+id/dfs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,23 +12,16 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="71dp"
         android:text="DFS Maze" />
->>>>>>> 7baf3065c4ffb550286d36e57348b48120f60545
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_above="@+id/dfs"
-        android:layout_alignRight="@+id/prim"
-        android:text="Choose Your Maze"
-=======
         android:layout_alignBaseline="@+id/TextView01"
         android:layout_alignBottom="@+id/TextView01"
         android:layout_alignRight="@+id/dfs"
         android:layout_marginRight="28dp"
         android:text="Maze"
->>>>>>> 7baf3065c4ffb550286d36e57348b48120f60545
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
 
@@ -45,17 +29,11 @@
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Choose Your Game Mode"
-=======
         android:layout_above="@+id/radioGroup1"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="37dp"
         android:text="Game Mode"
->>>>>>> 7baf3065c4ffb550286d36e57348b48120f60545
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
 
@@ -74,13 +52,8 @@
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_below="@+id/TextView01"
-        android:layout_centerHorizontal="true" >
-=======
         android:layout_alignRight="@+id/TextView01"
         android:layout_alignTop="@+id/dfs" >
->>>>>>> 7baf3065c4ffb550286d36e57348b48120f60545
 
         <RadioButton
             android:id="@+id/normal"
@@ -101,16 +74,4 @@
             android:layout_height="wrap_content"
             android:text="Action Mode" />
     </RadioGroup>
-
-<<<<<<< HEAD
-    <Button
-        android:id="@+id/dfs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/prim"
-        android:layout_centerHorizontal="true"
-        android:text="DFS Maze" />
-
-=======
->>>>>>> 7baf3065c4ffb550286d36e57348b48120f60545
 </RelativeLayout>
