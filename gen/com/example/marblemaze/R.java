@@ -33,6 +33,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int normal=0x7f070004;
         public static final int prim=0x7f070001;
         public static final int radioGroup1=0x7f070003;
+        public static final int replay=0x7f07000a;
         public static final int resume=0x7f070008;
         public static final int shadow=0x7f070005;
         public static final int startGame=0x7f070009;
@@ -42,6 +43,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int mazechooserscreen=0x7f030000;
         public static final int pausescreen=0x7f030001;
         public static final int titlescreen=0x7f030002;
+        public static final int victoryscreen=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f050000;

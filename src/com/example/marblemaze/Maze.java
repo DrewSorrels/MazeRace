@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
@@ -39,6 +40,7 @@ public class Maze
      */
     public Maze(int width, int height)
     {
+        holes = new ArrayList<Hole>();
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
 
@@ -324,10 +326,9 @@ public class Maze
 
     // ----------------------------------------------------------
     /**
-     * @todo notify observers!! makes certain cells Holes - only cells
-     *       surrounded on three sides by walls
+     * makes certain cells Holes - only cells surrounded on three sides by walls
      */
-    public void Hole()
+    public void addHoles()
     {
         for (int i = 0; i < grid.length; i++)
         {
@@ -337,7 +338,9 @@ public class Maze
                 {
                     if (Math.random() < .2)
                     {
-                        holes.add(new Hole(grid[i][j].getBounds()));
+                        Hole h = new Hole(grid[i][j].getBounds());
+                        holes.add(h);
+                        notifyObservers(new HoleAddedEvent(h));
                     }
 
                 }
@@ -508,7 +511,7 @@ public class Maze
      *
      * @param c
      *            The cell
-     * @return Whether it is in bounds or not.
+     * @return true if in-bounds
      */
     public boolean inBounds(Cell c)
     {
@@ -517,6 +520,16 @@ public class Maze
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Tests whether or not the given x and y are in-bounds.
+     *
+     * @param x
+     *            the x to test
+     * @param y
+     *            the y to text
+     * @return true if in-bounds
+     */
     public boolean inBounds(int x, int y)
     {
         return inBounds(new Cell(x, y));

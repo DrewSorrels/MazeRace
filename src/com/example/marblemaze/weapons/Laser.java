@@ -1,12 +1,16 @@
 package com.example.marblemaze.weapons;
 
+<<<<<<< HEAD
 import sofia.graphics.Shape;
 import com.example.marblemaze.observableevents.BulletRemovedEvent;
 import java.util.Observer;
 import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import sofia.graphics.Color;
+=======
+>>>>>>> 97bdd13df7d34c11fceed132dc2933f55f2c2208
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
+import sofia.graphics.Color;
 import sofia.graphics.LineShape;
 
 // -------------------------------------------------------------------------
@@ -32,6 +36,14 @@ public class Laser
     // ----------------------------------------------------------
     /**
      * Create a new Laser object.
+     *
+     * @param x
+     *            the x-coordinate to create it at
+     * @param y
+     *            the y-coordinate to create it at
+     * @param dir
+     *            the direction the laser shoots. 0 = up, 1 = right, 2 = down, 3
+     *            = left
      */
     public Laser(float x, float y, int dir)
     {
