@@ -5,15 +5,17 @@ import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
- *  Tests the {@link Cell} class.
+ * Tests the {@link Cell} class.
  *
- *  @author Nicholas Kilmer (nkilmer8)
- *  @author Dennis Lysenko (dlysenko)
- *  @version 2013.12.08
+ * @author Nicholas Kilmer (nkilmer8)
+ * @author Dennis Lysenko (dlysenko)
+ * @version 2013.12.08
  */
-public class TestCell extends TestCase
+public class TestCell
+    extends TestCase
 {
     private Cell test;
+
 
     @SuppressWarnings("unused")
     /**
@@ -22,7 +24,7 @@ public class TestCell extends TestCase
     public void setUp()
     {
         RectF best = new RectF(0, 0, 0, 0);
-        test = new Cell(2,2);
+        test = new Cell(2, 2);
     }
 
 
@@ -33,5 +35,6 @@ public class TestCell extends TestCase
     public void testGetNumWalls()
     {
         assertEquals(test.getNumWalls(), 4);
+        assertEquals(test.getWallPos().size(), 4);
     }
 }

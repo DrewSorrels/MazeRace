@@ -66,7 +66,6 @@ public class MazeGenerator
     {
         Cell end = maze.getGoal();
         sCells.push(end);
-
         // Add all cells to list of unvisited cells.
         for (int i = 0; i < maze.width(); i++)
         {
@@ -98,7 +97,8 @@ public class MazeGenerator
             {
                 // If there are unvisited neighbors.
                 Cell currentCell =
-                    tempCells.get((int)Math.floor(Math.random() * (tempCells.size() - 1) + 0.5));
+                    tempCells.get((int)Math.floor(Math.random()
+                        * (tempCells.size() - 1) + 0.5));
 
                 // Destroy the wall between 2 cells.
                 Wall betweenCells =
@@ -110,7 +110,6 @@ public class MazeGenerator
                 // unvisited cells list.
 
                 sCells.push(currentCell);
-
                 currentCell.visitCell();
 
                 cells.remove(currentCell);

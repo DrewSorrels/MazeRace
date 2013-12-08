@@ -370,7 +370,7 @@ public class Maze
             for (int j = 0; j < grid[i].length; j++)
             {
                 // When there are 3 walls...
-                if (grid[i][j].getNumWalls() == 3)
+                if (grid[i][j].getNumWalls() == 3 && (i != 0 && j != 0))
                 {
                     double chance = Math.random();
                     ArrayList<Integer> wList = grid[i][j].getWallPos();
@@ -387,14 +387,14 @@ public class Maze
                     // 10% chance to add either spawner.
                     if (chance < .1)
                     {
-                        WeaponSpawner w = new LaserSpawner(i, j, dir);
+                        WeaponSpawner w = new LaserSpawner(i, j, 2000, dir);
                         spawners.add(w);
                         setChanged();
                         notifyObservers(new WeaponSpawnerAddedEvent(w));
                     }
                     else if (chance < .2)
                     {
-                        WeaponSpawner w = new RocketSpawner(i, j, dir);
+                        WeaponSpawner w = new RocketSpawner(i, j, 4000, dir);
                         spawners.add(w);
                         setChanged();
                         notifyObservers(new WeaponSpawnerAddedEvent(w));

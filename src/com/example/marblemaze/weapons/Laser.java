@@ -24,7 +24,7 @@ public class Laser
 {
     private static final float      DENSITY     = 1f;
     private static final float      FRICTION    = 0.01f;
-    private static final float      RESTITUTION = 0.0f;
+    private static final float      RESTITUTION = 0.2f;
 
     private int                     direction;
     private ObservableMazeComponent observable;
@@ -45,7 +45,7 @@ public class Laser
     public Laser(float x, float y, int dir)
     {
         super();
-        this.setBullet(true);
+//        this.setBullet(true);
         this.observable = new ObservableMazeComponent();
 
         this.setColor(Color.red);

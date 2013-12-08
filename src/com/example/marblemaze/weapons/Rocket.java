@@ -36,11 +36,11 @@ public class Rocket
     /**
      * Create a new Rocket object.
      *
-     * @param x
-     * @param y
+     * @param f
+     * @param g
      * @param dir
      */
-    public Rocket(int x, int y, int dir)
+    public Rocket(float f, float g, int dir)
     {
         super();
         this.setBullet(true);
@@ -63,19 +63,19 @@ public class Rocket
         // Set the bounds of the laser.
         if (dir == 0)
         {
-            setBounds(new RectF(x, y, x + xExtent, y - yExtent));
+            setBounds(new RectF(f, g, f + xExtent, g - yExtent));
         }
         else if (dir == 1)
         {
-            setBounds(new RectF(x, y, x + xExtent, y + yExtent));
+            setBounds(new RectF(f, g, f + xExtent, g + yExtent));
         }
         else if (dir == 2)
         {
-            setBounds(new RectF(x, y, x + xExtent, y + yExtent));
+            setBounds(new RectF(f, g, f + xExtent, g + yExtent));
         }
         else
         {
-            setBounds(new RectF(x, y, x - xExtent, y + yExtent));
+            setBounds(new RectF(f, g, f - xExtent, g + yExtent));
         }
         notifyObservers(new BulletAddedEvent(this));
 
