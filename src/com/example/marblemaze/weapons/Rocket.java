@@ -40,14 +40,14 @@ public class Rocket
         super();
         this.setBullet(true);
 
-        this.setColor(Color.red);
+        this.setColor(Color.blue);
         this.setFriction(Rocket.FRICTION);
         this.setRestitution(Rocket.RESTITUTION);
         this.setDensity(Rocket.DENSITY);
 
         this.direction = dir;
         // Set up bounds
-        float iShort = 0.1f;
+        float iShort = 0.5f;
         float iLong = 1.1f;
         float xExtent = dir % 2 == 0 ? iShort : iLong;
         float yExtent = dir % 2 == 0 ? iLong : iShort;

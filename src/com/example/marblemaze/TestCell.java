@@ -1,7 +1,6 @@
 package com.example.marblemaze;
 
-
-import junit.framework.TestCase;
+import student.TestCase;
 import android.graphics.RectF;
 import android.widget.*;
 
