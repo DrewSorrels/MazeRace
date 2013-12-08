@@ -1,3 +1,4 @@
 *.class
 */*.class
+hs_*.log
 bin/MarbleMaze.apk

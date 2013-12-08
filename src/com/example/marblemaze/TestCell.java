@@ -1,6 +1,9 @@
 package com.example.marblemaze;
 
-import student.TestCase;
+
+import junit.framework.TestCase;
+import android.graphics.RectF;
+import android.widget.*;
 
 // -------------------------------------------------------------------------
 /**
@@ -18,6 +21,7 @@ public class TestCell extends TestCase
      */
     public void setUp()
     {
+        RectF best = new RectF(0, 0, 0, 0);
         test = new Cell(2,2);
     }
     /**

@@ -18,14 +18,14 @@ import sofia.graphics.ShapeMotion;
  */
 
 public class MarbleShape
-    extends OvalShape implements ObservableMazeComponent
+    extends OvalShape
 {
     private static final float DENSITY = 10f;
     private static final float RADIUS = 0.3f;
     private static final float FRICTION = 0.4f;
     private static final float RESTITUTION = 0.6f;
 
-    private Observable observable;
+    private ObservableMazeComponent observable;
 
 
     // ----------------------------------------------------------
@@ -38,7 +38,7 @@ public class MarbleShape
     {
         super(x, y, MarbleShape.RADIUS);
 
-        this.observable = new Observable();
+        this.observable = new ObservableMazeComponent();
 
         this.setDensity(MarbleShape.DENSITY);
         this.setFillColor(Color.gray);
