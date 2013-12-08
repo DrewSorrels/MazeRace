@@ -16,7 +16,7 @@
         android:textSize="28dp" />
 
     <Button
-        android:id="@+id/replay"
+        android:id="@+id/lossReplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"

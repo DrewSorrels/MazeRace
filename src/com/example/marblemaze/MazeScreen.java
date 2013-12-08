@@ -92,27 +92,29 @@ public class MazeScreen
     private void setupMaze()
     {
         mazeGen = new MazeGenerator();
-        String algorithm = getIntent().getExtras().getString("algorithm");
 
-        if (algorithm.equals("prim"))
-        {
-            mazeGen.primMaze();
-        }
-        if (algorithm.equals("dfs"))
-        {
-            mazeGen.dfsMaze();
+        Object mazePoss = getIntent().getExtras().get("maze");
+
+        if (mazePoss != null && mazePoss instanceof Maze) {
+            maze = (Maze) mazePoss;
+            maze.addObserver(this);
+        } else {
+            String algorithm = getIntent().getExtras().getString("algorithm");
+
+            if (algorithm.equals("prim"))
+            {
+                mazeGen.primMaze();
+            }
+            if (algorithm.equals("dfs"))
+            {
+                mazeGen.dfsMaze();
+            }
+
+            maze = mazeGen.getMaze();
         }
 
-        maze = mazeGen.getMaze();
         maze.addObserver(this);
-
         maze.addHoles();
-        // The following loop is needed b/c for some reason the holes never
-        // notify their observers when they are added
-//        for (Hole h : maze.getHoles()) {
-//            add(h);
-//            add(h.getCollisionHole());
-//        }
     }
 
 
@@ -326,7 +328,9 @@ public class MazeScreen
         if (event instanceof MarbleRemovedEvent)
         {
             System.out.println("marbleremoved");
-            ((MarbleRemovedEvent)event).getMarble().remove();
+            // ((MarbleRemovedEvent)event).getMarble().remove();
+            Intent intent = new Intent(this, LossScreen.class);
+            startActivity(intent);
         }
         if (event instanceof BulletRemovedEvent)
         {
