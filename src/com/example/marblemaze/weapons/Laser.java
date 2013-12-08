@@ -22,8 +22,8 @@ public class Laser
     extends LineShape
     implements Bullet
 {
-    private static final float      DENSITY     = 10f;
-    private static final float      FRICTION    = 0.0f;
+    private static final float      DENSITY     = 1f;
+    private static final float      FRICTION    = 0.01f;
     private static final float      RESTITUTION = 0.0f;
 
     private int                     direction;
