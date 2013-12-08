@@ -4,26 +4,34 @@
     android:layout_height="match_parent"
     tools:context=".MazeChooserScreen" >
 
+    <CheckBox
+        android:id="@+id/holesCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_below="@+id/TextView01"
+        android:checked="true"
+        android:text="Holes" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/prim"
+        android:layout_marginTop="32dp"
+        android:text="Maze Algorithm"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28dp" />
+
     <Button
         android:id="@+id/dfs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/prim"
-        android:layout_alignRight="@+id/prim"
-        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/title"
+        android:layout_alignTop="@+id/holesCheckbox"
         android:text="DFS Maze" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/radioGroup1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="37dp"
-        android:text="Game Mode"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="28dp" />
 
     <Button
         android:id="@+id/prim"
@@ -31,47 +39,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/dfs"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="22dp"
         android:layout_marginTop="18dp"
         android:minWidth="256dip"
         android:text="Prim&apos;s Maze" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/TextView01"
-        android:layout_alignTop="@+id/dfs" >
-
-        <RadioButton
-            android:id="@+id/normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Normal Mode" />
-
-        <RadioButton
-            android:id="@+id/shadow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shadow Mode" />
-
-        <RadioButton
-            android:id="@+id/action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Action Mode" />
-    </RadioGroup>
-
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/TextView01"
-        android:layout_alignBottom="@+id/TextView01"
-        android:layout_alignRight="@+id/dfs"
-        android:text="Maze Algorithm"
+        android:layout_alignBaseline="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="22dp"
+        android:text="Game Features"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
+
+    <CheckBox
+        android:id="@+id/blinkingWallsCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/holesCheckbox"
+        android:layout_below="@+id/holesCheckbox"
+        android:text="Blinking Walls" />
+
+    <CheckBox
+        android:id="@+id/enemiesCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/blinkingWallsCheckbox"
+        android:layout_alignTop="@+id/prim"
+        android:checked="true"
+        android:text="Enemies" />
+
+    <CheckBox
+        android:id="@+id/slalomCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/enemiesCheckbox"
+        android:layout_below="@+id/enemiesCheckbox"
+        android:text="Slalom" />
 
 </RelativeLayout>

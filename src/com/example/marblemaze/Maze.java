@@ -1,16 +1,15 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
-import com.example.marblemaze.weapons.LaserSpawner;
-import com.example.marblemaze.weapons.RocketSpawner;
-import com.example.marblemaze.weapons.WeaponSpawner;
-import java.util.ArrayList;
-import java.io.Serializable;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
+import com.example.marblemaze.weapons.LaserSpawner;
+import com.example.marblemaze.weapons.RocketSpawner;
+import com.example.marblemaze.weapons.WeaponSpawner;
+import java.io.Serializable;
 import java.util.*;
 
 // -------------------------------------------------------------------------
@@ -596,5 +595,36 @@ public class Maze
     {
         return inBounds(new Cell(x, y));
 
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Starts or stops all of the walls in the maze from blinking.
+     *
+     * @param b
+     *            true to start blinking, false to stop
+     */
+    public void setBlinkingWalls(boolean b)
+    {
+        for (Wall wall : walls)
+        {
+            if (wall.isBlinking() != b)
+            {
+                wall.setBlinking(b);
+            }
+        }
+    }
+
+
+    public List<Wall> getWalls()
+    {
+        return walls;
+    }
+
+
+    public List<Hole> getHoles()
+    {
+        return holes;
     }
 }

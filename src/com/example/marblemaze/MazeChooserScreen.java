@@ -1,7 +1,7 @@
 package com.example.marblemaze;
 
-import android.widget.RadioButton;
 import android.content.Intent;
+import android.widget.CheckBox;
 import sofia.app.Screen;
 
 /**
@@ -15,8 +15,11 @@ import sofia.app.Screen;
 public class MazeChooserScreen
     extends Screen
 {
-    private RadioButton shadow;
-    private RadioButton action;
+
+    private CheckBox holesCheckbox;
+    private CheckBox blinkingWallsCheckbox;
+    private CheckBox enemiesCheckbox;
+    private CheckBox slalomCheckbox;
 
 
     // ----------------------------------------------------------
@@ -25,18 +28,7 @@ public class MazeChooserScreen
      */
     public void primClicked()
     {
-        Intent intent = new Intent(this, MazeScreen.class);
-        intent.putExtra("algorithm", "prim");
-        if (shadow.isChecked())
-        {
-            intent.putExtra("gamemode", "shadow");
-
-        }
-        else if (action.isChecked())
-        {
-            intent.putExtra("gamemode", "action");
-        }
-        startActivity(intent);
+        openMaze("prim");
     }
 
 
@@ -46,16 +38,22 @@ public class MazeChooserScreen
      */
     public void dfsClicked()
     {
+        openMaze("dfs");
+    }
+
+
+    /**
+     * Opens a maze screen passing the options from this screen as a bundle of
+     * extras.
+     */
+    private void openMaze(String algorithm)
+    {
         Intent intent = new Intent(this, MazeScreen.class);
-        intent.putExtra("algorithm", "dfs");
-        if (shadow.isChecked())
-        {
-            intent.putExtra("gamemode", "shadow");
-        }
-        else if (action.isChecked())
-        {
-            intent.putExtra("gamemode", "action");
-        }
+        intent.putExtra("algorithm", algorithm);
+        intent.putExtra("slalom", slalomCheckbox.isChecked());
+        intent.putExtra("enemies", enemiesCheckbox.isChecked());
+        intent.putExtra("blinkingWalls", blinkingWallsCheckbox.isChecked());
+        intent.putExtra("holes", holesCheckbox.isChecked());
         startActivity(intent);
     }
 }

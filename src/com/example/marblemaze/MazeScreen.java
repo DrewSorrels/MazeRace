@@ -20,9 +20,11 @@ import com.example.marblemaze.weapons.Bullet;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
+import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 
 // -------------------------------------------------------------------------
@@ -95,7 +97,9 @@ public class MazeScreen
     {
         mazeGen = new MazeGenerator();
 
-        String algorithm = getIntent().getExtras().getString("algorithm");
+        Bundle extras = getIntent().getExtras();
+
+        String algorithm = extras.getString("algorithm");
 
         if (algorithm.equals("prim"))
         {
@@ -109,8 +113,15 @@ public class MazeScreen
         maze = mazeGen.getMaze();
 
         maze.addObserver(this);
-        maze.addHoles();
-        maze.addSpawners();
+
+        if (extras.getBoolean("holes"))
+        {
+            maze.addHoles();
+        }
+
+        if (extras.getBoolean("enemies")) {
+            maze.addSpawners();
+        }
     }
 
 
@@ -119,6 +130,8 @@ public class MazeScreen
      */
     private void setupAddWalls()
     {
+        boolean blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
+
         for (int i = 0; i < maze.width(); i++)
         {
             for (int j = 0; j < maze.height(); j++)
@@ -127,6 +140,7 @@ public class MazeScreen
                 for (Wall walle : cellulose.getWalls())
                 {
                     add(walle);
+                    walle.setBlinking(blinkingWalls);
                 }
             }
         }
@@ -332,7 +346,6 @@ public class MazeScreen
         if (event instanceof MarbleRemovedEvent)
         {
             System.out.println("marbleremoved");
-            // ((MarbleRemovedEvent)event).getMarble().remove();
             Intent intent = new Intent(this, LossScreen.class);
             startActivity(intent);
         }
