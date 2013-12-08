@@ -67,7 +67,6 @@ public class Hole
         public CollisionHole(float x, float y)
         {
             super(x, y, .01f);
-            System.out.println("" + x + ", " + y);
             setFillColor(Color.gray);
         }
 
