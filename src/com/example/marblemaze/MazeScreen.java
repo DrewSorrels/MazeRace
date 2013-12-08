@@ -109,6 +109,10 @@ public class MazeScreen
         {
             mazeGen.dfsMaze();
         }
+        if (algorithm.equals("test"))
+        {
+            mazeGen.testMaze();
+        }
 
         maze = mazeGen.getMaze();
 

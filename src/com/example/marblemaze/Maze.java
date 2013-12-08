@@ -347,15 +347,19 @@ public class Maze
                 {
                     if (Math.random() < .2)
                     {
-                        Hole h = new Hole(grid[i][j].getBounds());
-                        holes.add(h);
-                        setChanged();
-                        notifyObservers(new HoleAddedEvent(h));
+                        addHole(grid[i][j]);
                     }
 
                 }
             }
         }
+    }
+
+    public void addHole(Cell c) {
+        Hole h = new Hole(c.getBounds());
+        holes.add(h);
+        setChanged();
+        notifyObservers(new HoleAddedEvent(h));
     }
 
 
