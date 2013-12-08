@@ -355,7 +355,15 @@ public class Maze
         }
     }
 
-    public void addHole(Cell c) {
+
+    /**
+     * Adds a hole to the maze and notifies observers.
+     *
+     * @param c
+     *            The cell where the hole will be added.
+     */
+    public void addHole(Cell c)
+    {
         Hole h = new Hole(c.getBounds());
         holes.add(h);
         setChanged();
