@@ -57,15 +57,6 @@ public class MarbleShape
     }
 
 
-    // ----------------------------------------------------------
-    /**
-     * sets the gravity of the marble
-     */
-    public void setGravityToZero()
-    {
-        this.setGravityScale(0);
-    }
-
 
     @Override
     public void remove()

@@ -1,13 +1,15 @@
 package com.example.marblemaze;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.io.Serializable;
 import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
+import com.example.marblemaze.weapons.LaserSpawner;
+import com.example.marblemaze.weapons.RocketSpawner;
+import com.example.marblemaze.weapons.WeaponSpawner;
+import java.io.Serializable;
 import java.util.*;
 
 // -------------------------------------------------------------------------
@@ -27,14 +29,15 @@ public class Maze
     /**
      * Serializable field.
      */
-    public static final long serialVersionUID = 1L;
+    public static final long    serialVersionUID = 1L;
 
-    private Cell[][]         grid;
-    private List<Wall>       walls;
-    private Cell             start;
-    private Cell             end;
-    private MarbleShape      marble;
-    private List<Hole>       holes;
+    private Cell[][]            grid;
+    private List<Wall>          walls;
+    private Cell                start;
+    private Cell                end;
+    private MarbleShape         marble;
+    private List<Hole>          holes;
+    private List<WeaponSpawner> spawners;
 
 
     // ----------------------------------------------------------
@@ -51,6 +54,7 @@ public class Maze
         holes = new ArrayList<Hole>();
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
+        spawners = new ArrayList<WeaponSpawner>();
 
         List<Wall> temp = new ArrayList<Wall>();
         for (int i = 0; i < width; i++)
@@ -125,7 +129,7 @@ public class Maze
      */
     public Wall getWallFromCells(Cell c1, Cell c2)
     {
-        // If the y coords are the same
+        // If the y cords are the same
         if (c1.getY() == c2.getY())
         {
             if (c1.getX() + 1 == c2.getX())
@@ -352,6 +356,52 @@ public class Maze
                 }
             }
         }
+    }
+
+
+    /**
+     * Adds WeaponSpawners to the Maze.
+     */
+    public void addSpawners()
+    {
+        for (int i = 0; i < grid.length; i++)
+        {
+            for (int j = 0; j < grid[i].length; j++)
+            {
+                // When there are 3 walls...
+                if (grid[i][j].getNumWalls() == 3 && (i != 0 && j != 0))
+                {
+                    double chance = Math.random();
+                    ArrayList<Integer> wList = grid[i][j].getWallPos();
+                    int dir = 0;
+                    // Find the direction that there is not a wall.
+                    for (int k = 0; k < wList.size(); k++)
+                    {
+                        if (!wList.contains(k))
+                        {
+                            dir = k;
+                            break;
+                        }
+                    }
+                    // 10% chance to add either spawner.
+                    if (chance < .1)
+                    {
+                        WeaponSpawner w = new LaserSpawner(i, j, 2000, dir);
+                        spawners.add(w);
+                        setChanged();
+                        notifyObservers(new WeaponSpawnerAddedEvent(w));
+                    }
+                    else if (chance < .2)
+                    {
+                        WeaponSpawner w = new RocketSpawner(i, j, 4000, dir);
+                        spawners.add(w);
+                        setChanged();
+                        notifyObservers(new WeaponSpawnerAddedEvent(w));
+                    }
+                }
+            }
+        }
+
     }
 
 

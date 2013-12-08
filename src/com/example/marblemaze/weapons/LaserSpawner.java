@@ -29,13 +29,15 @@ public class LaserSpawner
      *            The y coordinate
      * @param cd
      *            Cooldown of the LaserSpawner.
+     * @param dir
+     *            The direction of the bullet (0 is up, follows clockwise)
      */
-    public LaserSpawner(int x, int y, long cd)
+    public LaserSpawner(int x, int y, long cd, int dir)
     {
         super(x, y, cd);
         this.x = x;
         this.y = y;
-        direction = 1;
+        direction = dir;
 
         this.setFillColor(Color.red);
         this.setColor(Color.greenYellow);
@@ -45,16 +47,14 @@ public class LaserSpawner
     @Override
     public Bullet createBullet()
     {
-        Laser b = new Laser(x + 1.5f, y, direction);
-
-        notifyObservers(new BulletAddedEvent(b));
+        Bullet b = new Laser(x + 0.5f, y + 0.5f, direction);
         if (direction % 2 == 0)
         {
-            b.move(0.4f, 0.4f);
+            b.move(0, 1f);
         }
         else
         {
-            b.move(0.4f, 0.4f);
+            b.move(1f, 0);
         }
 
         return b;

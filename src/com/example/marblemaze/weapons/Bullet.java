@@ -3,13 +3,13 @@ package com.example.marblemaze.weapons;
 import java.util.Observer;
 import sofia.graphics.Shape;
 
-
 // -------------------------------------------------------------------------
 /**
  * The Bullet interface provides methods that the laser and rocket must
  * implement
  *
  * @author Nicholas Kilmer (nkilmer8)
+ * @author Drew Sorrels (amsorr)
  * @version 2013.12.06
  */
 public interface Bullet
@@ -36,9 +36,11 @@ public interface Bullet
 
     /**
      * Returns the shape in the bullet.
+     *
      * @return A Bullet (Shape)
      */
     Shape getShape();
+
 
     // ----------------------------------------------------------
     /**

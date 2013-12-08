@@ -32,13 +32,15 @@ public class RocketSpawner
      *            The y coordinate
      * @param cd
      *            Cooldown of the RocketSpawner.
+     * @param dir
+     *            The direction of the bullet (0 is up, follows clockwise)
      */
-    public RocketSpawner(int x, int y, long cd)
+    public RocketSpawner(int x, int y, long cd, int dir)
     {
         super(x, y, cd);
         this.x = x;
         this.y = y;
-        direction = 1;
+        direction = dir;
 
         observer = new ObservableMazeComponent();
 
@@ -50,7 +52,7 @@ public class RocketSpawner
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Rocket(x, y, direction);
+        Bullet b = new Rocket(x + 0.5f, y + 0.5f, direction);
         if (direction % 2 == 0)
         {
             b.move(0, 0.2f);

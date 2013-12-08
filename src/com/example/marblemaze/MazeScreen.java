@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -119,7 +120,7 @@ public class MazeScreen
         }
 
         if (extras.getBoolean("enemies")) {
-            setupSpawners();
+            maze.addSpawners();
         }
     }
 
@@ -179,7 +180,7 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(16, 13, 1000));
+        spawners.add(new LaserSpawner(16, 13, 4000, 1));
         for (WeaponSpawner w : spawners)
         {
             w.addObserver(this);
@@ -358,8 +359,8 @@ public class MazeScreen
             System.out.println("bullet added");
             Bullet b = ((BulletAddedEvent)event).getBullet();
             add(b.getShape());
-            b.getShape().applyLinearImpulse(40, 0);
-            b.move(0.4f, 0);
+            //b.getShape().applyLinearImpulse(40, 0);
+            b.move(1f, 1f);
         }
         if (event instanceof HoleAddedEvent)
         {
@@ -367,6 +368,12 @@ public class MazeScreen
             HoleAddedEvent haEvent = (HoleAddedEvent)event;
             add(haEvent.getHole());
             add(haEvent.getHole().getCollisionHole());
+        }
+        if (event instanceof WeaponSpawnerAddedEvent)
+        {
+            System.out.println("Added spawner");
+            WeaponSpawnerAddedEvent wsEvent = (WeaponSpawnerAddedEvent)event;
+            add(wsEvent.getWeaponSpawner());
         }
     }
 

@@ -34,7 +34,7 @@ public abstract class WeaponSpawner
      */
     public WeaponSpawner(int x, int y, long cd)
     {
-        super(x, y, x + 0.8f, y + 0.8f);
+        super(x, y, x + 1, y + 1);
         this.x = x;
         this.y = y;
         cooldown = cd;
@@ -45,6 +45,12 @@ public abstract class WeaponSpawner
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Creates and fires a bullet.
+     *
+     * @return the bullet that was fired.
+     */
     public abstract Bullet createBullet();
 
 
