@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.WindowManager;
+import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
-import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 
 // -------------------------------------------------------------------------
@@ -85,24 +85,6 @@ public class MazeScreen
 
 
     /**
-     * Sets up a sample 2x2 maze for display purposes and adds the walls to the
-     * screen.
-     */
-    private void setupSampleMaze()
-    {
-        final int MAZE_SIZE = 4;
-        maze = new Maze(MAZE_SIZE, MAZE_SIZE);
-        Cell topleft = maze.getCell(0, 0);
-        topleft.setWall(0, true);
-        topleft.setWall(1, true);
-        topleft.setWall(2, true);
-        topleft.setWall(3, true);
-        Cell topright = maze.getCell(0, 3);
-        topright.setWall(2, true);
-    }
-
-
-    /**
      * Generates and displays the maze based on the selected algorithm.
      */
     private void setupMaze()
@@ -125,16 +107,14 @@ public class MazeScreen
 
 
     /**
-     * Adds all the walls from <code>maze</code> to
+     * Adds all the walls from <code>maze</code> to the screen.
      */
     private void setupAddWalls()
     {
-        System.out.println("WAT");
         for (int i = 0; i < maze.width(); i++)
         {
             for (int j = 0; j < maze.height(); j++)
             {
-                System.out.println("WAT" + i + ", " + j);
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
@@ -183,39 +163,6 @@ public class MazeScreen
         {
             add(w);
         }
-    }
-
-
-    /**
-     * Adds four sample walls to the canvas.
-     */
-    private void setupWalls()
-    {
-        RectangleShape topWall =
-            new RectangleShape(1, 0, getCoordinateSystemWidth() - 1, 1);
-        topWall.setFillColor(Color.blue);
-        RectangleShape leftWall =
-            new RectangleShape(0, 0, 1, getCoordinateSystemHeight());
-        leftWall.setFillColor(Color.red);
-        RectangleShape bottomWall =
-            new RectangleShape(
-                1,
-                getCoordinateSystemHeight() - 1,
-                getCoordinateSystemWidth() - 1,
-                getCoordinateSystemHeight());
-        bottomWall.setFillColor(Color.yellow);
-        RectangleShape rightWall =
-            new RectangleShape(
-                getCoordinateSystemWidth() - 1,
-                0,
-                getCoordinateSystemWidth(),
-                getCoordinateSystemHeight());
-        rightWall.setFillColor(Color.green);
-
-        add(topWall);
-        add(leftWall);
-        add(bottomWall);
-        add(rightWall);
     }
 
 
@@ -371,6 +318,10 @@ public class MazeScreen
         {
             System.out.println("marbleremoved");
             ((MarbleRemovedEvent)event).getMarble().remove();
+        }
+        if (event instanceof HoleAddedEvent)
+        {
+            add(((HoleAddedEvent)event).getHole());
         }
     }
 
