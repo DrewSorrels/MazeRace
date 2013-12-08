@@ -20,11 +20,9 @@ import com.example.marblemaze.weapons.Bullet;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import sofia.app.ShapeScreen;
-import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
 
 // -------------------------------------------------------------------------
@@ -58,12 +56,9 @@ public class MazeScreen
      */
     private float              pixelsPerMeter;
 
-    private SensorManager      sensorManager;
-    private Sensor             accelerometer;
 
     private RectangleShape     pauseButton;
 
-    private MazeGenerator      mazeGen;
 
     private Maze               maze;
 
@@ -82,7 +77,9 @@ public class MazeScreen
         setupSpawners();
     }
 
-
+    /**
+     * When the screen is created makes it so that the screen never loses power
+     */
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -95,6 +92,8 @@ public class MazeScreen
      */
     private void setupMaze()
     {
+
+        MazeGenerator      mazeGen;
         mazeGen = new MazeGenerator();
 
         Bundle extras = getIntent().getExtras();
@@ -134,7 +133,8 @@ public class MazeScreen
      */
     private void setupAddWalls()
     {
-        boolean blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
+        boolean blinkingWalls =
+            getIntent().getExtras().getBoolean("blinkingWalls");
 
         for (int i = 0; i < maze.width(); i++)
         {
@@ -198,6 +198,9 @@ public class MazeScreen
      */
     private void setupAccelerometer()
     {
+
+        SensorManager      sensorManager;
+        Sensor             accelerometer;
         // Initialize framework for getting accelerometer tilt events.
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         accelerometer =
@@ -325,6 +328,11 @@ public class MazeScreen
     }
 
 
+    /**
+     * updates the cooresponding observable in response to the event
+     * @param obs the observable
+     * @param event is the event
+     */
     public void update(Observable obs, Object event)
     {
         if (event instanceof WallRemovedEvent)
