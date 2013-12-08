@@ -35,7 +35,7 @@ public abstract class WeaponSpawner
         this.y = y;
         cooldown = cd;
 
-        Timer.callRepeatedly(this, "createBullet", cooldown);
+//        Timer.callRepeatedly(this, "createBullet", cooldown);
 
     }
 

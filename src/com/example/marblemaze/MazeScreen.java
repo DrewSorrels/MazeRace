@@ -65,7 +65,7 @@ public class MazeScreen
     {
         // setupSampleMaze();
         setupMaze();
-        // setupAddWalls();
+         setupAddWalls();
         setupPhysics();
         setupMarble();
         setupAccelerometer();
@@ -125,7 +125,7 @@ public class MazeScreen
         {
             for (int j = 0; j < maze.height(); j++)
             {
-                System.out.println("WAT" + i + j);
+                System.out.println("WAT" + i + ", " + j);
                 Cell cellulose = maze.getCell(i, j);
                 for (Wall walle : cellulose.getWalls())
                 {
@@ -169,7 +169,7 @@ public class MazeScreen
     {
         ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
 
-        spawners.add(new LaserSpawner(15, 15, 2));
+        spawners.add(new LaserSpawner(1, 1, 1));
         for (WeaponSpawner w : spawners)
         {
             add(w);
