@@ -101,6 +101,10 @@ public class MazeScreen
 
         String algorithm = extras.getString("algorithm");
 
+        if (algorithm == null || algorithm.equals("test"))
+        {
+            mazeGen.testMaze();
+        }
         if (algorithm.equals("prim"))
         {
             mazeGen.primMaze();
@@ -108,10 +112,6 @@ public class MazeScreen
         if (algorithm.equals("dfs"))
         {
             mazeGen.dfsMaze();
-        }
-        if (algorithm.equals("test"))
-        {
-            mazeGen.testMaze();
         }
 
         maze = mazeGen.getMaze();

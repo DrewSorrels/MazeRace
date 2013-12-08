@@ -17,7 +17,7 @@ public abstract class WeaponSpawner
 {
     private long                    cooldown;
 
-    private ObservableMazeComponent observer;
+    protected ObservableMazeComponent observer;
 
 
     /**
