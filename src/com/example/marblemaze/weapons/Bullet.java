@@ -2,6 +2,7 @@ package com.example.marblemaze.weapons;
 
 import sofia.graphics.Shape;
 
+
 // -------------------------------------------------------------------------
 /**
  * The Bullet interface provides methods that the laser and rocket must
@@ -23,4 +24,19 @@ public interface Bullet
      *            is the y velocity
      */
     void move(float x, float y);
+
+
+    // ----------------------------------------------------------
+    /**
+     * Removes the bullet.
+     */
+    void remove();
+
+
+    /**
+     * Returns the shape in the bullet.
+     * @return A Bullet (Shape)
+     */
+    Shape getShape();
+
 }

@@ -37,6 +37,7 @@
         <activity android:name="PauseScreen"
             android:screenOrientation="landscape"></activity>
         <activity android:name="MazeChooserScreen" android:screenOrientation="landscape"></activity>
+        <uses-library android:name="android.test.runner"/>
     </application>
 
 </manifest>

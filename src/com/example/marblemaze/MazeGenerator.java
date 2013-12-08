@@ -80,10 +80,8 @@ public class MazeGenerator
         {
             for (Wall w : c.getWalls())
             {
-                System.out.println("can I add?");
                 if (!cellWalls.contains(w))
                 {
-                    System.out.println("Add walls");
                     cellWalls.add(w);
                 }
             }
@@ -91,16 +89,13 @@ public class MazeGenerator
         // While there are unvisited cells...
         while (!cells.isEmpty())
         {
-            System.out.println("HEEEEEEEEEEE");
             ArrayList<Cell> tempCells = new ArrayList<Cell>();
             if (sCells.size() > 0)
             {
-                System.out.println("sCells.size " + sCells.size());
                 tempCells = getUnvisitedNeighbors(sCells.peek());
             }
             if (tempCells.size() > 0)
             {
-                System.out.println("tempCells.size()" + tempCells.size());
                 // If there are unvisited neighbors.
                 Cell currentCell =
                     tempCells.get((int)Math.floor(Math.random() * (tempCells.size() - 1) + 0.5));
@@ -123,13 +118,11 @@ public class MazeGenerator
             }
             else if (!sCells.isEmpty())
             {
-                System.out.println("sCells pop");
                 // Otherwise, pop it off the cell.
                 sCells.pop();
             }
             else
             {
-                System.out.println("else");
                 // If there aren't any cells left in the stack,
                 sCells.push(cells.get((int)Math.random() * (cells.size() - 1)));
             }

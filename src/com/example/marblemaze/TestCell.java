@@ -1,20 +1,21 @@
 package com.example.marblemaze;
 
-import student.TestCase;
 import android.graphics.RectF;
-import android.widget.*;
+import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
- *  This is the test class for the cell class and its methods
+ *  Tests the {@link Cell} class.
  *
  *  @author Nicholas Kilmer (nkilmer8)
+ *  @author Dennis Lysenko (dlysenko)
  *  @version 2013.12.07
  */
 public class TestCell extends TestCase
 {
     private Cell test;
 
+    @SuppressWarnings("unused")
     /**
      * sets up the test case
      */
@@ -23,8 +24,11 @@ public class TestCell extends TestCase
         RectF best = new RectF(0, 0, 0, 0);
         test = new Cell(2,2);
     }
+
+
+    // ----------------------------------------------------------
     /**
-     * tests the method of getNumWalls
+     * Tests the getNumWalls() method.
      */
     public void testGetNumWalls()
     {
