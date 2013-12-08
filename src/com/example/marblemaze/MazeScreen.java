@@ -336,7 +336,7 @@ public class MazeScreen
         if (event instanceof HoleAddedEvent)
         {
             System.out.println("holeadded");
-            HoleAddedEvent haEvent = (HoleAddedEvent) event;
+            HoleAddedEvent haEvent = (HoleAddedEvent)event;
             add(haEvent.getHole());
             add(haEvent.getHole().getCollisionHole());
         }
