@@ -27,6 +27,7 @@ public class Hole
     public Hole(RectF bounds)
     {
         super(bounds);
+        setActive(false);
         setFillColor(Color.black);
         coll =
             new CollisionHole(
