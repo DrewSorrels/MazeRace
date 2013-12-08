@@ -9,7 +9,7 @@
         android:targetSdkVersion="17" />
     
     <instrumentation
-        android:targetPackage="com.example.marblemaze.test"
+        android:targetPackage="com.example.marblemaze"
         android:name="android.test.InstrumentationTestRunner"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -37,7 +37,8 @@
         <activity android:name="PauseScreen"
             android:screenOrientation="landscape"></activity>
         <activity android:name="MazeChooserScreen" android:screenOrientation="landscape"></activity>
-        <activity android:name="LossScreen"></activity><uses-library android:name="android.test.runner"/>
+        <activity android:name="LossScreen"></activity>
+        <uses-library android:name="android.test.runner"/>
         
     </application>
 
