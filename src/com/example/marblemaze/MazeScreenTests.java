@@ -12,8 +12,6 @@ import android.content.Intent;
 public class MazeScreenTests
     extends student.AndroidTestCase<MazeScreen>
 {
-    private MazeScreen mazeScreen;
-
 
     // ----------------------------------------------------------
     /**
@@ -26,7 +24,9 @@ public class MazeScreenTests
         super(MazeScreen.class);
     }
 
-
+    /**
+     * Sets up the test.
+     */
     public void setUp()
     {
         // ugh
@@ -37,7 +37,7 @@ public class MazeScreenTests
     /**
      * Asserts that you can move the marble on the screen.
      */
-    public void assertScreenWorks()
+    public void testScreenWorks()
     {
         Intent intent = new Intent(getScreen(), MazeScreen.class);
         intent.putExtra("algorithm", "test");
@@ -48,5 +48,7 @@ public class MazeScreenTests
         getScreen().startActivity(intent);
 
         getScreen().moveMarble(1, 1);
+
+        assertNotNull(intent);
     }
 }
