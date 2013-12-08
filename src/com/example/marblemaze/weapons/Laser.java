@@ -12,7 +12,7 @@ import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
- * This method will create a laser that the user must dodge
+ * This method will create a laser that the user must doge
  *
  * @author Nicholas Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
