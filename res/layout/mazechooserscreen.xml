@@ -8,8 +8,10 @@
         android:id="@+id/dfs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/prim"
         android:layout_alignRight="@+id/prim"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:text="DFS Maze" />
 
     <TextView
         android:id="@+id/TextView01"
@@ -67,9 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/TextView01"
         android:layout_alignBottom="@+id/TextView01"
-        android:layout_alignLeft="@+id/dfs"
-        android:layout_marginLeft="92dp"
-        android:text="Maze"
+        android:layout_alignRight="@+id/dfs"
+        android:text="Maze Algorithm"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28dp" />
 

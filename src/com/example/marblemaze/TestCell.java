@@ -5,7 +5,6 @@ import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
-<<<<<<< HEAD
  *  Tests the {@link Cell} class.
  *
  *  @author Nicholas Kilmer (nkilmer8)

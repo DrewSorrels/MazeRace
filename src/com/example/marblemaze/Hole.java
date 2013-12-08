@@ -1,6 +1,7 @@
 package com.example.marblemaze;
 
 import android.graphics.RectF;
+import sofia.graphics.Color;
 import sofia.graphics.OvalShape;
 
 // -------------------------------------------------------------------------
@@ -13,7 +14,7 @@ import sofia.graphics.OvalShape;
 public class Hole
     extends OvalShape
 {
-    private collisionHole coll;
+    private CollisionHole coll;
 
 
     // ----------------------------------------------------------
@@ -26,8 +27,9 @@ public class Hole
     public Hole(RectF bounds)
     {
         super(bounds);
+        setFillColor(Color.black);
         coll =
-            new collisionHole(
+            new CollisionHole(
                 ((bounds.right - bounds.left) / 2),
                 (bounds.bottom - bounds.top) / 2);
     }
@@ -36,7 +38,7 @@ public class Hole
      * this method will return the collision hole
      * @return the inner collision hole
      */
-    public collisionHole getCollisionHole()
+    public CollisionHole getCollisionHole()
     {
         return coll;
     }
@@ -48,10 +50,10 @@ public class Hole
      *  the marble will only disappear if the user gets completely inside the
      *  hole.
      *
-     *  @author Nicholas Kilmer(nkilmer8)
+     *  @author Nicholas Kilmer (nkilmer8)
      *  @version 2013.12.07
      */
-    public class collisionHole
+    public class CollisionHole
         extends OvalShape
     {
         // ----------------------------------------------------------
@@ -60,9 +62,10 @@ public class Hole
          * @param x is the x - coordinate
          * @param y is the y - coordinate
          */
-        public collisionHole(float x, float y)
+        public CollisionHole(float x, float y)
         {
             super(x, y, .01f);
+            setFillColor(Color.gray);
         }
 
 
