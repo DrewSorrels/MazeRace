@@ -346,10 +346,6 @@ public class Maze
         }
     }
 
-    public List<Hole> getHoles() {
-        return holes;
-    }
-
 
     // ----------------------------------------------------------
     /**

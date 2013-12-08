@@ -26,6 +26,12 @@ public class MarbleShape
 
     private ObservableMazeComponent observable;
 
+    /**
+     * When the marble hits a hole, dying is set to true so that subsequent
+     * collisions with holes do not start unnecessary animations.
+     */
+    private boolean                 dying;
+
 
     // ----------------------------------------------------------
     /**
@@ -92,5 +98,30 @@ public class MarbleShape
     public void notifyObservers(Object arg)
     {
         observable.notifyObservers(arg);
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Returns the value of <code>dying</code> See the javadoc for
+     * <code>dying</code> for an explanation of its use.
+     *
+     * @return the value of <code>dying</code>
+     */
+    public boolean isDying()
+    {
+        return dying;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Sets the value of <code>dying</code> See the javadoc for
+     * <code>dying</code> for an explanation of its use.
+     * @param dying the value to set
+     */
+    public void setDying(boolean dying)
+    {
+        this.dying = dying;
     }
 }

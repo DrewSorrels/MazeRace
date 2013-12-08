@@ -31,8 +31,8 @@ public class Hole
         setFillColor(Color.black);
         coll =
             new CollisionHole(
-                ((bounds.right - bounds.left) / 2),
-                (bounds.bottom - bounds.top) / 2);
+                ((bounds.right + bounds.left) / 2),
+                (bounds.bottom + bounds.top) / 2);
     }
     // ----------------------------------------------------------
     /**
@@ -66,6 +66,7 @@ public class Hole
         public CollisionHole(float x, float y)
         {
             super(x, y, .01f);
+            System.out.println("" + x + ", " + y);
             setFillColor(Color.gray);
         }
 
@@ -78,8 +79,11 @@ public class Hole
          */
         public void onCollisionWith(MarbleShape first)
         {
-            first.animate(1000).rotation(720).alpha(0).removeWhenComplete()
-                .play();
+            if (!first.isDying()) {
+                first.animate(1000).rotation(720).alpha(0).removeWhenComplete()
+                    .play();
+                first.setDying(true);
+            }
         }
     }
 
