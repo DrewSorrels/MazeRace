@@ -19,10 +19,10 @@ import sofia.graphics.ShapeMotion;
 public class MarbleShape
     extends OvalShape
 {
-    private static final float      DENSITY     = 0f;
+    private static final float      DENSITY     = 10f;
     private static final float      RADIUS      = 0.3f;
-    private static final float      FRICTION    = 0f;
-    private static final float      RESTITUTION = 0.6f;
+    private static final float      FRICTION    = 0.4f;
+    private static final float      RESTITUTION = 0.3f;
 
     private ObservableMazeComponent observable;
 

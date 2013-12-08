@@ -165,7 +165,7 @@ public class MazeScreen
      */
     private void setupMarble()
     {
-        MarbleShape squishy = new MarbleShape(15, 15);
+        MarbleShape squishy = new MarbleShape(0.5f, 0.5f);
 
         maze.setMarble(squishy);
     }
@@ -313,6 +313,7 @@ public class MazeScreen
         y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
         setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
+        maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
     }
 
 
