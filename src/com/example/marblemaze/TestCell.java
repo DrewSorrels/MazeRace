@@ -36,6 +36,7 @@ public class TestCell
     public void testGetNumWalls()
     {
         assertEquals(test.getNumWalls(), 4);
+        assertEquals(test.getWallPos().size(), 4);
         test.setWall(0, false);
         assertEquals(test.getNumWalls(), 3);
         test.setWall(1, false);
