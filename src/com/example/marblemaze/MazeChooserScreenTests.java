@@ -5,6 +5,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import student.TestCase;
 
+// -------------------------------------------------------------------------
+/**
+ * Tests the MazeChooserScreen and all it's methods.
+ *
+ * @author Drew Sorrels (amsorr)
+ * @version 2013.12.08
+ */
 public class MazeChooserScreenTests
     extends student.AndroidTestCase<MazeChooserScreen>
 {
@@ -16,6 +23,10 @@ public class MazeChooserScreenTests
     private Button   prim;
 
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new MazeChooserScreenTests object.
+     */
     public MazeChooserScreenTests()
     {
         super(MazeChooserScreen.class);
@@ -32,7 +43,9 @@ public class MazeChooserScreenTests
         click(blinkingWallsCheckbox);
         click(enemiesCheckbox);
         click(slalomCheckbox);
-        this.prepareForUpcomingActivity(Intent.ACTION_VIEW);
+
+        assertTrue(slalomCheckbox.isChecked());
+        //this.prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(dfs);
 
     }
@@ -44,7 +57,8 @@ public class MazeChooserScreenTests
      */
     public void testButton2()
     {
-        prepareForUpcomingActivity(Intent.ACTION_VIEW);
+        assertFalse(slalomCheckbox.isChecked());
+        //prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(prim);
     }
 }
