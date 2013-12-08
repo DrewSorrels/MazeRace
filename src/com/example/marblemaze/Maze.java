@@ -130,7 +130,7 @@ public class Maze
      */
     public Wall getWallFromCells(Cell c1, Cell c2)
     {
-        // If the y coords are the same
+        // If the y cords are the same
         if (c1.getY() == c2.getY())
         {
             if (c1.getX() + 1 == c2.getX())
