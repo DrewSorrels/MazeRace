@@ -12,7 +12,7 @@ import student.TestCase;
  * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.08
  */
-public class TestCell
+public class CellTests
     extends TestCase
 {
     private Cell test;
