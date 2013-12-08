@@ -4,7 +4,6 @@ import android.graphics.RectF;
 import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
-import java.util.Observable;
 import java.util.Observer;
 import sofia.graphics.Color;
 import sofia.graphics.RectangleShape;
@@ -216,12 +215,26 @@ public class Wall
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Adds an observer that would like to be notified of changes to this wall.
+     *
+     * @param obs
+     *            the observer in question
+     */
     public void addObserver(Observer obs)
     {
         observable.addObserver(obs);
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Notifies all of the given observers that a change has been made.
+     *
+     * @param arg
+     *            information about the change that was made
+     */
     public void notifyObservers(Object arg)
     {
         observable.notifyObservers(arg);
