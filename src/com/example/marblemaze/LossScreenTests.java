@@ -12,7 +12,7 @@ import android.widget.Button;
 public class LossScreenTests
     extends student.AndroidTestCase<LossScreen>
 {
-    private Button lossPlayAgain;
+    private Button lossPlayAnother;
 
 
     // ----------------------------------------------------------
@@ -32,7 +32,7 @@ public class LossScreenTests
     public void testButtons()
     {
         assertTrue(true);
-        click(lossPlayAgain);
+        click(lossPlayAnother);
 
     }
 

@@ -142,8 +142,12 @@ public class MazeScreen
      */
     private void setupAddWalls()
     {
-        boolean blinkingWalls =
-            getIntent().getExtras().getBoolean("blinkingWalls");
+        boolean blinkingWalls = false;
+        try {
+            blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
+        } catch (NullPointerException npe) {
+            // false
+        }
 
         for (int i = 0; i < maze.width(); i++)
         {
