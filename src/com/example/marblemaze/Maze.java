@@ -190,15 +190,15 @@ public class Maze
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
             if (w.isHorizontal()
-                && (w.getX() == example.getX() && (w.getY() == example.getY() || w
-                    .getY() == example.getY() + 1)))
+                && (w.getX() == example.getX() && (w.getY() == example.getY()
+                || w.getY() == example.getY() + 1)))
             {
                 wallArray.add(w);
             } // If it is vertical, then y must be the same and x must be same
               // or one higher.
             else if (!w.isHorizontal()
-                && ((w.getX() == example.getX() || w.getX() == example.getX() + 1) && w
-                    .getY() == example.getY()))
+                && ((w.getX() == example.getX() || w.getX() == example.getX()
+                + 1) && w.getY() == example.getY()))
             {
                 wallArray.add(w);
             }
@@ -335,6 +335,10 @@ public class Maze
         {
             for (int j = 0; j < grid[i].length; j++)
             {
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
                 if (grid[i][j].getNumWalls() == 3 && Math.random() < .2)
                 {
                     addHole(grid[i][j]);

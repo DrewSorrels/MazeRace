@@ -30,8 +30,7 @@ public class GoalCircle
     public GoalCircle(RectF bounds)
     {
         super(bounds);
-        setActive(false);
-        setFillColor(Color.black);
+        setFillColor(Color.forestGreen);
         observable = new ObservableMazeComponent();
     }
 
@@ -44,11 +43,8 @@ public class GoalCircle
      */
     public void onCollisionWith(MarbleShape first)
     {
-        if (!first.isDying())
-        {
-            first.animate(1000).color(Color.yellow).alpha(100).play();
-            notifyObservers(new VictoryEvent());
-        }
+        first.animate(1000).color(Color.yellow).alpha(100).play();
+        notifyObservers(new VictoryEvent());
     }
 
     // ----------------------------------------------------------

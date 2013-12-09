@@ -38,7 +38,7 @@ public class LaserSpawner
         this.y = y;
         direction = dir;
 
-        this.setFillColor(Color.red);
+        this.setFillColor(Color.orange);
         this.setColor(Color.greenYellow);
     }
 
