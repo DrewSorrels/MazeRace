@@ -18,7 +18,8 @@ public class LossScreen
     /**
      * Gives the user an option to choose a new name.
      */
-    public void lossPlayAnotherClicked() {
+    public void lossPlayAnotherClicked()
+    {
         Intent intent = new Intent(this, MazeChooserScreen.class);
         startActivity(intent);
     }
