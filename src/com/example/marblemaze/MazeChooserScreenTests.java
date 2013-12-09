@@ -1,9 +1,7 @@
 package com.example.marblemaze;
 
-import android.content.Intent;
 import android.widget.Button;
 import android.widget.CheckBox;
-import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
