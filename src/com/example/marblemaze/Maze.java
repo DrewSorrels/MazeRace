@@ -335,6 +335,10 @@ public class Maze
         {
             for (int j = 0; j < grid[i].length; j++)
             {
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
                 if (grid[i][j].getNumWalls() == 3 && Math.random() < .2)
                 {
                     addHole(grid[i][j]);
