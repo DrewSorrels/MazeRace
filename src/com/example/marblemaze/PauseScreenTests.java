@@ -31,6 +31,7 @@ public class PauseScreenTests
      */
     public void testButtons()
     {
+        assertTrue(resume.isEnabled());
         click(resume);
     }
 }

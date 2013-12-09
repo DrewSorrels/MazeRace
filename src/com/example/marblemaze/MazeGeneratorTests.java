@@ -15,6 +15,9 @@ public class MazeGeneratorTests
     private MazeGenerator mg;
 
 
+    /**
+     * sets up the test cases
+     */
     public void setUp()
     {
         mg = new MazeGenerator();
