@@ -1,10 +1,11 @@
 package com.example.marblemaze.weapons;
 
+import android.graphics.PointF;
+import com.example.marblemaze.MarbleShape;
 import com.example.marblemaze.Maze;
 import com.example.marblemaze.Wall;
-import com.example.marblemaze.MarbleShape;
-import android.graphics.PointF;
 import student.TestCase;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
 
 // -------------------------------------------------------------------------
 /**
@@ -56,7 +57,7 @@ public class LaserTests
         las.onCollisionWith(new Wall());
 
         las.addObserver(new Maze(2, 2));
-        las.notify();
+        las.notifyObservers(new BulletAddedEvent(las));
 
         assertEquals(las, las.getShape());
         las.remove();
