@@ -36,6 +36,7 @@ public class MazeTest
         assertFalse(x.isHorizontal());
     }
 
+
     // ----------------------------------------------------------
     /**
      * Tests assorted corner cases in Maze methods.
@@ -113,6 +114,7 @@ public class MazeTest
         assertTrue(test.inBounds(1, 1));
     }
 
+
     /**
      * tests the getHoles and getWalls methods
      */
@@ -120,5 +122,5 @@ public class MazeTest
     {
         assertTrue(test.getHoles().size() < 10);
         assertEquals(test.getWalls().size(), 12);
-        }
+    }
 }
