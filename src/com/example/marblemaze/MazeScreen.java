@@ -137,7 +137,9 @@ public class MazeScreen
             maze.addSpawners();
         }
 
-        add(new GoalCircle(maze.getGoal().getBounds()));
+        GoalCircle gc = new GoalCircle(maze.getGoal().getBounds());
+        gc.addObserver(this);
+        add(gc);
     }
 
 
