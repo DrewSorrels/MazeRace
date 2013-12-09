@@ -1,6 +1,5 @@
 package com.example.marblemaze;
 
-import android.content.Intent;
 import android.widget.Button;
 
 // -------------------------------------------------------------------------
@@ -31,7 +30,7 @@ public class TitleScreenTests
      */
     public void testScreen()
     {
-        assertTrue(true);
+        assertTrue(startGame.isEnabled());
         // prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(startGame);
         assertNotNull(startGame);

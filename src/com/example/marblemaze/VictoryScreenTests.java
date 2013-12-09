@@ -31,7 +31,7 @@ public class VictoryScreenTests
      */
     public void testButtons()
     {
-        assertTrue(true);
+        assertTrue(lossReplay.isEnabled());
         click(lossReplay);
     }
 
