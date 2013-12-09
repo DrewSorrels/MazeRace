@@ -96,19 +96,27 @@ public class MazeScreen
         MazeGenerator      mazeGen;
         mazeGen = new MazeGenerator();
 
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = null;
+        if (getIntent() != null)
+        {
+            extras = getIntent().getExtras();
+        }
 
-        String algorithm = extras.getString("algorithm");
+        String algorithm = null;
+        if (extras != null)
+        {
+            algorithm = extras.getString("algorithm");
+        }
 
         if (algorithm == null || algorithm.equals("test"))
         {
             mazeGen.testMaze();
         }
-        if (algorithm.equals("prim"))
+        if (algorithm != null && algorithm.equals("prim"))
         {
             mazeGen.primMaze();
         }
-        if (algorithm.equals("dfs"))
+        if (algorithm != null && algorithm.equals("dfs"))
         {
             mazeGen.dfsMaze();
         }
