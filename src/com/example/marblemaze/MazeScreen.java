@@ -1,6 +1,5 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -15,7 +14,9 @@ import com.example.marblemaze.observableevents.HoleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleAddedEvent;
 import com.example.marblemaze.observableevents.MarbleRemovedEvent;
 import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.VictoryEvent;
 import com.example.marblemaze.observableevents.WallRemovedEvent;
+import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
 import com.example.marblemaze.weapons.Bullet;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
@@ -131,9 +132,12 @@ public class MazeScreen
             maze.addHoles();
         }
 
-        if (extras != null && extras.getBoolean("enemies")) {
+        if (extras != null && extras.getBoolean("enemies"))
+        {
             maze.addSpawners();
         }
+
+        add(new GoalCircle(maze.getGoal().getBounds()));
     }
 
 
@@ -148,7 +152,7 @@ public class MazeScreen
         }
         catch (NullPointerException npe)
         {
-            // false
+            // blinkingWalls is false
         }
 
         for (int i = 0; i < maze.width(); i++)
@@ -163,6 +167,8 @@ public class MazeScreen
                 }
             }
         }
+
+
     }
 
 
@@ -354,7 +360,7 @@ public class MazeScreen
 
 
     /**
-     * updates the cooresponding observable in response to the event
+     * updates the corresponding observable in response to the event
      * @param obs the observable
      * @param event is the event
      */
@@ -411,6 +417,13 @@ public class MazeScreen
             System.out.println("Added spawner");
             WeaponSpawnerAddedEvent wsEvent = (WeaponSpawnerAddedEvent)event;
             add(wsEvent.getWeaponSpawner());
+        }
+        if (event instanceof VictoryEvent)
+        {
+            System.out.println("victory!!");
+            maze.getMarble().remove();
+            Intent i = new Intent(this, VictoryScreen.class);
+            startActivity(i);
         }
     }
 

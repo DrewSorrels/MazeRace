@@ -62,10 +62,12 @@ public class MazeGenerator
      * Generates a predefined maze for testing.
      */
     public void testMaze() {
-        maze = new Maze(2, 2);
+        maze = new Maze(1, 1);
         Cell tl = maze.getCell(0, 0);
-
         maze.addHole(tl);
+
+        maze.addHoles();
+        maze.addSpawners();
     }
 
     /**
