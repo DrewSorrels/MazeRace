@@ -14,6 +14,7 @@ public class MazeTest
     extends TestCase
 {
     private Maze test;
+    private Maze largeTest;
 
 
     /**
@@ -22,6 +23,7 @@ public class MazeTest
     public void setUp()
     {
         test = new Maze(2, 2);
+        test = new Maze(6, 6);
     }
 
 
@@ -141,6 +143,7 @@ public class MazeTest
     public void testCalls()
     {
         test.addSpawners();
+        largeTest.addSpawners();
         ObservableMazeComponent obs = new ObservableMazeComponent();
         Object event = new Object();
         test.update(obs, event);
