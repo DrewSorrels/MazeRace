@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import com.example.marblemaze.Wall;
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
 import com.example.marblemaze.observableevents.BulletAddedEvent;
@@ -12,8 +13,7 @@ import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here. Follow it with additional
- * details about its purpose, what abstraction it represents, and how to use it.
+ * Rockets are weapons that can destroy the player.
  *
  * @author nkilmer8
  * @author amsorr
@@ -36,9 +36,12 @@ public class Rocket
     /**
      * Create a new Rocket object.
      *
-     * @param f is the x float
-     * @param g is the y float
-     * @param dir is the int direction
+     * @param f
+     *            is the x float
+     * @param g
+     *            is the y float
+     * @param dir
+     *            is the int direction
      */
     public Rocket(float f, float g, int dir)
     {
@@ -124,6 +127,19 @@ public class Rocket
     public void onCollisionWith(MarbleShape first)
     {
         first.animate(2000).rotation(560).alpha(0).removeWhenComplete().play();
+        this.remove();
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * removes the rocket when it hits a wall
+     *
+     * @param walle
+     *            is the wall that the rocket is colliding with
+     */
+    public void onCollisionWith(Wall walle)
+    {
         this.remove();
     }
 
