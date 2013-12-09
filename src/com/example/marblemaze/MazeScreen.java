@@ -145,7 +145,8 @@ public class MazeScreen
         boolean blinkingWalls = false;
         try {
             blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
-        } catch (NullPointerException npe) {
+        } catch (NullPointerException npe)
+        {
             // false
         }
 
