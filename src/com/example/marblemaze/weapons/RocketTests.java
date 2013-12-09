@@ -1,6 +1,7 @@
 package com.example.marblemaze.weapons;
 
 import android.graphics.PointF;
+import com.example.marblemaze.observableevents.BulletAddedEvent;
 import com.example.marblemaze.MarbleShape;
 import com.example.marblemaze.Maze;
 import com.example.marblemaze.Wall;
@@ -56,7 +57,7 @@ public class RocketTests
         rock.onCollisionWith(new Wall());
 
         rock.addObserver(new Maze(2, 2));
-        rock.notify();
+        rock.notifyObservers(new BulletAddedEvent(rock));
 
         assertEquals(rock, rock.getShape());
         rock.remove();
