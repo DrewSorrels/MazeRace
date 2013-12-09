@@ -31,7 +31,7 @@ public class LossScreenTests
      */
     public void testButtons()
     {
-        assertTrue(true);
+        assertTrue(lossPlayAgain.isEnabled());
         click(lossPlayAgain);
 
     }
