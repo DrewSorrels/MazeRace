@@ -69,5 +69,6 @@ public class WallTests
         w.addObserver(new Maze(2, 2));
         assertTrue(w1.isBlinking());
 
+        w1.setBlinking(false);
     }
 }

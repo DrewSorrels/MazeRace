@@ -1,7 +1,9 @@
 package com.example.marblemaze;
 
-import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import android.graphics.RectF;
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
+import com.example.marblemaze.observableevents.WallAddedEvent;
+import com.example.marblemaze.observableevents.WallRemovedEvent;
 import student.TestCase;
 
 // -------------------------------------------------------------------------
@@ -70,6 +72,7 @@ public class CellTests
         test.setWall(1, false);
         test.setWall(2, false);
         test.setWall(3, false);
+        assertEquals(test.getWallPos().size(), 0);
         assertEquals(test.getWalls().size(), 0);
     }
 
@@ -81,6 +84,14 @@ public class CellTests
     public void testGetRandomWallIndex()
     {
         assertTrue(test.getRandomWallIndex() < 4);
+
+        test.setWall(0, false);
+        test.setWall(1, false);
+        test.setWall(2, false);
+        test.setWall(5, false);
+        test.getRandomWallIndex();
+        test.getRandomWallIndex();
+        assertNotNull(test.getRandomWallIndex());
     }
 
 
@@ -139,7 +150,10 @@ public class CellTests
         ObservableMazeComponent obs = new ObservableMazeComponent();
         Object event = new Object();
         test.update(obs, event);
+        test.update(obs, new WallRemovedEvent(test.getWalls().get(0)));
+        test.update(obs, new WallAddedEvent(new Wall()));
         RectF rectTest = new RectF(2, 2, 3, 3);
         assertEquals(test.getBounds(), rectTest);
     }
+
 }
