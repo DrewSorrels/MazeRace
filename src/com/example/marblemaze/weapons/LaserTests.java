@@ -55,7 +55,7 @@ public class LaserTests
         las.onCollisionWith(new MarbleShape(1, 1));
         las.onCollisionWith(new Wall());
 
-        las.addObserver(new Maze(0, 0));
+        las.addObserver(new Maze(2, 2));
         las.notify();
 
         assertEquals(las, las.getShape());
