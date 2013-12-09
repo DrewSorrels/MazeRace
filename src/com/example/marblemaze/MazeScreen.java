@@ -125,12 +125,12 @@ public class MazeScreen
 
         maze.addObserver(this);
 
-        if (extras.getBoolean("holes"))
+        if (extras != null && extras.getBoolean("holes"))
         {
             maze.addHoles();
         }
 
-        if (extras.getBoolean("enemies")) {
+        if (extras != null && extras.getBoolean("enemies")) {
             maze.addSpawners();
         }
     }
