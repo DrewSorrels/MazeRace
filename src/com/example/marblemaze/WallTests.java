@@ -16,6 +16,9 @@ public class WallTests
     private Wall w1;
 
 
+    /**
+     * Sets up the tests.
+     */
     public void setUp()
     {
         w = new Wall(0, 0, true);
@@ -42,6 +45,7 @@ public class WallTests
         w.setWall(false);
         w.setWall(false);
         w.setWall(true);
+        assertTrue(w.exists());
     }
 
 
