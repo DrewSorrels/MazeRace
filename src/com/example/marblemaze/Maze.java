@@ -37,7 +37,6 @@ public class Maze
     private Cell                end;
     private MarbleShape         marble;
     private List<Hole>          holes;
-    private List<WeaponSpawner> spawners;
 
 
     // ----------------------------------------------------------
@@ -54,7 +53,6 @@ public class Maze
         holes = new ArrayList<Hole>();
         grid = new Cell[width][height];
         walls = new ArrayList<Wall>();
-        spawners = new ArrayList<WeaponSpawner>();
 
         List<Wall> temp = new ArrayList<Wall>();
         for (int i = 0; i < width; i++)
@@ -198,15 +196,15 @@ public class Maze
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
             if (w.isHorizontal()
-                && (w.getX() == example.getX() && (w.getY() == example.getY() || w
-                    .getY() == example.getY() + 1)))
+                && (w.getX() == example.getX() && (w.getY() == example.getY()
+                || w.getY() == example.getY() + 1)))
             {
                 wallArray.add(w);
             } // If it is vertical, then y must be the same and x must be same
               // or one higher.
             else if (!w.isHorizontal()
-                && ((w.getX() == example.getX() || w.getX() == example.getX() + 1) && w
-                    .getY() == example.getY()))
+                && ((w.getX() == example.getX() || w.getX() == example.getX()
+                + 1) && w.getY() == example.getY()))
             {
                 wallArray.add(w);
             }
@@ -376,6 +374,7 @@ public class Maze
      */
     public void addSpawners()
     {
+        List<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
         for (int i = 0; i < grid.length; i++)
         {
             for (int j = 0; j < grid[i].length; j++)

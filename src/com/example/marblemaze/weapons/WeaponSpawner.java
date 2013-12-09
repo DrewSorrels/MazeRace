@@ -15,8 +15,10 @@ import sofia.util.Timer;
 public abstract class WeaponSpawner
     extends RectangleShape
 {
-    private long                    cooldown;
 
+    /**
+     * the observer for the weapon spawner
+     */
     protected ObservableMazeComponent observer;
 
 
@@ -33,6 +35,7 @@ public abstract class WeaponSpawner
     public WeaponSpawner(int x, int y, long cd)
     {
         super(x, y, x + 1, y + 1);
+        long                    cooldown;
         cooldown = cd;
         observer = new ObservableMazeComponent();
 
