@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import com.example.marblemaze.observableevents.BulletAddedEvent;
 import sofia.graphics.Color;
 
 /**
@@ -54,7 +55,7 @@ public class LaserSpawner
         {
             b.move(1f, 0);
         }
-
+        notifyObservers(new BulletAddedEvent(b));
         return b;
     }
 

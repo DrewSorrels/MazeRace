@@ -25,12 +25,12 @@ public class Maze
     extends Observable
     implements Observer
 {
-    private Cell[][]            grid;
-    private List<Wall>          walls;
-    private Cell                start;
-    private Cell                end;
-    private MarbleShape         marble;
-    private List<Hole>          holes;
+    private Cell[][]    grid;
+    private List<Wall>  walls;
+    private Cell        start;
+    private Cell        end;
+    private MarbleShape marble;
+    private List<Hole>  holes;
 
 
     // ----------------------------------------------------------
@@ -190,15 +190,15 @@ public class Maze
             // If it's x is equal and y is equal or one larger. Only for when it
             // is horizontal
             if (w.isHorizontal()
-                && (w.getX() == example.getX() && (w.getY() == example.getY()
-                || w.getY() == example.getY() + 1)))
+                && (w.getX() == example.getX() && (w.getY() == example.getY() || w
+                    .getY() == example.getY() + 1)))
             {
                 wallArray.add(w);
             } // If it is vertical, then y must be the same and x must be same
               // or one higher.
             else if (!w.isHorizontal()
-                && ((w.getX() == example.getX() || w.getX() == example.getX()
-                + 1) && w.getY() == example.getY()))
+                && ((w.getX() == example.getX() || w.getX() == example.getX() + 1) && w
+                    .getY() == example.getY()))
             {
                 wallArray.add(w);
             }
@@ -370,7 +370,9 @@ public class Maze
             for (int j = 0; j < grid[i].length; j++)
             {
                 // When there are 3 walls...
-                if (grid[i][j].getNumWalls() == 3 && (i != 0 && j != 0))
+                if (grid[i][j].getNumWalls() == 3
+                    && (i != 0 && j != 0 && i != grid.length - 1
+                    && j != grid.length - 1))
                 {
                     double chance = Math.random();
                     ArrayList<Integer> wList = grid[i][j].getWallPos();
@@ -437,129 +439,130 @@ public class Maze
         this.marble = marble;
         marble.addObserver(this);
     }
-    //private Map<Cell, Double> fScores;
+
+
+    // private Map<Cell, Double> fScores;
 
     // ----------------------------------------------------------
-//    /**
-//     * @return a Queue representing the shortest path to solve a maze
-//     */
-//    public Queue<Cell> solveAStar()
-//    {
-//        Map<Cell, Double> gScores;
+// /**
+// * @return a Queue representing the shortest path to solve a maze
+// */
+// public Queue<Cell> solveAStar()
+// {
+// Map<Cell, Double> gScores;
 //
-//        Set<Cell> closed = new HashSet<Cell>();
-//        List<Cell> open = new ArrayList<Cell>();
-//        Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
+// Set<Cell> closed = new HashSet<Cell>();
+// List<Cell> open = new ArrayList<Cell>();
+// Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
 //
-//        gScores = new HashMap<Cell, Double>();
-//        fScores = new HashMap<Cell, Double>();
+// gScores = new HashMap<Cell, Double>();
+// fScores = new HashMap<Cell, Double>();
 //
-//        open.add(start);
-//        gScores.put(start, 0d);
-//        fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
+// open.add(start);
+// gScores.put(start, 0d);
+// fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
 //
-//        while (open.size() > 0)
-//        {
-//            Collections.sort(open, new HeuristicComparator());
-//            Cell current = open.get(0);
+// while (open.size() > 0)
+// {
+// Collections.sort(open, new HeuristicComparator());
+// Cell current = open.get(0);
 //
-//            if (current.equals(end))
-//            {
-//                return reconstructPath(cameFrom, current);
-//            }
+// if (current.equals(end))
+// {
+// return reconstructPath(cameFrom, current);
+// }
 //
-//            open.remove(current);
-//            closed.add(current);
-//            for (Cell poss : current.getAccessibleNeighbors())
-//            {
-//                double tentativeGScore = gScores.get(current) + 1;
-//                double tentativeFScore =
-//                    tentativeGScore + heuristicAStar(poss, end);
-//                if (closed.contains(poss)
-//                    && tentativeFScore > fScores.get(poss))
-//                {
-//                    continue;
-//                }
+// open.remove(current);
+// closed.add(current);
+// for (Cell poss : current.getAccessibleNeighbors())
+// {
+// double tentativeGScore = gScores.get(current) + 1;
+// double tentativeFScore =
+// tentativeGScore + heuristicAStar(poss, end);
+// if (closed.contains(poss)
+// && tentativeFScore > fScores.get(poss))
+// {
+// continue;
+// }
 //
-//                if (!open.contains(poss)
-//                    || tentativeFScore < fScores.get(poss))
-//                {
-//                    cameFrom.put(poss, current);
-//                    gScores.put(poss, tentativeGScore);
-//                    fScores.put(poss, tentativeFScore);
-//                    if (!open.contains(poss))
-//                    {
-//                        open.add(poss);
-//                    }
-//                }
-//            }
-//        }
+// if (!open.contains(poss)
+// || tentativeFScore < fScores.get(poss))
+// {
+// cameFrom.put(poss, current);
+// gScores.put(poss, tentativeGScore);
+// fScores.put(poss, tentativeFScore);
+// if (!open.contains(poss))
+// {
+// open.add(poss);
+// }
+// }
+// }
+// }
 //
-//        return null;
-//    }
-//
-//
-//    /**
-//     * reconstructs the path and returns the correct list.
-//     */
-//    private LinkedList<Cell> reconstructPath(
-//        Map<Cell, Cell> cameFrom,
-//        Cell current)
-//    {
-//        LinkedList<Cell> ret;
-//        if (cameFrom.containsKey(current))
-//        {
-//            ret = reconstructPath(cameFrom, cameFrom.get(current));
-//        }
-//        else
-//        {
-//            ret = new LinkedList<Cell>();
-//
-//        }
-//        ret.add(current);
-//        return ret;
-//    }
+// return null;
+// }
 //
 //
-//    /**
-//     * Writes the comparator in order to specify the solution
-//     *
-//     * @author Dennis Lysenko (dlysenko)
-//     * @version 2013.12.08
-//     */
-//    private class HeuristicComparator
-//        implements Comparator<Cell>
-//    {
-//        /**
-//         * @return the integer showing the compare
-//         */
-//        public int compare(Cell a, Cell b)
-//        {
-//            return (int)Math.signum(fScores.get(a) - fScores.get(b));
-//        }
-//    }
+// /**
+// * reconstructs the path and returns the correct list.
+// */
+// private LinkedList<Cell> reconstructPath(
+// Map<Cell, Cell> cameFrom,
+// Cell current)
+// {
+// LinkedList<Cell> ret;
+// if (cameFrom.containsKey(current))
+// {
+// ret = reconstructPath(cameFrom, cameFrom.get(current));
+// }
+// else
+// {
+// ret = new LinkedList<Cell>();
+//
+// }
+// ret.add(current);
+// return ret;
+// }
 //
 //
-//    /**
-//     * returns the distance between the two cells
-//     *
-//     * @return a double of the distance
-//     */
-//    private double distBetween(Cell a, Cell b)
-//    {
-//        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
-//            + Math.pow(a.getY() - b.getY(), 2));
-//    }
+// /**
+// * Writes the comparator in order to specify the solution
+// *
+// * @author Dennis Lysenko (dlysenko)
+// * @version 2013.12.08
+// */
+// private class HeuristicComparator
+// implements Comparator<Cell>
+// {
+// /**
+// * @return the integer showing the compare
+// */
+// public int compare(Cell a, Cell b)
+// {
+// return (int)Math.signum(fScores.get(a) - fScores.get(b));
+// }
+// }
 //
 //
-//    /**
-//     * returns the distance between the two cells
-//     */
-//    private double heuristicAStar(Cell a, Cell b)
-//    {
-//        return distBetween(a, b);
-//    }
-
+// /**
+// * returns the distance between the two cells
+// *
+// * @return a double of the distance
+// */
+// private double distBetween(Cell a, Cell b)
+// {
+// return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
+// + Math.pow(a.getY() - b.getY(), 2));
+// }
+//
+//
+// /**
+// * returns the distance between the two cells
+// */
+// private double heuristicAStar(Cell a, Cell b)
+// {
+// return distBetween(a, b);
+// }
 
     /**
      * Handles updates from the MarbleShape (when it dies) or the walls when
