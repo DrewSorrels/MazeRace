@@ -97,19 +97,27 @@ public class MazeScreen
         MazeGenerator      mazeGen;
         mazeGen = new MazeGenerator();
 
-        Bundle extras = getIntent().getExtras();
+        Bundle extras = null;
+        if (getIntent() != null)
+        {
+            extras = getIntent().getExtras();
+        }
 
-        String algorithm = extras.getString("algorithm");
+        String algorithm = null;
+        if (extras != null)
+        {
+            algorithm = extras.getString("algorithm");
+        }
 
         if (algorithm == null || algorithm.equals("test"))
         {
             mazeGen.testMaze();
         }
-        if (algorithm.equals("prim"))
+        if (algorithm != null && algorithm.equals("prim"))
         {
             mazeGen.primMaze();
         }
-        if (algorithm.equals("dfs"))
+        if (algorithm != null && algorithm.equals("dfs"))
         {
             mazeGen.dfsMaze();
         }
@@ -118,12 +126,12 @@ public class MazeScreen
 
         maze.addObserver(this);
 
-        if (extras.getBoolean("holes"))
+        if (extras != null && extras.getBoolean("holes"))
         {
             maze.addHoles();
         }
 
-        if (extras.getBoolean("enemies")) {
+        if (extras != null && extras.getBoolean("enemies")) {
             maze.addSpawners();
         }
     }
@@ -134,8 +142,13 @@ public class MazeScreen
      */
     private void setupAddWalls()
     {
-        boolean blinkingWalls =
-            getIntent().getExtras().getBoolean("blinkingWalls");
+        boolean blinkingWalls = false;
+        try {
+            blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
+        } catch (NullPointerException npe)
+        {
+            // false
+        }
 
         for (int i = 0; i < maze.width(); i++)
         {
@@ -287,13 +300,23 @@ public class MazeScreen
         float x = event.values[1];
         float y = event.values[0];
 
-        x = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
-        y = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
+        moveMarble(x, y);
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Moves the marble from accelerometer events.
+     * @param x the x tilt of the accelerometer
+     * @param y the y tilt of the accelerometer
+     */
+    public void moveMarble(float x, float y) {
+        float xNew = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
+        float yNew = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
         setGravity(ACCELERATION_COEFFICIENT * x, ACCELERATION_COEFFICIENT * y);
         try
         {
-            maze.getMarble().applyLinearImpulse(0.01f * x, 0.01f * y);
+            maze.getMarble().applyLinearImpulse(0.01f * xNew, 0.01f * yNew);
         }
         catch (NullPointerException npe)
         {
