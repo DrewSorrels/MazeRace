@@ -36,6 +36,16 @@ public class MazeTest
         assertFalse(x.isHorizontal());
     }
 
+    // ----------------------------------------------------------
+    /**
+     * Tests assorted corner cases in Maze methods.
+     */
+    public void testCornerCases()
+    {
+        assertNull(test.findWall(-1, -1, true));
+        test.removeWall(null);
+    }
+
 
     // ----------------------------------------------------------
     /**

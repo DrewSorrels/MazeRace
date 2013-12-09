@@ -161,7 +161,7 @@ public class Maze
      *            Whether it is horizontal or not.
      * @return A Wall with the given stats or null if it isn't there.
      */
-    private Wall findWall(int x, int y, boolean horizontal)
+    public Wall findWall(int x, int y, boolean horizontal)
     {
         for (Wall w : walls)
         {
@@ -441,127 +441,127 @@ public class Maze
         this.marble = marble;
         marble.addObserver(this);
     }
-    private Map<Cell, Double> fScores;
+    //private Map<Cell, Double> fScores;
 
     // ----------------------------------------------------------
-    /**
-     * @return a Queue representing the shortest path to solve a maze
-     */
-    public Queue<Cell> solveAStar()
-    {
-        Map<Cell, Double> gScores;
-
-        Set<Cell> closed = new HashSet<Cell>();
-        List<Cell> open = new ArrayList<Cell>();
-        Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
-
-        gScores = new HashMap<Cell, Double>();
-        fScores = new HashMap<Cell, Double>();
-
-        open.add(start);
-        gScores.put(start, 0d);
-        fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
-
-        while (open.size() > 0)
-        {
-            Collections.sort(open, new HeuristicComparator());
-            Cell current = open.get(0);
-
-            if (current.equals(end))
-            {
-                return reconstructPath(cameFrom, current);
-            }
-
-            open.remove(current);
-            closed.add(current);
-            for (Cell poss : current.getAccessibleNeighbors())
-            {
-                double tentativeGScore = gScores.get(current) + 1;
-                double tentativeFScore =
-                    tentativeGScore + heuristicAStar(poss, end);
-                if (closed.contains(poss)
-                    && tentativeFScore > fScores.get(poss))
-                {
-                    continue;
-                }
-
-                if (!open.contains(poss) || tentativeFScore < fScores.get(poss))
-                {
-                    cameFrom.put(poss, current);
-                    gScores.put(poss, tentativeGScore);
-                    fScores.put(poss, tentativeFScore);
-                    if (!open.contains(poss))
-                    {
-                        open.add(poss);
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-
-    /**
-     * reconstructs the path and returns the correct list.
-     */
-    private LinkedList<Cell> reconstructPath(
-        Map<Cell, Cell> cameFrom,
-        Cell current)
-    {
-        LinkedList<Cell> ret;
-        if (cameFrom.containsKey(current))
-        {
-            ret = reconstructPath(cameFrom, cameFrom.get(current));
-        }
-        else
-        {
-            ret = new LinkedList<Cell>();
-
-        }
-        ret.add(current);
-        return ret;
-    }
-
-
-    /**
-     * Writes the comparator in order to specify the solution
-     *
-     * @author Dennis Lysenko (dlysenko)
-     * @version 2013.12.08
-     */
-    private class HeuristicComparator
-        implements Comparator<Cell>
-    {
-        /**
-         * @return the integer showing the compare
-         */
-        public int compare(Cell a, Cell b)
-        {
-            return (int)Math.signum(fScores.get(a) - fScores.get(b));
-        }
-    }
-
-
-    /**
-     * returns the distance between the two cells
-     *
-     * @return a double of the distance
-     */
-    private double distBetween(Cell a, Cell b)
-    {
-        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
-            + Math.pow(a.getY() - b.getY(), 2));
-    }
-
-
-    /**
-     * returns the distance between the two cells
-     */
-    private double heuristicAStar(Cell a, Cell b)
-    {
-        return distBetween(a, b);
-    }
+//    /**
+//     * @return a Queue representing the shortest path to solve a maze
+//     */
+//    public Queue<Cell> solveAStar()
+//    {
+//        Map<Cell, Double> gScores;
+//
+//        Set<Cell> closed = new HashSet<Cell>();
+//        List<Cell> open = new ArrayList<Cell>();
+//        Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
+//
+//        gScores = new HashMap<Cell, Double>();
+//        fScores = new HashMap<Cell, Double>();
+//
+//        open.add(start);
+//        gScores.put(start, 0d);
+//        fScores.put(start, gScores.get(start) + heuristicAStar(start, end));
+//
+//        while (open.size() > 0)
+//        {
+//            Collections.sort(open, new HeuristicComparator());
+//            Cell current = open.get(0);
+//
+//            if (current.equals(end))
+//            {
+//                return reconstructPath(cameFrom, current);
+//            }
+//
+//            open.remove(current);
+//            closed.add(current);
+//            for (Cell poss : current.getAccessibleNeighbors())
+//            {
+//                double tentativeGScore = gScores.get(current) + 1;
+//                double tentativeFScore =
+//                    tentativeGScore + heuristicAStar(poss, end);
+//                if (closed.contains(poss)
+//                    && tentativeFScore > fScores.get(poss))
+//                {
+//                    continue;
+//                }
+//
+//                if (!open.contains(poss) || tentativeFScore < fScores.get(poss))
+//                {
+//                    cameFrom.put(poss, current);
+//                    gScores.put(poss, tentativeGScore);
+//                    fScores.put(poss, tentativeFScore);
+//                    if (!open.contains(poss))
+//                    {
+//                        open.add(poss);
+//                    }
+//                }
+//            }
+//        }
+//
+//        return null;
+//    }
+//
+//
+//    /**
+//     * reconstructs the path and returns the correct list.
+//     */
+//    private LinkedList<Cell> reconstructPath(
+//        Map<Cell, Cell> cameFrom,
+//        Cell current)
+//    {
+//        LinkedList<Cell> ret;
+//        if (cameFrom.containsKey(current))
+//        {
+//            ret = reconstructPath(cameFrom, cameFrom.get(current));
+//        }
+//        else
+//        {
+//            ret = new LinkedList<Cell>();
+//
+//        }
+//        ret.add(current);
+//        return ret;
+//    }
+//
+//
+//    /**
+//     * Writes the comparator in order to specify the solution
+//     *
+//     * @author Dennis Lysenko (dlysenko)
+//     * @version 2013.12.08
+//     */
+//    private class HeuristicComparator
+//        implements Comparator<Cell>
+//    {
+//        /**
+//         * @return the integer showing the compare
+//         */
+//        public int compare(Cell a, Cell b)
+//        {
+//            return (int)Math.signum(fScores.get(a) - fScores.get(b));
+//        }
+//    }
+//
+//
+//    /**
+//     * returns the distance between the two cells
+//     *
+//     * @return a double of the distance
+//     */
+//    private double distBetween(Cell a, Cell b)
+//    {
+//        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2)
+//            + Math.pow(a.getY() - b.getY(), 2));
+//    }
+//
+//
+//    /**
+//     * returns the distance between the two cells
+//     */
+//    private double heuristicAStar(Cell a, Cell b)
+//    {
+//        return distBetween(a, b);
+//    }
 
 
     /**

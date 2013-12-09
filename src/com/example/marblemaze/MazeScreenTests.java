@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import java.io.ObjectOutputStream.PutField;
 import android.content.Intent;
 
 // -------------------------------------------------------------------------
@@ -22,6 +23,11 @@ public class MazeScreenTests
     public MazeScreenTests()
     {
         super(MazeScreen.class);
+        Intent i = new Intent();
+        i.putExtra("algorithm", "dfs");
+        i.putExtra("enemies", true);
+        i.putExtra("blinkingWalls", true);
+        i.putExtra("holes", true);
     }
 
     /**
@@ -49,7 +55,7 @@ public class MazeScreenTests
 
         getScreen().moveMarble(1, 1);
 
-        assertTrue(true);
+        assertNotNull(getScreen());
         assertNotNull(intent);
     }
 }
