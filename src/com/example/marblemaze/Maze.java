@@ -371,7 +371,8 @@ public class Maze
             {
                 // When there are 3 walls...
                 if (grid[i][j].getNumWalls() == 3
-                    && (i != 0 && j != 0 && i != grid.length - 1 && j != grid.length - 1))
+                    && (i != 0 && j != 0 && i != grid.length - 1
+                    && j != grid.length - 1))
                 {
                     double chance = Math.random();
                     ArrayList<Integer> wList = grid[i][j].getWallPos();
