@@ -34,5 +34,6 @@ public class TitleScreenTests
         assertTrue(true);
         // prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(startGame);
+        assertNotNull(startGame);
     }
 }

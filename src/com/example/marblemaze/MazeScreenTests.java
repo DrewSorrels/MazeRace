@@ -49,6 +49,7 @@ public class MazeScreenTests
 
         getScreen().moveMarble(1, 1);
 
+        assertTrue(true);
         assertNotNull(intent);
     }
 }
