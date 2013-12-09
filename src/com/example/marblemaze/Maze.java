@@ -390,16 +390,16 @@ public class Maze
                         }
                     }
                     // 10% chance to add either spawner.
-                    if (chance < .1)
+                    if (chance < .05)
                     {
-                        WeaponSpawner w = new LaserSpawner(i, j, 2000, dir);
+                        WeaponSpawner w = new LaserSpawner(i, j, 20000, dir);
                         spawners.add(w);
                         setChanged();
                         notifyObservers(new WeaponSpawnerAddedEvent(w));
                     }
-                    else if (chance < .2)
+                    else if (chance < .10)
                     {
-                        WeaponSpawner w = new RocketSpawner(i, j, 4000, dir);
+                        WeaponSpawner w = new RocketSpawner(i, j, 14000, dir);
                         spawners.add(w);
                         setChanged();
                         notifyObservers(new WeaponSpawnerAddedEvent(w));
