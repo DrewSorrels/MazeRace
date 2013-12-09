@@ -9,7 +9,6 @@ import com.example.marblemaze.observableevents.WeaponSpawnerAddedEvent;
 import com.example.marblemaze.weapons.LaserSpawner;
 import com.example.marblemaze.weapons.RocketSpawner;
 import com.example.marblemaze.weapons.WeaponSpawner;
-import java.io.Serializable;
 import java.util.*;
 
 // -------------------------------------------------------------------------
