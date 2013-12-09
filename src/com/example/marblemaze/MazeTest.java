@@ -54,6 +54,7 @@ public class MazeTest
 
         MazeGenerator gen = new MazeGenerator();
         gen.primMaze();
+        assertTrue(gen.getMaze().getHoles().size() > 0);
     }
 
 
