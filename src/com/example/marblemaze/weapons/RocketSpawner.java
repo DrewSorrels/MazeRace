@@ -55,7 +55,7 @@ public class RocketSpawner
     @Override
     public Bullet createBullet()
     {
-        Bullet b = new Rocket(x + 0.5f, y + 0.5f, direction);
+        Bullet b = new Rocket(x + 0.25f, y + 0.25f, direction);
         if (direction % 2 == 0)
         {
             b.move(0, 0.2f);

@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import android.content.Intent;
 
 // -------------------------------------------------------------------------

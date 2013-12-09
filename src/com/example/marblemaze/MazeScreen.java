@@ -404,8 +404,7 @@ public class MazeScreen
             System.out.println("bullet added");
             Bullet b = ((BulletAddedEvent)event).getBullet();
             add(b.getShape());
-            //b.getShape().applyLinearImpulse(40, 0);
-            b.move(1f, 1f);
+
         }
         if (event instanceof HoleAddedEvent)
         {
