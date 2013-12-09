@@ -55,7 +55,7 @@ public class RocketTests
         rock.onCollisionWith(new MarbleShape(1, 1));
         rock.onCollisionWith(new Wall());
 
-        rock.addObserver(new Maze(0, 0));
+        rock.addObserver(new Maze(2, 2));
         rock.notify();
 
         assertEquals(rock, rock.getShape());

@@ -112,4 +112,13 @@ public class MazeTest
         assertFalse(test.inBounds(4, 4));
         assertTrue(test.inBounds(1, 1));
     }
+
+    /**
+     * tests the getHoles and getWalls methods
+     */
+    public void testWallsHoles()
+    {
+        assertTrue(test.getHoles().size() < 10);
+        assertEquals(test.getWalls().size(), 12);
+        }
 }
