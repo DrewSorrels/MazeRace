@@ -58,11 +58,11 @@ public class RocketSpawner
         Bullet b = new Rocket(x + 0.25f, y + 0.25f, direction);
         if (direction % 2 == 0)
         {
-            b.move(0, 0.2f);
+            b.move(0, 0.8f);
         }
         else
         {
-            b.move(0.2f, 0);
+            b.move(0.8f, 0);
         }
         notifyObservers(new BulletAddedEvent(b));
         return b;
