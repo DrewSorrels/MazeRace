@@ -18,7 +18,7 @@ public class VictoryScreen
     /**
      * gives the user the option to replay the game
      */
-    public void replayClicked()
+    public void lossReplayClicked()
     {
         Intent intent = new Intent(this, MazeChooserScreen.class);
         startActivity(intent);
