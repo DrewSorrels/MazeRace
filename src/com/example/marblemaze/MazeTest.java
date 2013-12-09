@@ -35,6 +35,11 @@ public class MazeTest
         assertTrue(w.isHorizontal());
         Wall x = test.getWallFromCell(test.getCell(1, 1), 1);
         assertFalse(x.isHorizontal());
+
+        Wall y = test.getWallFromCells(test.getCell(1, 1), test.getCell(1, 0));
+        assertTrue(y.isHorizontal());
+        Wall z = test.getWallFromCells(test.getCell(1, 1), test.getCell(0, 1));
+        assertFalse(z.isHorizontal());
     }
 
 
@@ -46,6 +51,10 @@ public class MazeTest
     {
         assertNull(test.findWall(-1, -1, true));
         test.removeWall(null);
+
+        MazeGenerator gen = new MazeGenerator();
+        gen.primMaze();
+        assertTrue(gen.getMaze().getHoles().size() > 0);
     }
 
 
@@ -124,6 +133,7 @@ public class MazeTest
         assertTrue(test.getHoles().size() < 10);
         assertEquals(test.getWalls().size(), 12);
     }
+
 
     /**
      * tests different Calls

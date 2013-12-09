@@ -247,23 +247,23 @@ public class MazeGenerator
      *            The cell
      * @return a random cell around this cell.
      */
-    @SuppressWarnings("unused")
-    private Cell getRandAdjCell(Cell c)
-    {
-        ArrayList<Cell> randCells = new ArrayList<Cell>();
+    //@SuppressWarnings("unused")
+    //private Cell getRandAdjCell(Cell c)
+    //{
+      //  ArrayList<Cell> randCells = new ArrayList<Cell>();
 
-        randCells.clear();
+        //randCells.clear();
         // Clear cell list to make sure there are not any cells in it.
-        int wIndex = c.getRandomWallIndex();
-        Wall w = maze.getWallFromCell(c, wIndex);
-        randCells.addAll(maze.getAdjacentCells(w));
+        //int wIndex = c.getRandomWallIndex();
+        //Wall w = maze.getWallFromCell(c, wIndex);
+        //randCells.addAll(maze.getAdjacentCells(w));
         // Add them all to the cell list and find a random one.
 
-        Cell randCell = randCells.get((int)Math.random() * (cells.size() - 1));
-        randCells.clear(); // Clear cell list.
+        //Cell randCell = randCells.get((int)Math.random() * (cells.size() - 1));
+        //randCells.clear(); // Clear cell list.
 
-        return randCell;
-    }
+        //return randCell;
+    //}
 
 
     /**
