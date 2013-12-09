@@ -150,6 +150,7 @@ public class Laser
      */
     public void onCollisionWith(Wall walle)
     {
+        notifyObservers(new BulletRemovedEvent(this));
         this.remove();
     }
 
