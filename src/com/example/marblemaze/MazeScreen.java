@@ -79,6 +79,7 @@ public class MazeScreen
 
     /**
      * When the screen is created makes it so that the screen never loses power
+     * @param savedInstanceState is the cooresponding bundle
      */
     public void onCreate(Bundle savedInstanceState)
     {

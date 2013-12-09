@@ -24,13 +24,8 @@ import java.util.*;
  */
 public class Maze
     extends Observable
-    implements Observer, Serializable
+    implements Observer
 {
-    /**
-     * Serializable field.
-     */
-    public static final long    serialVersionUID = 1L;
-
     private Cell[][]            grid;
     private List<Wall>          walls;
     private Cell                start;
