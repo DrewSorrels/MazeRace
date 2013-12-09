@@ -135,5 +135,6 @@ public class MazeTest
         Object event = new Object();
         test.update(obs, event);
         test.setBlinkingWalls(true);
+        assertTrue(test.getHoles().size() < 10);
     }
 }
