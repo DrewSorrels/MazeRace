@@ -7,6 +7,7 @@ import android.widget.Button;
  * Tests the (@link PauseScreen) class.
  *
  * @author Drew Sorrels (amsorr)
+ * @author Dennis Lysenko (dlysenko)
  * @version 2013.12.08
  */
 public class PauseScreenTests
@@ -31,6 +32,7 @@ public class PauseScreenTests
      */
     public void testButtons()
     {
+        assertTrue(resume.isEnabled());
         click(resume);
     }
 }
