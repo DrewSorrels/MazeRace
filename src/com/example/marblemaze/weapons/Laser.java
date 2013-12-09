@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import sofia.graphics.ShapeMotion;
 import android.graphics.RectF;
 import com.example.marblemaze.Wall;
 import com.example.marblemaze.MarbleShape;
@@ -53,12 +54,12 @@ public class Laser
         this.setFriction(Laser.FRICTION);
         this.setRestitution(Laser.RESTITUTION);
         this.setDensity(Laser.DENSITY);
-        // this.setGravityScale(0.0f);
+        this.setShapeMotion(ShapeMotion.KINEMATIC);
 
         this.direction = dir;
         // Set up bounds
-        float iShort = 0.05f;
-        float iLong = 1.1f;
+        float iShort = 0.0f;
+        float iLong = 0.9f;
         float xExtent = dir % 2 == 0 ? iShort : iLong;
         float yExtent = dir % 2 == 0 ? iLong : iShort;
 

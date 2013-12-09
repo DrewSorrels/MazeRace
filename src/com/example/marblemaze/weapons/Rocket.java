@@ -1,5 +1,6 @@
 package com.example.marblemaze.weapons;
 
+import sofia.graphics.ShapeMotion;
 import com.example.marblemaze.Wall;
 import android.graphics.RectF;
 import com.example.marblemaze.MarbleShape;
@@ -54,11 +55,12 @@ public class Rocket
         this.setFriction(Rocket.FRICTION);
         this.setRestitution(Rocket.RESTITUTION);
         this.setDensity(Rocket.DENSITY);
+        this.setShapeMotion(ShapeMotion.KINEMATIC);
 
         this.direction = dir;
         // Set up bounds
-        float iShort = 0.25f;
-        float iLong = .25f;
+        float iShort = 0.5f;
+        float iLong = 0.5f;
         float xExtent = dir % 2 == 0 ? iShort : iLong;
         float yExtent = dir % 2 == 0 ? iLong : iShort;
 

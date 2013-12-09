@@ -57,9 +57,7 @@ public class MazeScreen
      */
     private float              pixelsPerMeter;
 
-
     private RectangleShape     pauseButton;
-
 
     private Maze               maze;
 
@@ -78,9 +76,12 @@ public class MazeScreen
         setupSpawners();
     }
 
+
     /**
      * When the screen is created makes it so that the screen never loses power
-     * @param savedInstanceState is the cooresponding bundle
+     *
+     * @param savedInstanceState
+     *            is the cooresponding bundle
      */
     public void onCreate(Bundle savedInstanceState)
     {
@@ -95,7 +96,7 @@ public class MazeScreen
     private void setupMaze()
     {
 
-        MazeGenerator      mazeGen;
+        MazeGenerator mazeGen;
         mazeGen = new MazeGenerator();
 
         Bundle extras = null;
@@ -147,7 +148,8 @@ public class MazeScreen
     private void setupAddWalls()
     {
         boolean blinkingWalls = false;
-        try {
+        try
+        {
             blinkingWalls = getIntent().getExtras().getBoolean("blinkingWalls");
         }
         catch (NullPointerException npe)
@@ -167,7 +169,6 @@ public class MazeScreen
                 }
             }
         }
-
 
     }
 
@@ -220,8 +221,8 @@ public class MazeScreen
     private void setupAccelerometer()
     {
 
-        SensorManager      sensorManager;
-        Sensor             accelerometer;
+        SensorManager sensorManager;
+        Sensor accelerometer;
         // Initialize framework for getting accelerometer tilt events.
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         accelerometer =
@@ -310,13 +311,18 @@ public class MazeScreen
         moveMarble(x, y);
     }
 
+
     // ----------------------------------------------------------
     /**
      * Moves the marble from accelerometer events.
-     * @param x the x tilt of the accelerometer
-     * @param y the y tilt of the accelerometer
+     *
+     * @param x
+     *            the x tilt of the accelerometer
+     * @param y
+     *            the y tilt of the accelerometer
      */
-    public void moveMarble(float x, float y) {
+    public void moveMarble(float x, float y)
+    {
         float xNew = (float)(Math.signum(x) * Math.sqrt(Math.abs(x)));
         float yNew = (float)(Math.signum(y) * Math.sqrt(Math.abs(y)));
 
@@ -361,8 +367,11 @@ public class MazeScreen
 
     /**
      * updates the corresponding observable in response to the event
-     * @param obs the observable
-     * @param event is the event
+     *
+     * @param obs
+     *            the observable
+     * @param event
+     *            is the event
      */
     public void update(Observable obs, Object event)
     {
@@ -402,7 +411,6 @@ public class MazeScreen
             System.out.println("bullet added");
             Bullet b = ((BulletAddedEvent)event).getBullet();
             add(b.getShape());
-
         }
         if (event instanceof HoleAddedEvent)
         {
@@ -415,6 +423,7 @@ public class MazeScreen
         {
             System.out.println("Added spawner");
             WeaponSpawnerAddedEvent wsEvent = (WeaponSpawnerAddedEvent)event;
+            wsEvent.getWeaponSpawner().addObserver(this);
             add(wsEvent.getWeaponSpawner());
         }
         if (event instanceof VictoryEvent)

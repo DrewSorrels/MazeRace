@@ -49,11 +49,11 @@ public class LaserSpawner
         Bullet b = new Laser(x + 0.5f, y + 0.5f, direction);
         if (direction % 2 == 0)
         {
-            b.move(0, 1f);
+            b.move(0, 1.5f);
         }
         else
         {
-            b.move(1f, 0);
+            b.move(1.5f, 0);
         }
         notifyObservers(new BulletAddedEvent(b));
         return b;
