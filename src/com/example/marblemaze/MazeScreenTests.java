@@ -91,6 +91,7 @@ public class MazeScreenTests
         getScreen().update(
             obs,
             new WeaponSpawnerAddedEvent(new LaserSpawner(0, 0, 3000, 0)));
+
         getScreen().onTouchDown(25, 0);
 
     }
