@@ -442,10 +442,7 @@ public class Maze
         this.marble = marble;
         marble.addObserver(this);
     }
-
-    private Map<Cell, Double> gScores;
     private Map<Cell, Double> fScores;
-
 
     // ----------------------------------------------------------
     /**
@@ -453,6 +450,8 @@ public class Maze
      */
     public Queue<Cell> solveAStar()
     {
+        Map<Cell, Double> gScores;
+
         Set<Cell> closed = new HashSet<Cell>();
         List<Cell> open = new ArrayList<Cell>();
         Map<Cell, Cell> cameFrom = new HashMap<Cell, Cell>();
@@ -527,8 +526,7 @@ public class Maze
 
 
     /**
-     * // ----------------------------------------------------------------------
-     * --- /** Writes the comparator in order to specify the solution
+     * Writes the comparator in order to specify the solution
      *
      * @author Dennis Lysenko (dlysenko)
      * @version 2013.12.08
