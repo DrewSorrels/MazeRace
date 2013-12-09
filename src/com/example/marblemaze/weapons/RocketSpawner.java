@@ -47,7 +47,7 @@ public class RocketSpawner
 
         observer = new ObservableMazeComponent();
 
-        this.setFillColor(Color.red);
+        this.setFillColor(Color.orange);
         this.setColor(Color.greenYellow);
     }
 

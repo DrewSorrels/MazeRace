@@ -29,7 +29,7 @@ public class Hole
     {
         super(bounds);
         setActive(false);
-        setFillColor(Color.black);
+        setFillColor(Color.blue);
         coll =
             new CollisionHole(
                 ((bounds.right + bounds.left) / 2),
