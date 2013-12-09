@@ -43,7 +43,7 @@ public class MazeChooserScreenTests
         click(slalomCheckbox);
 
         assertTrue(slalomCheckbox.isChecked());
-        //this.prepareForUpcomingActivity(Intent.ACTION_VIEW);
+        // this.prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(dfs);
 
     }
@@ -56,7 +56,7 @@ public class MazeChooserScreenTests
     public void testButton2()
     {
         assertFalse(slalomCheckbox.isChecked());
-        //prepareForUpcomingActivity(Intent.ACTION_VIEW);
+        // prepareForUpcomingActivity(Intent.ACTION_VIEW);
         click(prim);
     }
 }
