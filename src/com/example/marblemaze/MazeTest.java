@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import com.example.marblemaze.observableevents.ObservableMazeComponent;
 import student.TestCase;
 
 // -------------------------------------------------------------------------
@@ -122,5 +123,17 @@ public class MazeTest
     {
         assertTrue(test.getHoles().size() < 10);
         assertEquals(test.getWalls().size(), 12);
+    }
+
+    /**
+     * tests different Calls
+     */
+    public void testCalls()
+    {
+        test.addSpawners();
+        ObservableMazeComponent obs = new ObservableMazeComponent();
+        Object event = new Object();
+        test.update(obs, event);
+        test.setBlinkingWalls(true);
     }
 }
