@@ -335,13 +335,9 @@ public class Maze
         {
             for (int j = 0; j < grid[i].length; j++)
             {
-                if (grid[i][j].getNumWalls() == 3)
+                if (grid[i][j].getNumWalls() == 3 && Math.random() < .2)
                 {
-                    if (Math.random() < .2)
-                    {
-                        addHole(grid[i][j]);
-                    }
-
+                    addHole(grid[i][j]);
                 }
             }
         }
@@ -485,7 +481,8 @@ public class Maze
 //                    continue;
 //                }
 //
-//                if (!open.contains(poss) || tentativeFScore < fScores.get(poss))
+//                if (!open.contains(poss)
+//                    || tentativeFScore < fScores.get(poss))
 //                {
 //                    cameFrom.put(poss, current);
 //                    gScores.put(poss, tentativeGScore);
