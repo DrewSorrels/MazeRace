@@ -13,7 +13,7 @@ import sofia.graphics.Shape;
 
 // -------------------------------------------------------------------------
 /**
- * This method will create a laser that the user must doge
+ * This method will create a laser that the user must dodge
  *
  * @author Nicholas Kilmer (nkilmer8)
  * @author Drew Sorrels (amsorr)
@@ -53,7 +53,7 @@ public class Laser
         this.setFriction(Laser.FRICTION);
         this.setRestitution(Laser.RESTITUTION);
         this.setDensity(Laser.DENSITY);
-        //this.setGravityScale(0.0f);
+        // this.setGravityScale(0.0f);
 
         this.direction = dir;
         // Set up bounds
@@ -139,12 +139,16 @@ public class Laser
         this.remove();
     }
 
+
     // ----------------------------------------------------------
     /**
      * removes the laser when it hits a wall
-     * @param walle is the wall that the laser is colliding with
+     *
+     * @param walle
+     *            is the wall that the laser is colliding with
      */
-    public void onCollisionWith(Wall walle) {
+    public void onCollisionWith(Wall walle)
+    {
         this.remove();
     }
 
