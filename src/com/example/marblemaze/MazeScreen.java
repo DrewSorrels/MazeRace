@@ -1,5 +1,6 @@
 package com.example.marblemaze;
 
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -60,7 +61,7 @@ public class MazeScreen
     private RectangleShape     pauseButton;
 
     private Maze               maze;
-
+    private List<Bullet>       bullets;
 
     @Override
     public void initialize()
@@ -73,7 +74,7 @@ public class MazeScreen
         setupAccelerometer();
         setupUi();
 
-        setupSpawners();
+//        setupSpawners();
     }
 
 
@@ -138,6 +139,7 @@ public class MazeScreen
             maze.addSpawners();
         }
 
+        bullets = new ArrayList<Bullet>();
         GoalCircle gc = new GoalCircle(maze.getGoal().getBounds());
         gc.addObserver(this);
         add(gc);
@@ -201,20 +203,20 @@ public class MazeScreen
     }
 
 
-    /**
-     * Instantiates and adds spawners.
-     */
-    private void setupSpawners()
-    {
-        ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
-
-        spawners.add(new LaserSpawner(16, 13, 4000, 1));
-        for (WeaponSpawner w : spawners)
-        {
-            w.addObserver(this);
-            add(w);
-        }
-    }
+//    /**
+//     * Instantiates and adds spawners.
+//     */
+//    private void setupSpawners()
+//    {
+//        ArrayList<WeaponSpawner> spawners = new ArrayList<WeaponSpawner>();
+//
+//        spawners.add(new LaserSpawner(16, 13, 4000, 1));
+//        for (WeaponSpawner w : spawners)
+//        {
+//            w.addObserver(this);
+//            add(w);
+//        }
+//    }
 
 
     /**
@@ -401,18 +403,25 @@ public class MazeScreen
         {
             System.out.println("marbleremoved");
             Intent intent = new Intent(this, LossScreen.class);
+
+            for(Bullet b : bullets) {
+                b.remove();
+                remove(b.getShape());
+            }
+
             startActivity(intent);
         }
         if (event instanceof BulletRemovedEvent)
         {
             System.out.println("bullet removed");
-            ((BulletRemovedEvent)event).getBullet().remove();
+            remove(((BulletRemovedEvent)event).getBullet().getShape());
         }
         if (event instanceof BulletAddedEvent)
         {
             System.out.println("bullet added");
             Bullet b = ((BulletAddedEvent)event).getBullet();
             add(b.getShape());
+            bullets.add(b);
 
             b.addObserver(this);
         }
@@ -434,6 +443,12 @@ public class MazeScreen
         {
             System.out.println("victory!!");
             maze.getMarble().remove();
+
+            for(Bullet b : bullets) {
+                b.remove();
+                remove(b.getShape());
+            }
+
             Intent i = new Intent(this, VictoryScreen.class);
             startActivity(i);
         }
